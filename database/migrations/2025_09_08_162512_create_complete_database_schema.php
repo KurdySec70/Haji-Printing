@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Create users table with complete schema including role system (no tokens, no sessions)
+        // Create users table with complete schema including role system (no tokens, no sessions, no remember_token)
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->enum('role', ['admin', 'cashier', 'customer'])->default('customer');
+            // Note: remember_token is intentionally excluded
             $table->timestamps();
         });
 
