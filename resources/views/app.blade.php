@@ -47,9 +47,11 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 
-        {{-- Always include React refresh preamble when available to avoid Vite preamble errors during dev --}}
-        @viteReactRefresh
-        @vite(['resources/css/app.css', 'resources/js/app.tsx'])
+        {{-- Vite will use build files in production (handled by AppServiceProvider) or dev server in development --}}
+        @if(config('app.env') !== 'production')
+            @viteReactRefresh
+        @endif
+        @vite(['resources/css/app.css', 'resources/js/app.tsx'], config('app.env') === 'production' ? 'build' : null)
         @inertiaHead
     </head>
     <body class="font-sans antialiased">

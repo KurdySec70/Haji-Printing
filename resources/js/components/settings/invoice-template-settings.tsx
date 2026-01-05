@@ -174,8 +174,10 @@ export function InvoiceTemplateSettings() {
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleLogoUpload = (logoUrl: string) => {
         // Clear selected file and preview after successful upload
+        // Note: logoUrl is required by callback signature but not used here
         setSelectedFile(null);
         setFilePreview(null);
     };
