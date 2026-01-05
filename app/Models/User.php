@@ -68,6 +68,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the column name for the "remember me" token.
+     * Returns empty string since remember_token column doesn't exist.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return '';
+    }
+
+    /**
      * Check if user has a specific role
      */
     public function hasRole(string $role): bool

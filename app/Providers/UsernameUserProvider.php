@@ -34,28 +34,14 @@ class UsernameUserProvider implements UserProvider
 
     public function retrieveByToken($identifier, $token)
     {
-        $model = $this->createModel();
-        
-        // Check if identifier is numeric (ID) or string (username)
-        if (is_numeric($identifier)) {
-            // Use ID for lookup
-            return $model->newQuery()
-                ->where($model->getAuthIdentifierName(), $identifier)
-                ->where($model->getRememberTokenName(), $token)
-                ->first();
-        } else {
-            // Use username for lookup
-            return $model->newQuery()
-                ->where('username', $identifier)
-                ->where($model->getRememberTokenName(), $token)
-                ->first();
-        }
+        // Remember token is not supported (column doesn't exist in database)
+        return null;
     }
 
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        $user->setRememberToken($token);
-        $user->save();
+        // Remember token is not supported (column doesn't exist in database)
+        // Do nothing
     }
 
     public function retrieveByCredentials(array $credentials)
