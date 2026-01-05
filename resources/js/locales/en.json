@@ -1,0 +1,1665 @@
+{
+  "app": {
+    "name": "Haji Printing",
+    "tagline": "Professional Printing Services",
+    "description": "Your trusted partner for all printing needs in Kurdistan Region"
+  },
+  "common": {
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "create": "Create",
+    "creating": "Creating...",
+    "update": "Update",
+    "updating": "Updating...",
+    "justNow": "Just now",
+    "close": "Close",
+    "buttons": {
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create",
+      "search": "Search",
+      "back": "Back",
+      "next": "Next",
+      "previous": "Previous",
+      "close": "Close",
+      "open": "Open",
+      "view": "View",
+      "add": "Add",
+      "remove": "Remove",
+      "update": "Update",
+      "submit": "Submit",
+      "reset": "Reset",
+      "confirm": "Confirm",
+      "yes": "Yes",
+      "no": "No",
+      "ok": "OK",
+      "refresh": "Refresh",
+      "refreshing": "Refreshing...",
+      "clear": "Clear"
+    },
+    "labels": {
+      "total": "Total",
+      "quantity": "Quantity",
+      "price": "Price",
+      "amount": "Amount",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "description": "Description",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "customer": "Customer",
+      "address": "Address",
+      "category": "Category",
+      "type": "Type",
+      "width": "Width",
+      "height": "Height"
+    },
+    "messages": {
+      "loading": "Loading...",
+      "error": "Error",
+      "success": "Success",
+      "noData": "No data available",
+      "confirmDelete": "Are you sure you want to delete this item?",
+      "operationSuccess": "Operation completed successfully",
+      "operationFailed": "Operation failed"
+    },
+    "navigation": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "users": "Users",
+      "pointOfSale": "Point of Sale",
+      "settings": "Settings",
+      "profile": "Profile",
+      "password": "Password",
+      "appearance": "Appearance",
+      "login": "Login",
+      "language": "Language"
+    },
+    "dashboard": "Dashboard",
+    "appearance": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "languages": {
+      "en": "English",
+      "ku": "Kurdish",
+      "ar": "Arabic"
+    },
+    "fullscreen": {
+      "enter": "Enter Fullscreen (F11)",
+      "exit": "Exit Fullscreen (F11)"
+    },
+    "status": {
+      "paid": "Paid",
+      "debt": "Debt"
+    },
+    "unknown": "Unknown",
+    "calculator": "Calculator",
+    "maxLengthReached": "Maximum length reached",
+    "or": "or"
+  },
+  "roles": {
+    "admin": {
+      "brandName": "Haji Printing",
+      "adminPanel": "Admin Panel",
+      "userRole": "Admin"
+    },
+    "cashier": {
+      "brandName": "Haji Printing",
+      "cashierPanel": "Cashier Panel",
+      "userRole": "Cashier"
+    },
+    "customer": {
+      "brandName": "Haji Printing",
+      "customerPanel": "Customer Panel",
+      "userRole": "Customer",
+      "dashboard": {
+        "title": "Customer Dashboard",
+        "welcome": "Welcome to your dashboard",
+        "overview": "View your orders and account information",
+        "welcomeBack": "Welcome back, {{name}}! 👋",
+        "printingJourneyOverview": "Here's your printing journey overview",
+        "memberSince": "Member Since",
+        "totalOrders": "Total Orders",
+        "totalSpent": "Total Spent",
+        "paidAmount": "Paid Amount",
+        "debtAmount": "Debt Amount",
+        "allTransactions": "All Transactions",
+        "totalTransactions": "Total: {{count}} transactions",
+        "searchPlaceholder": "Search by order ID, product name, or status...",
+        "loadingTransactions": "Loading transactions...",
+        "noTransactionsFound": "No transactions found",
+        "orderId": "Order ID",
+        "date": "Date",
+        "product": "Product",
+        "type": "Type",
+        "qty": "Qty",
+        "unitPrice": "Unit Price",
+        "total": "Total",
+        "status": "Status",
+        "unknownProduct": "Unknown Product",
+        "noItems": "No items",
+        "more": "more",
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "transactions": "transactions",
+        "previous": "Previous",
+        "prev": "Prev",
+        "next": "Next",
+        "noOrdersYet": "No orders yet",
+        "dayAgo": "{{count}} day ago",
+        "daysAgo": "{{count}} days ago",
+        "weeksAgo": "{{count}} weeks ago",
+        "monthsAgo": "{{count}} months ago",
+        "notAvailable": "N/A"
+      }
+    }
+  },
+  "user": {
+    "logout": "Logout"
+  },
+  "customer": {
+    "dashboard": {
+      "title": "Customer Dashboard",
+      "welcome": "Welcome to your dashboard",
+      "overview": "View your orders and account information",
+      "welcomeBack": "Welcome back, {{name}}! 👋",
+      "printingJourneyOverview": "Here's your printing journey overview",
+      "memberSince": "Member Since",
+      "totalOrders": "Total Orders",
+      "totalSpent": "Total Spent",
+      "paidAmount": "Paid Amount",
+      "debtAmount": "Debt Amount",
+      "offerTransactions": "Offer Transactions",
+      "allTransactions": "All Transactions",
+      "totalTransactions": "Total: {{count}} transactions",
+      "searchPlaceholder": "Search by order ID, product name, or status...",
+      "loadingTransactions": "Loading transactions...",
+      "noTransactionsFound": "No transactions found",
+      "orderId": "Order ID",
+      "date": "Date",
+      "product": "Product",
+      "type": "Type",
+      "offerStatus": {
+        "pending": "Pending",
+        "acceptedPaid": "Accepted (Paid)",
+        "acceptedDebt": "Accepted (Debt)",
+        "rejected": "Rejected",
+        "unknown": "Unknown"
+      },
+      "qty": "Qty",
+      "unitPrice": "Unit Price",
+      "total": "Total",
+      "status": "Status",
+      "unknownProduct": "Unknown Product",
+      "noItems": "No items",
+      "more": "more",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "transactions": "transactions",
+      "previous": "Previous",
+      "prev": "Prev",
+      "next": "Next",
+      "noOrdersYet": "No orders yet",
+      "dayAgo": "{{count}} day ago",
+      "daysAgo": "{{count}} days ago",
+      "weeksAgo": "{{count}} weeks ago",
+      "monthsAgo": "{{count}} months ago",
+      "notAvailable": "N/A",
+      "actions": "Actions",
+      "preview": "Preview",
+      "previewInvoice": "Preview Invoice",
+      "transactionDetails": "Transaction Details",
+      "printInvoice": "Print Invoice",
+      "notifications": "Notifications",
+      "markAllRead": "Mark All Read",
+      "noNotifications": "No notifications",
+      "newTransaction": "New Transaction",
+      "newOffer": "New Offer",
+      "totalSummary": "Total Summary",
+      "finalAmount": "Final Amount",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "grandTotal": "Grand Total",
+      "invoiceNote": "This is a preview of your invoice. Click print to generate the official document."
+    }
+  },
+  "pos": {
+    "title": "Point of Sale",
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Cart is empty"
+    },
+    "searchProductsPlaceholder": "Search products by name...",
+    "searchCustomersPlaceholder": "Search customers by name or phone...",
+    "noCustomersFound": "No customers found starting with \"{{query}}\"",
+    "customerSearchHint": "Try searching by name, email, or phone (starts with)",
+    "emptyCartMessage": "Add products to your cart to get started",
+    "actions": {
+      "clearCart": "Clear Cart",
+      "totalDiscount": "Total Discount",
+      "sendOffer": "Send Offer",
+      "checkout": "Checkout"
+    },
+    "sendOfferTitle": "Send Offer",
+    "whatsappPhoneNumber": "WhatsApp Phone Number",
+    "invalidPhoneNumber": "Please enter a valid Iraqi phone number",
+    "enterWidth": "Enter width in centimeters",
+    "enterHeight": "Enter height in centimeters",
+    "enterWeight": "Enter weight in kilograms",
+    "dimensions": {
+      "cm": "cm",
+      "kg": "kg",
+      "enterDimensions": "Enter Dimensions",
+      "enterDimensionsBelow": "Enter dimensions below",
+      "width": "Width",
+      "height": "Height",
+      "weight": "Weight",
+      "acceptDimensions": "Accept Dimensions"
+    },
+    "checkout": {
+      "title": "Checkout",
+      "customer": "Customer",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "discount": "Discount",
+      "hide": "Hide",
+      "addDiscount": "Add Discount",
+      "enterDiscountAmount": "Enter discount amount",
+      "clear": "Clear",
+      "item": "Item",
+      "items": "Items",
+      "product": "Product",
+      "size": "Size",
+      "qty": "Qty",
+      "price": "Price",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "productDiscounts": "Product Discounts",
+      "grandTotal": "Grand Total",
+      "totalAmountToPay": "Total Amount to Pay",
+      "orderCompleted": "Order completed successfully!",
+      "orderSummary": "Order Summary",
+      "sendConfirmation": "Send Confirmation",
+      "paymentStatus": "Payment Status",
+      "paid": "Paid",
+      "markAsPaid": "Mark as Paid",
+      "debt": "Debt",
+      "debtWarning": "This will be recorded as debt",
+      "processingOrder": "Processing order...",
+      "completeOrder": "Complete Order",
+      "failed": "Checkout Failed"
+    },
+    "error": {
+      "emailFailed": "Email Failed",
+      "emailFailedDescription": "An error occurred while sending email. Please try again.",
+      "whatsappFailed": "WhatsApp Failed",
+      "whatsappFailedDescription": "An error occurred while preparing WhatsApp message. Please try again.",
+      "phoneNumberMissing": "Customer phone number is missing or invalid. Please add a phone number to send WhatsApp messages."
+    },
+    "success": {
+      "offerSent": "Offer Sent Successfully",
+      "offerSentDescription": "Price offer {{orderId}} has been sent to {{customerName}}"
+    }
+  },
+  "admin": {
+    "brandName": "Haji Printing",
+    "adminPanel": "Admin Panel",
+    "userRole": "Admin"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "pos": "POS",
+    "products": "Products",
+    "transactions": "Transactions",
+    "users": "Users",
+    "customers": "Customers",
+    "posts": "Posts",
+    "settings": "Settings"
+  },
+  "customers": {
+    "title": "Customers",
+    "addCustomer": "Add Customer",
+    "table": {
+      "title": "Customer List",
+      "description": "View and manage all customers",
+      "searchPlaceholder": "Search customers by name, email, or phone...",
+      "name": "Customer Name",
+      "email": "Email",
+      "phone": "Phone",
+      "username": "Username",
+      "role": "Role",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "viewTransactions": "View Transactions",
+      "printReceipt": "Print Receipt",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "entries": "entries"
+    },
+    "filters": {
+      "admin": "Admin",
+      "cashier": "Cashier",
+      "customer": "Customer"
+    },
+    "modal": {
+      "addCustomer": {
+        "title": "Add New Customer",
+        "form": {
+          "name": "Full Name",
+          "namePlaceholder": "Enter customer's full name",
+          "email": "Email Address",
+          "emailPlaceholder": "Enter customer's email address",
+          "phone": "Phone Number",
+          "phonePlaceholder": "Enter customer's phone number",
+          "username": "Username",
+          "usernamePlaceholder": "Enter unique username",
+          "password": "Password",
+          "passwordPlaceholder": "Enter secure password",
+          "confirmPassword": "Confirm Password",
+          "confirmPasswordPlaceholder": "Confirm the password"
+        }
+      },
+      "editCustomer": {
+        "title": "Edit Customer"
+      },
+      "transactions": {
+        "title": "Customer Transactions",
+        "loading": "Loading transactions...",
+        "noTransactions": "No transactions found for this customer",
+        "totalTransactions": "Total Transactions",
+        "paidTransactions": "Paid Transactions",
+        "debtTransactions": "Debt Transactions",
+        "transactionHistory": "Transaction History",
+        "showing": "Showing",
+        "of": "of",
+        "page": "Page",
+        "totalRecords": "Total Records",
+        "totalDebt": "Total Debt",
+        "export": "Export",
+        "exportFeature": "Export feature coming soon",
+        "noTransactionsToExport": "No transactions to export",
+        "exportSuccess": "Transactions exported successfully",
+        "printError": "Failed to open print dialog. Please try again.",
+        "printDebtSummary": "Print debt summary",
+        "printPaidSummary": "Print paid summary",
+        "exportAll": "Export all transactions to CSV",
+        "noDebtTransactions": "No debt transactions available for this customer.",
+        "noPaidTransactions": "No paid transactions available for this customer.",
+        "noTransactionsToExport": "No transactions available to export.",
+        "exportSuccess": "Transactions exported successfully.",
+        "exportError": "Failed to export transactions. Please try again.",
+        "printDebtSummaryError": "Failed to generate debt summary. Please try again.",
+        "printPaidSummaryError": "Failed to generate paid summary. Please try again.",
+        "buttons": {
+          "close": "Close"
+        }
+      },
+      "deleteCustomer": {
+        "title": "Delete Customer",
+        "warning": "Warning! This action cannot be undone.",
+        "description": "You are about to permanently delete this customer account. All associated data will be lost.",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete Customer",
+          "deleting": "Deleting..."
+        }
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "stats": {
+      "totalSales": "Total Sales",
+      "totalOrders": "Total Orders",
+      "totalCustomers": "Total Customers",
+      "totalProducts": "Total Products"
+    },
+    "vsLastPeriod": "vs last period",
+    "paidRevenue": "Paid Revenue",
+    "debtRevenue": "Debt Revenue",
+    "recentTransactions": "Recent Transactions",
+    "pendingOffers": "Pending Offers",
+    "offerStatus": {
+      "pending": "Pending",
+      "acceptedPaid": "Accepted (Paid)",
+      "acceptedDebt": "Accepted (Debt)",
+      "rejected": "Rejected",
+      "unknown": "Unknown"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "noResults": "No products found",
+    "noResultsDescription": "Try adjusting your search or filter criteria to find the products you're looking for.",
+    "modal": {
+      "addProduct": {
+        "title": "Add New Product",
+        "form": {
+          "name": "Product Name",
+          "namePlaceholder": "Enter product name",
+          "price": "Price",
+          "pricePlaceholder": "Enter price",
+          "type": "Product Type",
+          "typePlaceholder": "Select product type",
+          "width": "Width",
+          "widthPlaceholder": "Enter width in cm",
+          "height": "Height",
+          "heightPlaceholder": "Enter height in cm",
+          "selectWidthHeightFirst": "Select width and height first",
+          "typeOptions": {
+            "pcs": "Pieces",
+            "kg": "Kilograms",
+            "widthHeight": "Width × Height"
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "addProduct": "Add Product"
+        }
+      },
+      "editProduct": {
+        "title": "Edit Product",
+        "buttons": {
+          "updateProduct": "Update Product"
+        }
+      },
+      "viewProduct": {
+        "title": "View Product",
+        "description": "View detailed information about this product",
+        "price": "Price",
+        "type": "Type",
+        "dimensions": "Dimensions",
+        "width": "Width",
+        "height": "Height",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At"
+      },
+      "deleteProduct": {
+        "title": "Delete Product",
+        "warning": "Warning! This action cannot be undone.",
+        "description": "Are you sure you want to delete this product? This action cannot be undone.",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete Product",
+          "deleting": "Deleting..."
+        }
+      }
+    },
+    "filters": {
+      "title": "Filters",
+      "description": "Filter and search products",
+      "search": "Search",
+      "searchPlaceholder": "Search products by name...",
+      "type": "Type",
+      "allTypes": "All Types",
+      "pcs": "Pieces",
+      "kg": "Kilograms",
+      "widthHeight": "Width × Height",
+      "sortByName": "Name",
+      "sortByPrice": "Price",
+      "sortByDate": "Date Created",
+      "price": "Price",
+      "sortBy": "Sort By",
+      "order": "Order",
+      "ascending": "Ascending",
+      "descending": "Descending",
+      "minPrice": "Min Price",
+      "maxPrice": "Max Price",
+      "clear": "Clear Filters",
+      "advanced": "Advanced Filters",
+      "hide": "Hide Advanced"
+    },
+    "table": {
+      "title": "Product List",
+      "description": "View and manage all products",
+      "name": "Product Name",
+      "price": "Price",
+      "type": "Type",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "loading": "Loading products...",
+      "noProducts": "No products found",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "entries": "entries"
+    }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "filters": {
+      "title": "Filters",
+      "description": "Filter and search transactions",
+      "search": "Search",
+      "searchPlaceholder": "Search by customer name, order ID...",
+      "status": "Status",
+      "allStatuses": "All Statuses",
+      "paid": "Paid",
+      "debt": "Debt",
+      "offer": "Offer",
+      "allTypes": "All Types",
+      "allOfferStatuses": "All Offer Statuses",
+      "paymentMethod": "Payment Method",
+      "allPaymentMethods": "All Payment Methods",
+      "cash": "Cash",
+      "card": "Card",
+      "dateRange": "Date Range",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "amountRange": "Amount Range",
+      "minAmount": "Min Amount",
+      "maxAmount": "Max Amount",
+      "sortBy": "Sort By",
+      "sortByDate": "Date",
+      "sortByAmount": "Amount",
+      "sortByOrderId": "Order ID",
+      "sortByStatus": "Status",
+      "order": "Order",
+      "ascending": "Ascending",
+      "descending": "Descending",
+      "clear": "Clear All",
+      "show": "Show Filters",
+      "hide": "Hide Filters",
+      "advanced": "Advanced Filters",
+      "active": "active"
+    },
+    "table": {
+      "title": "Transaction List",
+      "description": "View and manage all transactions",
+      "orderId": "Order ID",
+      "customer": "Customer",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "type": "Type",
+      "actions": "Actions",
+      "payDebt": "Pay Debt",
+      "acceptAsPaid": "Accept as Paid",
+      "acceptAsDebt": "Accept as Debt",
+      "rejectOffer": "Reject Offer",
+      "noTransactions": "No transactions found",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "entries": "entries"
+    },
+    "detail": {
+      "title": "Transaction Details",
+      "orderId": "Order ID",
+      "status": "Status",
+      "date": "Date",
+      "customerInfo": "Customer Information",
+      "processedBy": "Processed By",
+      "cashierName": "Cashier Name",
+      "role": "Role",
+      "orderItems": "Order Items",
+      "type": "Type",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "dimensions": "Dimensions",
+      "weight": "Weight",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "grandTotal": "Grand Total",
+      "finalAmount": "Final Amount",
+      "loading": "Loading transaction details...",
+      "notFound": "Transaction not found",
+      "noItems": "No items found",
+      "noCashierInfo": "No cashier information available",
+      "copyId": "Order ID copied to clipboard",
+      "print": "Print Invoice",
+      "sendWhatsApp": "Send via WhatsApp",
+      "whatsapp": {
+        "title": "Send via WhatsApp",
+        "messageInfo": "Transaction Invoice",
+        "messageDescription": "This will open WhatsApp with a pre-filled message containing detailed transaction information.",
+        "documentInfo": "Professional Invoice Document",
+        "documentDescription": "This will generate a professional PDF invoice and send it via WhatsApp with a personalized message.",
+        "documentFeatures": "Document Features",
+        "feature1": "Professional PDF invoice with company branding",
+        "feature2": "Complete order details and itemized breakdown",
+        "feature3": "Easy to save, print, or share with others",
+        "freeFeatures": "Free Features",
+        "freeFeature1": "100% free - no API costs or subscriptions",
+        "freeFeature2": "Professional formatted message with emojis and styling",
+        "freeFeature3": "Instant delivery via WhatsApp Web",
+        "pdfInvoiceInfo": "PDF Invoice Generation",
+        "pdfInvoiceDescription": "This will generate a professional PDF invoice and open WhatsApp Web App with instructions to send it.",
+        "pdfFeatures": "PDF Invoice Features",
+        "pdfFeature1": "Professional PDF invoice with company branding",
+        "pdfFeature2": "Complete order details and itemized breakdown",
+        "pdfFeature3": "Easy to save, print, or share via WhatsApp",
+        "sendPdfInvoice": "Send WhatsApp",
+        "pdfGenerated": "PDF Invoice Generated",
+        "pdfReadyToSend": "PDF is ready to send via WhatsApp",
+        "pdfSentSuccessfully": "PDF invoice generated and sent via WhatsApp",
+        "pdfGeneratedBackend": "PDF invoice generated successfully on server",
+        "pdfGenerationFailed": "Failed to generate PDF invoice",
+        "tempLinkCreated": "Secure Invoice Link Created",
+        "tempLinkReady": "Professional invoice link generated and ready to send via WhatsApp",
+        "tempLinkFailed": "Failed to create secure invoice link"
+    },
+    "invoice": {
+        "temp": {
+            "title": "Download Invoice",
+            "subtitle": "Your professional invoice is ready for download",
+            "downloadPdf": "Download PDF Invoice",
+            "print": "Print",
+            "invoice": "Invoice",
+            "billTo": "Bill To",
+            "invoiceDetails": "Invoice Details",
+            "date": "Date",
+            "status": "Status",
+            "items": "Items",
+            "item": "Item",
+            "quantity": "Qty",
+            "unitPrice": "Unit Price",
+            "total": "Total",
+            "dimensions": "Dimensions",
+            "weight": "Weight",
+            "subtotal": "Subtotal",
+            "discount": "Discount",
+            "notes": "Notes",
+            "footer": "Thank you for choosing Haji Printing!",
+            "tempId": "Temp ID"
+        },
+        "noPhoneNumber": "Customer has no phone number",
+        "noPhone": "No phone",
+        "customerNoPhone": "This customer doesn't have a phone number",
+        "sending": "Generating document...",
+        "sendViaWhatsApp": "Open WhatsApp",
+        "sendDocumentViaWhatsApp": "Send Document via WhatsApp",
+        "sentSuccessfully": "WhatsApp opened successfully",
+        "openedWhatsApp": "WhatsApp opened with transaction details",
+        "documentSentSuccessfully": "Document generated successfully",
+        "documentOpenedWhatsApp": "WhatsApp opened with invoice document",
+        "sendFailed": "Failed to generate WhatsApp message",
+        "documentSendFailed": "Failed to generate document"
+      }
+    },
+    "status": {
+      "paid": "Paid",
+      "debt": "Debt"
+    },
+    "type": {
+      "transaction": "Transaction",
+      "offer": "Offer"
+    },
+    "offerStatus": {
+      "pending": "Pending",
+      "accepted_paid": "Accepted (Paid)",
+      "accepted_debt": "Accepted (Debt)",
+      "rejected": "Rejected"
+    },
+    "actions": {
+      "success": "Success",
+      "error": "Error",
+      "acceptAsPaid": "Accept as Paid",
+      "acceptAsDebt": "Accept as Debt",
+      "rejectOffer": "Reject Offer",
+      "offerAcceptedAsPaid": "Offer has been accepted as paid transaction",
+      "offerAcceptedAsDebt": "Offer has been accepted as debt transaction",
+      "offerRejected": "Offer has been rejected and deleted",
+      "failedToAcceptOffer": "Failed to accept offer",
+      "failedToRejectOffer": "Failed to reject offer"
+    }
+  },
+  "users": {
+    "table": {
+      "title": "User List",
+      "description": "View and manage all users",
+      "searchPlaceholder": "Search users by name, email, or username...",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "username": "Username",
+      "role": "Role",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "entries": "entries"
+    },
+    "modal": {
+      "addUser": {
+        "title": "Add New User",
+        "form": {
+          "name": "Full Name",
+          "namePlaceholder": "Enter user's full name",
+          "email": "Email Address",
+          "emailPlaceholder": "Enter user's email address",
+          "username": "Username",
+          "usernamePlaceholder": "Enter unique username",
+          "phone": "Phone Number",
+          "phonePlaceholder": "Enter user's phone number",
+          "role": "Role",
+          "rolePlaceholder": "Select user role",
+          "roleOptions": {
+            "admin": "Admin",
+            "cashier": "Cashier"
+          },
+          "password": "Password",
+          "passwordPlaceholder": "Enter secure password",
+          "passwordPlaceholderEdit": "Leave empty to keep current password",
+          "passwordConfirmation": "Confirm Password",
+          "passwordConfirmationPlaceholder": "Confirm the password"
+        },
+        "buttons": {
+          "addUser": "Add User",
+          "cancel": "Cancel"
+        }
+      },
+      "editUser": {
+        "title": "Edit User",
+        "buttons": {
+          "updateUser": "Update User"
+        }
+      },
+      "deleteUser": {
+        "title": "Delete User",
+        "warning": "Warning! This action cannot be undone.",
+        "description": "You are about to permanently delete this user account. All associated data will be lost.",
+        "firstAdminWarning": "This is the first admin user. This user cannot be deleted as it is the primary system administrator.",
+        "adminWarning": "This is an admin user. If this is the last admin, deletion will be prevented.",
+        "lastAdminWarning": "This is the last admin user. Deleting this user will leave the system without any administrators.",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete User",
+          "deleting": "Deleting..."
+        }
+      }
+    }
+  },
+    "posts": {
+      "editPost": "Edit Post",
+      "title": "Posts",
+      "addPost": "Add Post",
+      "viewPost": "View Post",
+      "newImageSelected": "New image selected",
+      "searchPlaceholder": "Search posts by title or description...",
+      "noPostsFound": "No Posts Found",
+      "noPostsFoundDescription": "No posts match your search criteria. Try adjusting your search terms.",
+      "clearSearch": "Clear Search",
+      "noPostsYet": "No Posts Yet",
+      "noPostsYetDescription": "Create your first blog post to get started with content management.",
+      "published": "Published",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "posts": "posts",
+      "filteredFrom": "filtered from",
+      "total": "total",
+      "previous": "Previous",
+      "next": "Next",
+      "resultsCount": "of posts",
+      "showingResults": "Showing",
+      "toResults": "to",
+      "ofResults": "of",
+      "postsResults": "posts",
+      "filteredFromResults": "filtered from",
+      "totalResults": "total",
+      "titlePlaceholder": "Enter post title",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter post description",
+      "image": "Image",
+      "clickToUpload": "Click to upload image",
+      "supportedFormats": "PNG, JPG, GIF up to 10MB",
+      "page": {
+        "noPostsYet": "No Posts Yet",
+        "checkBackSoon": "Check back soon for our latest updates and tips!",
+        "view": "View",
+        "loadMorePosts": "Load More Posts",
+        "loadMore": "Load More",
+        "loading": "Loading...",
+        "showLess": "Show Less",
+        "less": "Less",
+        "showing": "Showing",
+        "of": "of",
+        "posts": "posts",
+        "dashboard": "Dashboard"
+      },
+      "modal": {
+        "deletePost": {
+          "title": "Delete Post",
+          "warning": "This action cannot be undone!",
+          "description": "This will permanently delete this post and any associated images. All content will be lost forever.",
+          "buttons": {
+            "delete": "Delete Post",
+            "deleting": "Deleting..."
+          }
+        }
+      }
+    },
+    "modal": {
+      "addPost": {
+        "title": "Add New Post",
+        "form": {
+          "title": "Post Title",
+          "titlePlaceholder": "Enter post title",
+          "description": "Description",
+          "descriptionPlaceholder": "Enter post description",
+          "content": "Content",
+          "contentPlaceholder": "Enter post content",
+          "image": "Image",
+          "imagePlaceholder": "Upload an image",
+          "selectImage": "Select Image"
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "addPost": "Add Post"
+        }
+      },
+      "editPost": {
+        "title": "Edit Post",
+        "buttons": {
+          "updatePost": "Update Post"
+        }
+      },
+      "deletePost": {
+        "title": "Delete Post",
+        "warning": "Warning! This action cannot be undone.",
+        "description": "You are about to permanently delete this post. All associated data will be lost.",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete Post",
+          "deleting": "Deleting..."
+        }
+      },
+      "viewPost": {
+        "title": "View Post",
+        "buttons": {
+          "close": "Close"
+        }
+      }
+    },
+  "export": {
+    "exportCSV": "Export CSV",
+    "exporting": "Exporting...",
+    "success": "Successfully exported {{count}} items to CSV",
+    "noUsers": "No users to export",
+    "usersExportedSuccessfully": "Users exported successfully",
+    "noTransactions": "No transactions to export",
+    "transactionsExportedSuccessfully": "Transactions exported successfully"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "welcome": {
+        "title": "Welcome!",
+        "subtitle": "Your trusted partner for all printing needs",
+        "hello": "Hello!",
+        "premiumServices": "Welcome to our premium printing services",
+        "features": {
+          "highQuality": "High-Quality Printing",
+          "professionalResults": "Professional Results",
+          "fastReliable": "Fast & Reliable Service"
+        }
+      },
+      "footer": "Quantum Tech Agency!"
+    },
+    "loginSubtitle": "Sign in to your account",
+    "username": "Username",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "loginButton": "Sign In",
+    "backToHome": "Back to Home"
+  },
+  "welcome": {
+    "getStarted": "Get Started",
+    "hero": {
+      "title": "Professional",
+      "subtitle": "Printing Services",
+      "description": "Transform your ideas into stunning prints with our cutting-edge technology and expert craftsmanship. Quality, speed, and reliability in every project.",
+      "contactUs": "Contact Us",
+      "explorePosts": "Explore Posts",
+      "posts": "Posts"
+    },
+    "contact": {
+      "scrollHint": "Scroll to see all contact options",
+      "title": "Get In Touch",
+      "subtitle": "We're here to help with your printing needs",
+      "phoneNumbers": "Phone Numbers",
+      "whatsappHint": "Click WhatsApp to chat",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "emailAddress": "Email Address",
+      "emailHint": "Send us an email",
+      "businessEmail": "Business Email",
+      "ourLocation": "Our Location",
+      "visitOffice": "Visit our office",
+      "businessAddress": "Business Address",
+      "socialMedia": "Follow Us",
+      "socialHint": "Stay connected with us",
+      "form": {
+        "title": "Send us a Message",
+        "subtitle": "Get in touch with us directly",
+        "sendMessage": "Send Message",
+        "yourName": "Your Name",
+        "yourEmail": "Your Email",
+        "subject": "Subject",
+        "yourMessage": "Your Message",
+        "sending": "Sending...",
+        "cancel": "Cancel",
+        "successMessage": "Message sent successfully! We'll get back to you soon.",
+        "errorMessage": "Failed to send message. Please try again."
+      }
+    },
+    "mobile": {
+      "quickMenu": "Quick Menu"
+    }
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "title": "Welcome Back",
+        "subtitle": "Sign in to your account",
+        "form": {
+          "username": "Username",
+          "password": "Password",
+          "rememberMe": "Remember me",
+          "loginButton": "Sign In",
+          "forgotPassword": "Forgot your password?",
+          "createAccount": "Create Account",
+          "signUp": "Sign Up"
+        },
+        "validation": {
+          "username": {
+            "required": "Username is required"
+          },
+          "password": {
+            "required": "Password is required",
+            "minLength": "Password must be at least 8 characters"
+          }
+        }
+      },
+      "register": {
+        "title": "Create Account",
+        "subtitle": "Sign up to get started",
+        "form": {
+          "name": "Full Name",
+          "email": "Email Address",
+          "password": "Password",
+          "confirmPassword": "Confirm Password",
+          "signUp": "Sign Up"
+        },
+        "validation": {
+          "name": {
+            "required": "Name is required",
+            "minLength": "Name must be at least 2 characters"
+          },
+          "email": {
+            "required": "Email is required",
+            "invalid": "Please enter a valid email address"
+          },
+          "password": {
+            "required": "Password is required",
+            "minLength": "Password must be at least 8 characters"
+          },
+          "confirmPassword": {
+            "required": "Please confirm your password",
+            "mismatch": "Passwords do not match"
+          }
+        }
+      },
+      "confirmPassword": {
+        "title": "Confirm your password",
+        "description": "This is a secure area of the application. Please confirm your password before continuing."
+      }
+    },
+    "admin": {
+      "dashboard": {
+        "title": "Dashboard",
+        "welcome": "Welcome back!",
+        "overview": "Here's what's happening with your business today.",
+        "stats": {
+          "totalSales": "Total Sales",
+          "totalOrders": "Total Orders",
+          "totalProducts": "Total Products",
+          "totalCustomers": "Total Customers"
+        },
+        "vsLastPeriod": "vs last period",
+        "paidRevenue": "Paid Revenue",
+        "debtRevenue": "Debt Revenue",
+        "recentTransactions": "Recent Transactions"
+      },
+      "products": {
+        "title": "Products",
+        "subtitle": "Manage your product catalog",
+        "filters": {
+          "title": "Filters",
+          "description": "Filter and search products",
+          "search": "Search",
+          "searchPlaceholder": "Search products by name...",
+          "type": "Type",
+          "allTypes": "All Types",
+          "pcs": "Pieces",
+          "kg": "Kilograms",
+          "widthHeight": "Width × Height",
+          "sortBy": "Sort By",
+          "sortByName": "Name",
+          "sortByPrice": "Price",
+          "sortByDate": "Date Created",
+          "order": "Order",
+          "ascending": "Ascending",
+          "descending": "Descending",
+          "minPrice": "Min Price",
+          "maxPrice": "Max Price",
+          "clear": "Clear All",
+          "show": "Show Filters",
+          "hide": "Hide Filters",
+          "advanced": "Advanced Filters"
+        },
+        "table": {
+          "title": "Product List",
+          "description": "View and manage all products",
+          "loading": "Loading products...",
+          "searchPlaceholder": "Search products by name...",
+          "name": "Product Name",
+          "price": "Price",
+          "type": "Type",
+          "createdAt": "Created At",
+          "actions": "Actions",
+          "noProducts": "No products found",
+          "deleteSelected": "Delete Selected",
+          "showing": "Showing",
+          "to": "to",
+          "of": "of",
+          "entries": "entries"
+        },
+        "modal": {
+          "addProduct": {
+            "title": "Add New Product",
+            "form": {
+              "name": "Product Name",
+              "price": "Price",
+              "type": "Type",
+              "addProduct": "Add Product"
+            }
+          },
+          "editProduct": {
+            "title": "Edit Product",
+            "form": {
+              "updateProduct": "Update Product"
+            }
+          },
+          "deleteProduct": {
+            "title": "Delete Product",
+            "description": "Are you sure you want to delete this product?",
+            "form": {
+              "delete": "Delete Product"
+            }
+          },
+          "viewProduct": {
+            "title": "Product Details",
+            "productName": "Product Name",
+            "price": "Price",
+            "type": "Type",
+            "createdAt": "Created At",
+            "updatedAt": "Last Updated"
+          }
+        }
+      },
+      "transactions": {
+        "title": "Transactions",
+        "table": {
+          "orderId": "Order ID",
+          "customer": "Customer",
+          "date": "Date",
+          "amount": "Amount",
+          "status": "Status",
+          "actions": "Actions",
+          "payDebt": "Pay Debt",
+          "acceptAsPaid": "Accept as Paid",
+          "acceptAsDebt": "Accept as Debt"
+        },
+        "filters": {
+          "title": "Filters",
+          "description": "Filter and search transactions",
+          "search": "Search",
+          "searchPlaceholder": "Search by customer name, order ID...",
+          "status": "Status",
+          "allStatuses": "All Statuses",
+          "paid": "Paid",
+          "debt": "Debt",
+          "paymentMethod": "Payment Method",
+          "allPaymentMethods": "All Payment Methods",
+          "cash": "Cash",
+          "card": "Card",
+          "dateRange": "Date Range",
+          "fromDate": "From Date",
+          "toDate": "To Date",
+          "amountRange": "Amount Range",
+          "minAmount": "Min Amount",
+          "maxAmount": "Max Amount",
+          "sortBy": "Sort By",
+          "sortByDate": "Date",
+          "sortByAmount": "Amount",
+          "sortByOrderId": "Order ID",
+          "sortByStatus": "Status",
+          "order": "Order",
+          "ascending": "Ascending",
+          "descending": "Descending",
+          "clear": "Clear All",
+          "show": "Show Filters",
+          "hide": "Hide Filters",
+          "advanced": "Advanced Filters",
+          "active": "active"
+        }
+      },
+      "customers": {
+        "title": "Customers",
+        "subtitle": "Manage customer information",
+        "table": {
+          "name": "Customer Name",
+          "email": "Email",
+          "phone": "Phone",
+          "transactions": "Transactions",
+          "actions": "Actions",
+          "viewTransactions": "View Transactions"
+        },
+        "modal": {
+          "addCustomer": {
+            "title": "Add New Customer",
+            "form": {
+              "name": "Customer Name",
+              "email": "Email",
+              "phone": "Phone",
+              "addCustomer": "Add Customer"
+            }
+          },
+          "editCustomer": {
+            "title": "Edit Customer",
+            "form": {
+              "updateCustomer": "Update Customer"
+            }
+          },
+          "deleteCustomer": {
+            "title": "Delete Customer",
+            "description": "Are you sure you want to delete this customer?",
+            "form": {
+              "delete": "Delete Customer"
+            }
+          },
+          "viewTransactions": {
+            "title": "Customer Transactions",
+            "description": "View all transactions for this customer",
+            "loading": "Loading transactions...",
+            "noTransactions": "No transactions found for this customer",
+            "buttons": {
+              "close": "Close"
+            }
+          }
+        }
+      },
+      "users": {
+        "title": "Users",
+        "subtitle": "Manage user accounts and permissions",
+        "table": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "createdAt": "Created At",
+          "actions": "Actions"
+        },
+        "modal": {
+          "addUser": {
+            "title": "Add New User",
+            "form": {
+              "name": "Full Name",
+              "email": "Email Address",
+              "password": "Password",
+              "role": "Role",
+              "addUser": "Add User"
+            }
+          },
+          "editUser": {
+            "title": "Edit User",
+            "form": {
+              "updateUser": "Update User"
+            }
+          },
+          "deleteUser": {
+            "title": "Delete User",
+            "description": "Are you sure you want to delete this user?",
+            "form": {
+              "delete": "Delete User"
+            }
+          }
+        }
+      },
+      "posts": {
+        "title": "Posts",
+        "subtitle": "Manage blog posts and content",
+        "table": {
+          "title": "Post Title",
+          "status": "Status",
+          "createdAt": "Created At",
+          "actions": "Actions"
+        },
+        "modal": {
+          "addPost": {
+            "title": "Add New Post",
+            "form": {
+              "title": "Post Title",
+              "description": "Description",
+              "content": "Content",
+              "imageUrl": "Image URL",
+              "status": "Status",
+              "addPost": "Add Post"
+            }
+          },
+          "editPost": {
+            "title": "Edit Post",
+            "form": {
+              "updatePost": "Update Post"
+            }
+          },
+          "deletePost": {
+            "title": "Delete Post",
+            "description": "Are you sure you want to delete this post?",
+            "form": {
+              "delete": "Delete Post"
+            }
+          },
+          "viewPost": {
+            "title": "Post Details",
+            "postTitle": "Post Title",
+            "description": "Description",
+            "content": "Content",
+            "status": "Status",
+            "createdAt": "Created At",
+            "updatedAt": "Last Updated"
+          }
+        },
+        "searchPlaceholder": "Search posts by title or description..."
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Manage your profile and account settings",
+        "sections": {
+          "profile": "Profile Settings",
+          "security": "Security",
+          "appearance": "Appearance",
+          "notifications": "Notifications",
+          "language": "Language"
+        },
+        "form": {
+          "name": "Full Name",
+          "email": "Email Address",
+          "currentPassword": "Current Password",
+          "newPassword": "New Password",
+          "confirmPassword": "Confirm New Password",
+          "theme": "Theme",
+          "language": "Language"
+        },
+        "validation": {
+          "name": {
+            "required": "Name is required"
+          },
+          "email": {
+            "required": "Email is required",
+            "invalid": "Please enter a valid email address"
+          },
+          "currentPassword": {
+            "required": "Current password is required"
+          },
+          "newPassword": {
+            "required": "New password is required",
+            "minLength": "Password must be at least 8 characters"
+          },
+          "confirmPassword": {
+            "required": "Please confirm your password",
+            "mismatch": "Passwords do not match"
+          }
+        },
+        "backup": {
+          "failed": "Backup Failed"
+        }
+      }
+    },
+    "cashier": {
+      "pos": {
+        "title": "Point of Sale",
+        "subtitle": "Process sales and manage transactions",
+        "scanBarcode": "Scan barcode or search products",
+        "addToCart": "Add to Cart",
+        "cart": {
+          "title": "Shopping Cart",
+          "empty": "Cart is empty",
+          "subtotal": "Subtotal",
+          "remove": "Remove"
+        },
+        "subtotal": "Subtotal",
+        "tax": "Tax",
+        "grandTotal": "Grand Total",
+        "cash": "Cash Payment",
+        "card": "Card Payment",
+        "printReceipt": "Print Receipt",
+        "searchProducts": "Search Products",
+        "searchProductsPlaceholder": "Search products by name...",
+        "searchCustomers": "Search Customers",
+        "searchCustomersPlaceholder": "Search customers by name or phone...",
+        "selectCustomer": "Select Customer",
+        "customerName": "Customer Name",
+        "customerNamePlaceholder": "Enter customer name...",
+        "actions": {
+          "clearCart": "Clear Cart",
+          "checkout": "Checkout",
+          "sendWhatsApp": "Send WhatsApp",
+          "sendEmail": "Send Email"
+        },
+        "enterWidth": "Enter width in centimeters",
+        "enterHeight": "Enter height in centimeters",
+        "enterWeight": "Enter weight in kilograms",
+        "dimensions": {
+          "cm": "cm",
+          "kg": "kg",
+          "enterDimensions": "Enter Dimensions",
+          "enterDimensionsBelow": "Enter dimensions below",
+          "width": "Width",
+          "height": "Height",
+          "weight": "Weight",
+          "acceptDimensions": "Accept Dimensions",
+          "acceptWeight": "Accept Weight",
+          "dimensionsAccepted": "Dimensions Accepted",
+          "weightAccepted": "Weight Accepted"
+        },
+        "emptyCartMessage": "Add products to your cart to get started",
+        "whatsapp": {
+          "orderTitle": "Order Details",
+          "customer": "Customer",
+          "phone": "Phone",
+          "items": "Items",
+          "quantity": "Quantity",
+          "unitPrice": "Unit Price",
+          "dimensions": "Dimensions",
+          "weight": "Weight",
+          "total": "Total",
+          "grandTotal": "Grand Total",
+          "thankYou": "Thank you for your order!"
+        },
+        "email": {
+          "orderTitle": "Order Details",
+          "customer": "Customer",
+          "phone": "Phone",
+          "items": "Items",
+          "quantity": "Quantity",
+          "unitPrice": "Unit Price",
+          "dimensions": "Dimensions",
+          "weight": "Weight",
+          "total": "Total",
+          "grandTotal": "Grand Total",
+          "thankYou": "Thank you for your order!"
+        },
+        "checkout": {
+          "title": "Checkout",
+          "subtitle": "Complete your order",
+          "customerInfo": "Customer Information",
+          "customerName": "Customer Name",
+          "customerEmail": "Customer Email",
+          "customerPhone": "Customer Phone",
+          "orderSummary": "Order Summary",
+          "orderItems": "Order Items",
+          "orderTotal": "Order Total",
+          "subtotal": "Subtotal",
+          "tax": "Tax",
+          "total": "Total",
+          "paymentMethod": "Payment Method",
+          "cash": "Cash",
+          "card": "Card",
+          "bankTransfer": "Bank Transfer",
+          "check": "Check",
+          "other": "Other",
+          "orderNotes": "Order Notes",
+          "orderNotesPlaceholder": "Add any special instructions or notes...",
+          "sendEmailConfirmation": "Send Email Confirmation",
+          "sendWhatsAppConfirmation": "Send WhatsApp Confirmation",
+          "email": "Email",
+          "whatsapp": "WhatsApp",
+          "completeOrder": "Complete Order",
+          "processingOrder": "Processing order...",
+          "sending": "Sending...",
+          "emailRequired": "Customer email is required",
+          "phoneRequired": "Customer phone is required",
+          "orderCompleted": "Order completed successfully!",
+          "totalAmountToPay": "Total Amount to Pay",
+          "product": "Product",
+          "size": "Size",
+          "qty": "Qty",
+          "price": "Price",
+          "items": "Items",
+          "item": "Item",
+          "productDiscounts": "Product Discounts"
+        },
+        "error": {
+          "emailFailed": "Email Failed",
+          "emailFailedDescription": "An error occurred while sending email. Please try again.",
+          "whatsappFailed": "WhatsApp Failed",
+          "whatsappFailedDescription": "An error occurred while preparing WhatsApp message. Please try again."
+        }
+      },
+      "profile": {
+        "title": "Profile"
+      }
+    },
+    "guest": {
+      "welcome": {
+        "getStarted": "Get Started",
+        "subtitle": "Haji Printing - Professional Printing Services",
+        "description": "Your trusted partner for all printing needs in Kurdistan Region",
+        "quoteRequestSent": "Quote Request Sent!",
+        "quoteRequestDescription": "We will contact you within 24 hours.",
+        "quoteRequestError": "Failed to send quote request. Please try again.",
+        "quoteRequestErrorLater": "Failed to send quote request. Please try again later.",
+        "enterFullName": "Enter your full name",
+        "projectDescription": "Tell us about your printing project... What type of materials do you need? Quantity? Special requirements?"
+      },
+      "posts": {
+        "title": "Blog Posts",
+        "subtitle": "Latest news and updates from Haji Printing"
+      }
+    }
+  },
+  "components": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "pos": "POS",
+      "products": "Products",
+      "transactions": "Transactions",
+      "users": "Users",
+      "customers": "Customers",
+      "posts": "Posts",
+      "settings": "Settings"
+    },
+    "user": {
+      "settings": "Settings",
+      "logout": "Logout",
+      "profile": "Profile",
+      "deleteAccount": "Delete account",
+      "deleteAccountDescription": "Delete your account and all of its resources",
+      "warning": "Warning",
+      "warningDescription": "Please proceed with caution, this cannot be undone."
+    },
+    "export": {
+      "exportCSV": "Export CSV",
+      "exporting": "Exporting...",
+      "success": "Successfully exported {{count}} products to CSV",
+      "failed": "Failed to export products",
+      "noProducts": "No products to export",
+      "noCustomersToExport": "No customers to export",
+      "customersExportedSuccessfully": "Customers exported successfully",
+      "exportFailed": "Export failed",
+      "noTransactions": "No transactions to export",
+      "transactionsExportedSuccessfully": "Transactions exported successfully"
+    }
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error",
+    "info": "Info",
+    "productCreated": "Product created successfully",
+    "productUpdated": "Product updated successfully",
+    "productDeleted": "Product deleted successfully",
+    "failedToCreate": "Failed to create product",
+    "failedToUpdate": "Failed to update product",
+    "failedToDelete": "Failed to delete product",
+    "customerCreated": "Customer created successfully",
+    "customerUpdated": "Customer updated successfully",
+    "transactionCreated": "Transaction created successfully",
+    "postCreated": "Post created successfully",
+    "postUpdated": "Post updated successfully",
+    "postDeleted": "Post deleted successfully",
+    "failedToCreateCustomer": "Failed to create customer",
+    "failedToUpdateCustomer": "Failed to update customer",
+    "failedToDeleteCustomer": "Failed to delete customer",
+    "customerDeleted": "Customer deleted successfully",
+    "userCreated": "User created successfully",
+    "userUpdated": "User updated successfully",
+    "userDeleted": "User deleted successfully",
+    "failedToCreateUser": "Failed to create user",
+    "failedToUpdateUser": "Failed to update user",
+    "failedToDeleteUser": "Failed to delete user",
+    "failedToLoadTransactions": "Failed to load transactions",
+    "transactionPaid": "Transaction marked as paid successfully",
+    "failedToPayDebt": "Failed to mark transaction as paid",
+    "unexpectedError": "An unexpected error occurred",
+    "failedToSendWhatsApp": "Failed to send WhatsApp message: {{error}}",
+    "orderProcessed": "Order {{orderId}} successfully processed.",
+    "orderCompleted": "Order completed successfully processed.",
+    "failedToSendEmail": "Failed to send email: {{error}}",
+    "failedToPrepareWhatsApp": "Failed to prepare WhatsApp message: {{error}}",
+    "failedToDeletePost": "Failed to delete post",
+    "transactionCreateFailed": "Failed to create transaction",
+    "warning": "Warning"
+  },
+  "settings": {
+    "sections": {
+      "language": "Language"
+    },
+    "tabs": {
+      "business": "Business Information",
+      "backup": "Backup",
+      "invoiceTemplate": "Invoice Template"
+    },
+    "business": {
+      "title": "Company Information",
+      "description": "View your business details and company information",
+      "companyName": "Company Name",
+      "companySlogan": "Company Slogan",
+      "notSpecified": "Not specified",
+      "contactInformation": "Contact Information",
+      "contactDescription": "View your business contact details and communication channels",
+      "primaryPhone": "Primary Phone",
+      "secondaryPhone": "Secondary Phone",
+      "emailAddress": "Email Address",
+      "locationInformation": "Location Information",
+      "locationDescription": "View your business address and location details",
+      "businessAddress": "Business Address",
+      "noAddressProvided": "No address provided",
+      "city": "City",
+      "country": "Country"
+    },
+    "backup": {
+      "title": "Database Backup",
+      "description": "Manage your database backups and data protection",
+      "status": "Backup Status",
+      "statusReady": "System is ready for backup operations. Regular backups help protect your data.",
+      "lastBackup": "Last Backup",
+      "manualBackupOnly": "Manual backup only",
+      "createFirstBackup": "Create your first backup using the button below",
+      "backupType": "Backup Type",
+      "fullDatabaseBackup": "Full Database Backup",
+      "includesAllTables": "Includes all tables and data",
+      "createBackupNow": "Create Backup Now",
+      "creatingBackup": "Creating Backup...",
+      "downloadLatestBackup": "Download Latest Backup",
+      "backupInformation": "Backup Information",
+      "backupInfoDescription": "Important details about your backup system",
+      "whatGetsBackedUp": "What gets backed up:",
+      "businessSettings": "All business settings and configuration",
+      "userAccounts": "User accounts and roles",
+      "productCatalog": "Product catalog and pricing",
+      "customerInfo": "Customer information",
+      "transactionHistory": "Transaction history and records",
+      "systemPosts": "System posts and content",
+      "backupRecommendations": "Backup Recommendations:",
+      "backupBeforeUpdates": "Create backups before major system updates",
+      "downloadAndStore": "Download and store backups in a safe location",
+      "testRestoreProcedures": "Test restore procedures periodically",
+      "keepMultipleCopies": "Keep multiple backup copies for redundancy",
+      "createSuccess": "Backup Created Successfully",
+      "failed": "Backup failed"
+    },
+    "invoiceTemplate": {
+      "title": "Invoice Template",
+      "description": "Customize your invoice templates and formatting",
+      "save": "Save Settings",
+      "saving": "Saving...",
+      "reset": "Reset to Defaults",
+      "livePreview": "Live Preview",
+      "colors": "Colors",
+      "typography": "Typography",
+      "logo": "Logo",
+      "company": "Company",
+      "layout": "Layout",
+      "content": "Content",
+      "colorSettings": "Color Settings",
+      "headerColor": "Header Color",
+      "footerColor": "Footer Color",
+      "tableHeaderColor": "Table Header Color",
+      "typographySettings": "Typography Settings",
+      "fontFamily": "Font Family",
+      "baseFontSize": "Base Font Size",
+      "logoSettings": "Logo Settings",
+      "showLogo": "Show Logo",
+      "logoUpload": "Logo Upload",
+      "logoUploadDescription": "Upload your company logo (JPG, PNG, GIF, SVG - Max 2MB)",
+      "chooseFile": "Choose File",
+      "removeLogo": "Remove Logo",
+      "logoWidth": "Logo Width",
+      "logoHeight": "Logo Height",
+      "companySettings": "Company Settings",
+      "companyTitle": "Company Title",
+      "companyName": "Company Name",
+      "companyAddress": "Company Address",
+      "primaryPhone": "Primary Phone",
+      "secondaryPhone": "Secondary Phone",
+      "companyEmail": "Company Email",
+      "companyWebsite": "Company Website",
+      "layoutSettings": "Layout Settings",
+      "layoutType": "Layout Type",
+      "classic": "Classic",
+      "modern": "Modern",
+      "minimal": "Minimal",
+      "headerHeight": "Header Height",
+      "footerHeight": "Footer Height",
+      "contentSettings": "Content Settings",
+      "showCompanyInfo": "Show Company Info",
+      "showDateTime": "Show Date & Time",
+      "settingsSaved": "Invoice template settings saved successfully",
+      "failedToSave": "Failed to save invoice template settings",
+      "failedToUploadLogo": "Failed to upload logo",
+      "settingsReset": "Settings Reset to Default",
+      "settingsResetDescription": "All invoice template settings have been reset to their default values",
+      "failedToReset": "Failed to Reset Settings",
+      "failedToResetDescription": "Unable to reset settings to default values",
+      "empty": {
+        "title": "No Invoice Templates",
+        "description": "Create custom invoice templates to personalize your invoices",
+        "createTemplate": "Create Template"
+      }
+    }
+  }
+}

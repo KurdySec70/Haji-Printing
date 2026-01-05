@@ -1,0 +1,1265 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+/* Rabar Font Definition */
+@font-face {
+    font-family: 'Rabar';
+    src: url('../fonts/Rabar_021.eot');
+    src: url('../fonts/Rabar_021.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Rabar_021.woff') format('woff'),
+         url('../fonts/Rabar_021.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Rabar', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    /* Pure White Light Mode with Orange Palette */
+    --background: #ffffff;
+    --foreground: #1e293b;
+    --card: #ffffff;
+    --card-foreground: #1e293b;
+    --popover: #ffffff;
+    --popover-foreground: #1e293b;
+    
+    /* Orange Primary Palette */
+    --primary: #F58E18;
+    --primary-foreground: #ffffff;
+    --primary-hover: #EA580C;
+    --primary-light: #FFE5D0;
+    --primary-dark: #C8710F;
+    
+    /* Orange Accent Colors */
+    --orange-50: #FFF7ED;
+    --orange-100: #FFEDD5;
+    --orange-200: #FED7AA;
+    --orange-300: #FDBA74;
+    --orange-400: #FB923C;
+    --orange-500: #F97316;
+    --orange-600: #EA580C;
+    --orange-700: #C2410C;
+    --orange-800: #9A3412;
+    --orange-900: #7C2D12;
+    
+    /* Supporting Colors */
+    --secondary: #f8fafc;
+    --secondary-foreground: #1e293b;
+    --muted: #f1f5f9;
+    --muted-foreground: #64748b;
+    --accent: #F58E18;
+    --accent-foreground: #ffffff;
+    
+    /* Status Colors */
+    --success: #10b981;
+    --success-light: #D1FAE5;
+    --success-dark: #059669;
+    --warning: #f59e0b;
+    --warning-light: #FEF3C7;
+    --warning-dark: #D97706;
+    --error: #ef4444;
+    --error-light: #FEE2E2;
+    --error-dark: #DC2626;
+    --info: #3b82f6;
+    --info-light: #DBEAFE;
+    --info-dark: #2563EB;
+    
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #e5e7eb;
+    --input: #ffffff;
+    --ring: #F58E18;
+    
+    /* Chart Colors (Orange-based) */
+    --chart-1: #F58E18;
+    --chart-2: #EA580C;
+    --chart-3: #f59e0b;
+    --chart-4: #3b82f6;
+    --chart-5: #10b981;
+    
+    --radius: 0.75rem;
+    --sidebar: #ffffff;
+    --sidebar-foreground: #1e293b;
+    --sidebar-primary: #F58E18;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #fff7ed;
+    --sidebar-accent-foreground: #9a3412;
+    --sidebar-border: #e5e7eb;
+    --sidebar-ring: #F58E18;
+}
+
+.dark {
+    /* Pure Dark Mode with Orange Palette */
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+    --card: #1a1a1a;
+    --card-foreground: #ffffff;
+    --popover: #1a1a1a;
+    --popover-foreground: #ffffff;
+    
+    /* Orange Primary Palette (Dark Mode) */
+    --primary: #F58E18;
+    --primary-foreground: #ffffff;
+    --primary-hover: #FB923C;
+    --primary-light: #7C2D12;
+    --primary-dark: #EA580C;
+    
+    /* Orange Accent Colors (Dark Mode) */
+    --orange-50: #7C2D12;
+    --orange-100: #9A3412;
+    --orange-200: #C2410C;
+    --orange-300: #EA580C;
+    --orange-400: #F97316;
+    --orange-500: #FB923C;
+    --orange-600: #F58E18;
+    --orange-700: #FB923C;
+    --orange-800: #FDBA74;
+    --orange-900: #FED7AA;
+    
+    /* Supporting Colors (Dark Mode) */
+    --secondary: #1a1a1a;
+    --secondary-foreground: #ffffff;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --accent: #F58E18;
+    --accent-foreground: #ffffff;
+    
+    /* Status Colors (Dark Mode) */
+    --success: #10b981;
+    --success-light: #065F46;
+    --success-dark: #34D399;
+    --warning: #f59e0b;
+    --warning-light: #78350F;
+    --warning-dark: #FBBF24;
+    --error: #ef4444;
+    --error-light: #7F1D1D;
+    --error-dark: #F87171;
+    --info: #3b82f6;
+    --info-light: #1E3A8A;
+    --info-dark: #60A5FA;
+    
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #262626;
+    --input: #1a1a1a;
+    --ring: #F58E18;
+    
+    /* Chart Colors (Orange-based Dark Mode) */
+    --chart-1: #F58E18;
+    --chart-2: #FB923C;
+    --chart-3: #f59e0b;
+    --chart-4: #60A5FA;
+    --chart-5: #34D399;
+    
+    --sidebar: #0a0a0a;
+    --sidebar-foreground: #ffffff;
+    --sidebar-primary: #F58E18;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #1a1a1a;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #262626;
+    --sidebar-ring: #F58E18;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html, body {
+        @apply text-foreground font-sans;
+        background: #ffffff !important;
+        min-height: 100%;
+        /* Modern smooth scrolling */
+        scroll-behavior: smooth;
+        /* Enhanced text rendering */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    .dark html,
+    .dark body,
+    html.dark body {
+        background: #0a0a0a !important;
+    }
+
+    /* Sidebar pure white/dark backgrounds */
+    [data-sidebar="sidebar"] {
+        background: #ffffff !important;
+    }
+
+    .dark [data-sidebar="sidebar"],
+    html.dark [data-sidebar="sidebar"] {
+        background: #0a0a0a !important;
+    }
+
+    /* Sidebar inset backgrounds */
+    [data-slot="sidebar-inset"] {
+        background: #ffffff !important;
+    }
+
+    .dark [data-slot="sidebar-inset"],
+    html.dark [data-slot="sidebar-inset"] {
+        background: #0a0a0a !important;
+    }
+
+    /* Orange-based Color Palette Utilities */
+    .bg-orange-primary {
+        background-color: #F58E18 !important;
+    }
+
+    .bg-orange-primary-light {
+        background-color: #FFE5D0 !important;
+    }
+
+    .bg-orange-primary-dark {
+        background-color: #EA580C !important;
+    }
+
+    .text-orange-primary {
+        color: #F58E18 !important;
+    }
+
+    .text-orange-primary-light {
+        color: #FFE5D0 !important;
+    }
+
+    .text-orange-primary-dark {
+        color: #EA580C !important;
+    }
+
+    .border-orange-primary {
+        border-color: #F58E18 !important;
+    }
+
+    .ring-orange-primary {
+        --tw-ring-color: #F58E18 !important;
+    }
+
+    /* Status Color Utilities */
+    .bg-success {
+        background-color: #10b981 !important;
+    }
+
+    .bg-success-light {
+        background-color: #D1FAE5 !important;
+    }
+
+    .bg-warning {
+        background-color: #f59e0b !important;
+    }
+
+    .bg-warning-light {
+        background-color: #FEF3C7 !important;
+    }
+
+    .bg-error {
+        background-color: #ef4444 !important;
+    }
+
+    .bg-error-light {
+        background-color: #FEE2E2 !important;
+    }
+
+    .bg-info {
+        background-color: #3b82f6 !important;
+    }
+
+    .bg-info-light {
+        background-color: #DBEAFE !important;
+    }
+
+    /* Dark Mode Status Colors */
+    .dark .bg-success-light,
+    html.dark .bg-success-light {
+        background-color: #065F46 !important;
+    }
+
+    .dark .bg-warning-light,
+    html.dark .bg-warning-light {
+        background-color: #78350F !important;
+    }
+
+    .dark .bg-error-light,
+    html.dark .bg-error-light {
+        background-color: #7F1D1D !important;
+    }
+
+    .dark .bg-info-light,
+    html.dark .bg-info-light {
+        background-color: #1E3A8A !important;
+    }
+
+    /* Accent Color Classes */
+    .accent-blue {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    .accent-green {
+        background-color: #10b981;
+        color: white;
+    }
+
+    .accent-purple {
+        background-color: #8b5cf6;
+        color: white;
+    }
+
+    .accent-orange {
+        background-color: #F58E18;
+        color: white;
+    }
+
+    .accent-red {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    /* Hover Effects with Orange Accent */
+    .hover-orange:hover {
+        background-color: #F58E18 !important;
+        color: white !important;
+    }
+
+    .hover-orange-light:hover {
+        background-color: #FFE5D0 !important;
+    }
+
+    /* Beautiful Card Styles with Orange Accent */
+    .card-orange {
+        background: white;
+        border: 1px solid #FFE5D0;
+        border-left: 4px solid #F58E18;
+    }
+
+    .dark .card-orange,
+    html.dark .card-orange {
+        background: #1a1a1a;
+        border-color: #7C2D12;
+        border-left-color: #F58E18;
+    }
+
+    /* Badge Styles */
+    .badge-orange {
+        background-color: #FFE5D0;
+        color: #C8710F;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .dark .badge-orange,
+    html.dark .badge-orange {
+        background-color: #7C2D12;
+        color: #FDBA74;
+    }
+
+    /* Ensure Inertia root takes full height but allows scrolling */
+    body > div {
+        min-height: 100vh;
+    }
+
+    /* Kurdish and Arabic text styling */
+    .text-kurdish, .text-arabic {
+        @apply font-sans;
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* Modern glass morphism effects */
+    .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .glass {
+        background: rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Modern Blue Gradient Backgrounds */
+    .gradient-primary {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+    }
+
+    .gradient-secondary {
+        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+
+    .gradient-mint-teal {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+    }
+
+    .gradient-mint-teal-horizontal {
+        background: linear-gradient(90deg, #F58E18 0%, #EA580C 100%);
+    }
+
+    .gradient-mint-teal-vertical {
+        background: linear-gradient(180deg, #F58E18 0%, #EA580C 100%);
+    }
+
+    .gradient-mint-teal-radial {
+        background: radial-gradient(circle, #F58E18 0%, #EA580C 100%);
+    }
+
+    /* Modern Blue Gradient for Active States */
+    .gradient-active {
+        background: #F58E18 !important;
+        color: white !important;
+        border: none !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .gradient-active:hover {
+        background: #EA580C !important;
+    }
+
+    .gradient-active-horizontal {
+        background: #F58E18;
+        color: white;
+        border: none;
+    }
+
+    .gradient-active-vertical {
+        background: #F58E18;
+        color: white;
+        border: none;
+    }
+
+    .gradient-active-radial {
+        background: #F58E18;
+        color: white;
+        border: none;
+    }
+
+    /* Modern Button Styles - Simple Orange */
+    .gradient-button-primary {
+        background: #F58E18;
+        color: white;
+        border: none;
+    }
+
+    .gradient-button-primary:hover {
+        background: #EA580C;
+    }
+
+    .gradient-button-secondary {
+        background: #ffffff;
+        color: #1e293b;
+        border: 1px solid #e5e7eb;
+    }
+
+    .gradient-button-secondary:hover {
+        background: #f9fafb;
+    }
+
+    .gradient-button-accent {
+        background: #F58E18;
+        color: white;
+        border: none;
+    }
+
+    .gradient-button-accent:hover {
+        background: #EA580C;
+    }
+
+    .gradient-button-outline {
+        background: transparent;
+        color: #F58E18;
+        border: 2px solid #F58E18;
+    }
+
+    .gradient-button-outline:hover {
+        background: #F58E18;
+        color: white;
+    }
+
+    /* Modern Background - Pure White */
+    .bg-gradient-subtle {
+        background: #ffffff;
+    }
+
+    .bg-gradient-card {
+        background: #ffffff;
+    }
+
+    .bg-gradient-sidebar {
+        background: #ffffff;
+    }
+
+    .dark .bg-gradient-subtle,
+    html.dark .bg-gradient-subtle {
+        background: #0a0a0a;
+    }
+
+    .dark .bg-gradient-card,
+    html.dark .bg-gradient-card {
+        background: #1a1a1a;
+    }
+
+    .dark .bg-gradient-sidebar,
+    html.dark .bg-gradient-sidebar {
+        background: #0a0a0a;
+    }
+
+    .bg-gradient-login {
+        background: linear-gradient(to right, #E2E2E2, #C6D7FE);
+    }
+
+    /* Text gradient effects */
+    .text-gradient-mint-teal {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .text-gradient-professional {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .text-gradient-active {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Enhanced Active State Styling - Simple Orange */
+    [data-active="true"] {
+        background: #F58E18 !important;
+        color: white !important;
+        font-weight: 500 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    [data-active="true"] svg {
+        color: white !important;
+    }
+
+    [data-active="true"] span {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* More specific selectors for sidebar menu buttons */
+    [data-slot="sidebar-menu-button"][data-active="true"] {
+        background: #F58E18 !important;
+        color: white !important;
+        font-weight: 500 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    [data-slot="sidebar-menu-button"][data-active="true"] svg {
+        color: white !important;
+    }
+
+    [data-slot="sidebar-menu-button"][data-active="true"] span {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* Direct class-based styling for active states */
+    .gradient-active {
+        background: #F58E18 !important;
+        color: white !important;
+        font-weight: 500 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .gradient-active:hover {
+        background: #EA580C !important;
+    }
+
+    .gradient-active svg {
+        color: white !important;
+    }
+
+    .gradient-active span {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* Enhanced shadows */
+    .shadow-modern {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Modern Login Animation Styles */
+    .modern-login-container {
+        background-color: #fff;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+        width: 768px;
+        max-width: 100%;
+        min-height: 480px;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .modern-login-container.active {
+        /* Animation state when toggled */
+    }
+
+    .modern-login-form-container {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .modern-login-sign-in {
+        left: 0;
+        width: 50%;
+        z-index: 2;
+    }
+
+    .modern-login-container.active .modern-login-sign-in {
+        transform: translateX(100%);
+    }
+
+    .modern-login-sign-up {
+        left: 0;
+        width: 50%;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .modern-login-container.active .modern-login-sign-up {
+        transform: translateX(100%);
+        opacity: 1;
+        z-index: 5;
+        animation: modernMove 0.6s;
+    }
+
+    @keyframes modernMove {
+        0%, 49.99% {
+            opacity: 0;
+            z-index: 1;
+        }
+        50%, 100% {
+            opacity: 1;
+            z-index: 5;
+        }
+    }
+
+    .modern-login-toggle-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        transition: all 0.6s ease-in-out;
+        border-radius: 150px 0 0 100px;
+        z-index: 1000;
+    }
+
+    .modern-login-container.active .modern-login-toggle-container {
+        transform: translateX(-100%);
+        border-radius: 0 150px 100px 0;
+    }
+
+    .modern-login-toggle {
+        background: linear-gradient(to right, #F58E18, #EA580C);
+        height: 100%;
+        color: #fff;
+        position: relative;
+        left: -100%;
+        height: 100%;
+        width: 200%;
+        transform: translateX(0);
+        transition: all 0.6s ease-in-out;
+    }
+
+    .modern-login-container.active .modern-login-toggle {
+        transform: translateX(50%);
+    }
+
+    .modern-login-toggle-panel {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 30px;
+        text-align: center;
+        top: 0;
+        transform: translateX(0);
+        transition: all 0.6s ease-in-out;
+    }
+
+    .modern-login-toggle-left {
+        transform: translateX(-200%);
+    }
+
+    .modern-login-container.active .modern-login-toggle-left {
+        transform: translateX(0);
+    }
+
+    .modern-login-toggle-right {
+        right: 0;
+        transform: translateX(0);
+    }
+
+    .modern-login-container.active .modern-login-toggle-right {
+        transform: translateX(200%);
+    }
+
+    .shadow-modern-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .shadow-modern {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .dark .shadow-modern-lg {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Modern animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    .animate-slide-in-right {
+        animation: slideInRight 0.3s ease-out;
+    }
+
+    /* Modern focus states */
+    .focus-modern:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px hsl(var(--ring) / 0.3);
+        border-color: hsl(var(--ring));
+    }
+
+    /* Simple button styles - no hover effects */
+    .btn-modern {
+        @apply relative;
+    }
+
+    /* Modern card styles */
+    .card-modern {
+        @apply transition-all duration-300 ease-out;
+        border: 1px solid hsl(var(--border));
+    }
+
+    .card-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        border-color: hsl(var(--accent));
+    }
+
+    .dark .card-modern:hover {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Button Gradient Classes */
+    .gradient-active {
+        background: linear-gradient(135deg, #F58E18 0%, #EA580C 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-active:hover {
+        background: linear-gradient(135deg, #EA580C 0%, #DC2626 100%);
+    }
+
+    .gradient-button-outline {
+        background: transparent;
+        border: 2px solid #F58E18;
+        color: #F58E18;
+    }
+
+    .gradient-button-outline:hover {
+        background: #F58E18;
+        color: white;
+    }
+
+    .gradient-button-secondary {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        color: #0c4a6e;
+        border: none;
+    }
+
+    .gradient-button-secondary:hover {
+        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    }
+
+    .gradient-button-accent {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-button-accent:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    /* Green Button Variants */
+    .gradient-green {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-green:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    .gradient-green-outline {
+        background: transparent;
+        border: 2px solid #10b981;
+        color: #10b981;
+    }
+
+    .gradient-green-outline:hover {
+        background: #10b981;
+        color: white;
+    }
+
+    /* Red Button Variants */
+    .gradient-red {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-red:hover {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+
+    .gradient-red-outline {
+        background: transparent;
+        border: 2px solid #ef4444;
+        color: #ef4444;
+    }
+
+    .gradient-red-outline:hover {
+        background: #ef4444;
+        color: white;
+    }
+
+    /* Orange Button Variants */
+    .gradient-orange {
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-orange:hover {
+        background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    }
+
+    .gradient-orange-outline {
+        background: transparent;
+        border: 2px solid #f97316;
+        color: #f97316;
+    }
+
+    .gradient-orange-outline:hover {
+        background: #f97316;
+        color: white;
+    }
+
+    /* Purple Button Variants */
+    .gradient-purple {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-purple:hover {
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    }
+
+    .gradient-purple-outline {
+        background: transparent;
+        border: 2px solid #8b5cf6;
+        color: #8b5cf6;
+    }
+
+    .gradient-purple-outline:hover {
+        background: #8b5cf6;
+        color: white;
+    }
+
+    /* Yellow Button Variants */
+    .gradient-yellow {
+        background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-yellow:hover {
+        background: linear-gradient(135deg, #ca8a04 0%, #a16207 100%);
+    }
+
+    .gradient-yellow-outline {
+        background: transparent;
+        border: 2px solid #eab308;
+        color: #eab308;
+    }
+
+    .gradient-yellow-outline:hover {
+        background: #eab308;
+        color: white;
+    }
+
+    /* Pink Button Variants */
+    .gradient-pink {
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        color: white;
+        border: none;
+    }
+
+    .gradient-pink:hover {
+        background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
+    }
+
+    .gradient-pink-outline {
+        background: transparent;
+        border: 2px solid #ec4899;
+        color: #ec4899;
+    }
+
+    .gradient-pink-outline:hover {
+        background: #ec4899;
+        color: white;
+    }
+
+    /* Color-Matched Hover Effects */
+    /* Green hover for green elements */
+    .hover-green:hover {
+        background-color: #10b981 !important;
+        border-color: #10b981 !important;
+        color: white !important;
+    }
+
+    .hover-green-focus:focus {
+        border-color: #10b981 !important;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+    }
+
+    /* Orange hover for orange elements */
+    .hover-orange:hover {
+        background-color: #F58E18 !important;
+        border-color: #F58E18 !important;
+        color: white !important;
+    }
+
+    .hover-orange-focus:focus {
+        border-color: #F58E18 !important;
+        box-shadow: 0 0 0 3px rgba(245, 142, 24, 0.1) !important;
+    }
+
+    /* Purple hover for purple elements */
+    .hover-purple:hover {
+        background-color: #8b5cf6 !important;
+        border-color: #8b5cf6 !important;
+        color: white !important;
+    }
+
+    .hover-purple-focus:focus {
+        border-color: #8b5cf6 !important;
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+    }
+
+    /* Red hover for red elements */
+    .hover-red:hover {
+        background-color: #ef4444 !important;
+        border-color: #ef4444 !important;
+        color: white !important;
+    }
+
+    .hover-red-focus:focus {
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+    }
+
+    /* Orange hover for orange elements */
+    .hover-orange:hover {
+        background-color: #f97316 !important;
+        border-color: #f97316 !important;
+        color: white !important;
+    }
+
+    .hover-orange-focus:focus {
+        border-color: #f97316 !important;
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1) !important;
+    }
+
+    /* Yellow hover for yellow elements */
+    .hover-yellow:hover {
+        background-color: #eab308 !important;
+        border-color: #eab308 !important;
+        color: white !important;
+    }
+
+    .hover-yellow-focus:focus {
+        border-color: #eab308 !important;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.1) !important;
+    }
+
+    /* Pink hover for pink elements */
+    .hover-pink:hover {
+        background-color: #ec4899 !important;
+        border-color: #ec4899 !important;
+        color: white !important;
+    }
+
+    .hover-pink-focus:focus {
+        border-color: #ec4899 !important;
+        box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1) !important;
+    }
+
+    /* Sidebar Hover Effects */
+    [data-slot="sidebar-menu-button"]:hover {
+        background-color: hsl(var(--sidebar-accent)) !important;
+        color: hsl(var(--sidebar-accent-foreground)) !important;
+        transform: translateX(2px) !important;
+    }
+
+    [data-slot="sidebar-menu-button"]:hover svg {
+        color: hsl(var(--sidebar-accent-foreground)) !important;
+    }
+
+    [data-slot="sidebar-menu-button"]:hover span {
+        color: hsl(var(--sidebar-accent-foreground)) !important;
+    }
+
+    /* Dropdown Menu Item Overrides */
+    /* Theme dropdown - Purple theme */
+    [data-radix-dropdown-menu-item][class*="hover:!bg-purple"]:hover {
+        background-color: rgb(250 245 255) !important; /* purple-50 */
+        color: rgb(126 34 206) !important; /* purple-700 */
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="hover:!bg-purple"]:hover {
+        background-color: #431407 !important; /* orange theme */
+        color: #fed7aa !important; /* orange theme text */
+    }
+
+    /* Language dropdown - Orange theme */
+    [data-radix-dropdown-menu-item][class*="hover:!bg-orange"]:hover {
+        background-color: rgb(255 247 237) !important; /* orange-50 */
+        color: rgb(194 65 12) !important; /* orange-700 */
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="hover:!bg-orange"]:hover {
+        background-color: #431407 !important; /* orange theme */
+        color: #fed7aa !important; /* orange theme text */
+    }
+
+    /* Focus states */
+    [data-radix-dropdown-menu-item][class*="focus:!bg-purple"]:focus {
+        background-color: rgb(250 245 255) !important;
+        color: rgb(126 34 206) !important;
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="focus:!bg-purple"]:focus {
+        background-color: #431407 !important;
+        color: #fed7aa !important;
+    }
+
+    [data-radix-dropdown-menu-item][class*="focus:!bg-orange"]:focus {
+        background-color: rgb(255 247 237) !important;
+        color: rgb(194 65 12) !important;
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="focus:!bg-orange"]:focus {
+        background-color: #431407 !important;
+        color: #fed7aa !important;
+    }
+
+    /* Profile dropdown - Green theme */
+    [data-radix-dropdown-menu-item][class*="hover:!bg-green"]:hover {
+        background-color: rgb(240 253 244) !important; /* green-50 */
+        color: rgb(21 128 61) !important; /* green-700 */
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="hover:!bg-green"]:hover {
+        background-color: rgba(20, 83, 45, 0.2) !important; /* green-900/20 */
+        color: rgb(134 239 172) !important; /* green-300 */
+    }
+
+    [data-radix-dropdown-menu-item][class*="focus:!bg-green"]:focus {
+        background-color: rgb(240 253 244) !important;
+        color: rgb(21 128 61) !important;
+    }
+
+    .dark [data-radix-dropdown-menu-item][class*="focus:!bg-green"]:focus {
+        background-color: rgba(20, 83, 45, 0.2) !important;
+        color: rgb(134 239 172) !important;
+    }
+
+    /* Disable all hover effects for no-hover class */
+    .no-hover:hover {
+        background-color: transparent !important;
+        color: inherit !important;
+        border-color: inherit !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    .no-hover:hover * {
+        color: inherit !important;
+    }
+
+    /* Global cursor pointer for all interactive elements */
+    button,
+    [role="button"],
+    [data-slot="button"],
+    a:not([aria-disabled="true"]):not([disabled]),
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    input[type="checkbox"],
+    input[type="radio"],
+    select,
+    [role="menuitem"],
+    [role="option"],
+    [role="tab"],
+    [role="switch"],
+    [data-radix-dropdown-menu-item],
+    [data-radix-dropdown-menu-trigger],
+    [data-radix-select-trigger],
+    [data-radix-select-item],
+    [data-radix-popover-trigger],
+    [data-radix-dialog-trigger],
+    [data-radix-accordion-trigger],
+    [data-radix-tabs-trigger],
+    [data-radix-menu-item],
+    [data-radix-menu-trigger],
+    [data-radix-context-menu-item],
+    [data-radix-context-menu-trigger],
+    [data-radix-dropdown-menu-checkbox-item],
+    [data-radix-dropdown-menu-radio-item],
+    [data-radix-dropdown-menu-sub-trigger],
+    [data-radix-select-trigger],
+    [data-radix-select-item],
+    [data-radix-label],
+    .cursor-pointer,
+    [class*="dropdown"],
+    [class*="menu-item"],
+    [class*="select-trigger"],
+    [class*="select-item"],
+    [class*="accordion-trigger"],
+    [class*="tabs-trigger"],
+    [class*="dialog-trigger"],
+    [class*="popover-trigger"] {
+        cursor: pointer !important;
+    }
+
+    /* Disable cursor pointer for disabled elements */
+    button:disabled,
+    [role="button"][aria-disabled="true"],
+    [role="button"][disabled],
+    a[aria-disabled="true"],
+    a[disabled],
+    input:disabled,
+    select:disabled,
+    [data-radix-dropdown-menu-item][data-disabled],
+    [data-radix-select-item][data-disabled],
+    [data-radix-menu-item][data-disabled] {
+        cursor: not-allowed !important;
+    }
+
+    /* Ensure non-interactive elements don't have pointer cursor */
+    button[aria-disabled="true"],
+    button[disabled],
+    [role="button"][aria-disabled="true"],
+    [role="button"][disabled] {
+        cursor: not-allowed !important;
+    }
+}

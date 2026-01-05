@@ -1,0 +1,1677 @@
+{
+  "app": {
+    "name": "مطبعة الحاجي",
+    "tagline": "خدمات الطباعة المهنية",
+    "description": "شريكك الموثوق لجميع احتياجات الطباعة في إقليم كردستان"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "creating": "جاري الإنشاء...",
+    "update": "تحديث",
+    "updating": "جاري التحديث...",
+    "justNow": "الآن",
+    "close": "إغلاق",
+    "buttons": {
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "cancel": "إلغاء",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "create": "إنشاء",
+      "search": "بحث",
+      "back": "رجوع",
+      "next": "التالي",
+      "previous": "السابق",
+      "close": "إغلاق",
+      "open": "فتح",
+      "view": "عرض",
+      "add": "إضافة",
+      "remove": "إزالة",
+      "update": "تحديث",
+      "submit": "إرسال",
+      "reset": "إعادة تعيين",
+      "confirm": "تأكيد",
+      "yes": "نعم",
+      "no": "لا",
+      "ok": "موافق",
+      "refresh": "تحديث",
+      "refreshing": "جاري التحديث...",
+      "clear": "مسح"
+    },
+    "labels": {
+      "total": "المجموع الكلي",
+      "quantity": "الكمية",
+      "price": "السعر",
+      "amount": "المبلغ",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "status": "الحالة",
+      "description": "الوصف",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "customer": "العميل",
+      "address": "العنوان",
+      "category": "الفئة",
+      "type": "النوع",
+      "width": "العرض",
+      "height": "الارتفاع"
+    },
+    "messages": {
+      "loading": "جاري التحميل...",
+      "error": "خطأ",
+      "success": "نجح",
+      "noData": "لا توجد بيانات متاحة",
+      "confirmDelete": "هل أنت متأكد من حذف هذا العنصر؟",
+      "operationSuccess": "تمت العملية بنجاح",
+      "operationFailed": "فشلت العملية"
+    },
+    "navigation": {
+      "dashboard": "لوحة التحكم",
+      "products": "المنتجات",
+      "users": "المستخدمون",
+      "pointOfSale": "نقطة البيع",
+      "settings": "الإعدادات",
+      "profile": "الملف الشخصي",
+      "password": "كلمة المرور",
+      "appearance": "المظهر",
+      "login": "تسجيل الدخول",
+      "language": "اللغة"
+    },
+    "dashboard": "لوحة التحكم",
+    "appearance": {
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام"
+    },
+    "languages": {
+      "en": "الإنجليزية",
+      "ku": "الكردية",
+      "ar": "العربية"
+    },
+    "fullscreen": {
+      "enter": "دخول وضع ملء الشاشة (F11)",
+      "exit": "خروج من وضع ملء الشاشة (F11)"
+    },
+    "status": {
+      "paid": "مدفوع",
+      "debt": "دين",
+      "pending": "في الانتظار"
+    },
+    "unknown": "غير معروف",
+    "calculator": "آلة حاسبة",
+    "maxLengthReached": "تم الوصول إلى الحد الأقصى للطول",
+    "or": "أو"
+  },
+  "roles": {
+    "admin": {
+      "brandName": "مطبعة الحاجي",
+      "adminPanel": "لوحة الإدارة",
+      "userRole": "مدير"
+    },
+    "cashier": {
+      "brandName": "مطبعة الحاجي",
+      "cashierPanel": "لوحة الصندوق",
+      "userRole": "صندوق"
+    },
+    "customer": {
+      "brandName": "مطبعة الحاجي",
+      "customerPanel": "لوحة العميل",
+      "userRole": "عميل",
+      "dashboard": {
+        "title": "لوحة تحكم العميل",
+        "welcome": "مرحباً بك في لوحة التحكم الخاصة بك",
+        "overview": "عرض طلباتك ومعلومات حسابك",
+        "welcomeBack": "مرحباً بعودتك، {{name}}! 👋",
+        "printingJourneyOverview": "إليك نظرة عامة على رحلة الطباعة الخاصة بك",
+        "memberSince": "عضو منذ",
+        "totalOrders": "إجمالي الطلبات",
+        "totalSpent": "إجمالي المبلغ المنفق",
+        "paidAmount": "المبلغ المدفوع",
+        "debtAmount": "مبلغ الدين",
+        "allTransactions": "جميع المعاملات",
+        "totalTransactions": "الإجمالي: {{count}} معاملة",
+        "searchPlaceholder": "البحث برقم الطلب، اسم المنتج، أو الحالة...",
+        "loadingTransactions": "جاري تحميل المعاملات...",
+        "noTransactionsFound": "لم يتم العثور على معاملات",
+        "orderId": "رقم الطلب",
+        "date": "التاريخ",
+        "product": "المنتج",
+        "type": "النوع",
+        "qty": "الكمية",
+        "unitPrice": "سعر الوحدة",
+        "total": "الإجمالي",
+        "status": "الحالة",
+        "unknownProduct": "منتج غير معروف",
+        "noItems": "لا توجد عناصر",
+        "more": "المزيد",
+        "showing": "عرض",
+        "to": "إلى",
+        "of": "من",
+        "transactions": "معاملات",
+        "previous": "السابق",
+        "prev": "السابق",
+        "next": "التالي",
+        "noOrdersYet": "لا توجد طلبات بعد",
+        "dayAgo": "{{count}} يوم مضى",
+        "daysAgo": "{{count}} أيام مضت",
+        "weeksAgo": "{{count}} أسابيع مضت",
+        "monthsAgo": "{{count}} أشهر مضت",
+        "notAvailable": "غير متوفر"
+      }
+    }
+  },
+  "user": {
+    "logout": "تسجيل الخروج"
+  },
+  "customer": {
+    "dashboard": {
+      "title": "لوحة تحكم العميل",
+      "welcome": "مرحباً بك في لوحة التحكم الخاصة بك",
+      "overview": "عرض طلباتك ومعلومات حسابك",
+      "welcomeBack": "مرحباً بعودتك، {{name}}! 👋",
+      "printingJourneyOverview": "إليك نظرة عامة على رحلة الطباعة الخاصة بك",
+      "memberSince": "عضو منذ",
+      "totalOrders": "إجمالي الطلبات",
+      "totalSpent": "إجمالي المبلغ المنفق",
+      "paidAmount": "المبلغ المدفوع",
+      "debtAmount": "مبلغ الدين",
+      "allTransactions": "جميع المعاملات",
+      "totalTransactions": "الإجمالي: {{count}} معاملة",
+      "searchPlaceholder": "البحث برقم الطلب، اسم المنتج، أو الحالة...",
+      "loadingTransactions": "جاري تحميل المعاملات...",
+      "noTransactionsFound": "لم يتم العثور على معاملات",
+      "orderId": "رقم الطلب",
+      "date": "التاريخ",
+      "product": "المنتج",
+      "type": "النوع",
+      "qty": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "total": "الإجمالي",
+      "status": "الحالة",
+      "unknownProduct": "منتج غير معروف",
+      "noItems": "لا توجد عناصر",
+      "more": "المزيد",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "transactions": "معاملات",
+      "previous": "السابق",
+      "prev": "السابق",
+      "next": "التالي",
+      "noOrdersYet": "لا توجد طلبات بعد",
+      "dayAgo": "{{count}} يوم مضى",
+      "daysAgo": "{{count}} أيام مضت",
+      "weeksAgo": "{{count}} أسابيع مضت",
+      "monthsAgo": "{{count}} أشهر مضت",
+      "notAvailable": "غير متوفر",
+      "actions": "الإجراءات",
+      "preview": "معاينة",
+      "previewInvoice": "معاينة الفاتورة",
+      "transactionDetails": "تفاصيل المعاملة",
+      "printInvoice": "طباعة الفاتورة",
+      "notifications": "الإشعارات",
+      "markAllRead": "تعيين الكل كمقروء",
+      "noNotifications": "لا توجد إشعارات",
+      "newTransaction": "معاملة جديدة",
+      "newOffer": "عرض جديد",
+      "totalSummary": "ملخص المجموع",
+      "finalAmount": "المبلغ النهائي",
+      "subtotal": "المجموع الفرعي",
+      "discount": "خصم",
+      "grandTotal": "المجموع الكلي",
+      "invoiceNote": "هذه معاينة للفاتورة الخاصة بك. انقر على طباعة لإنشاء المستند الرسمي."
+    }
+  },
+  "pos": {
+    "title": "نقطة البيع",
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "السلة فارغة"
+    },
+    "searchProductsPlaceholder": "البحث عن المنتجات بالاسم...",
+    "searchCustomersPlaceholder": "البحث عن العملاء بالاسم أو الهاتف...",
+    "noCustomersFound": "لم يتم العثور على عملاء يبدؤون بـ \"{{query}}\"",
+    "customerSearchHint": "جرب البحث بالاسم أو البريد الإلكتروني أو الهاتف (يبدأ بـ)",
+    "emptyCartMessage": "أضف منتجات إلى سلة التسوق للبدء",
+    "actions": {
+      "clearCart": "مسح السلة",
+      "totalDiscount": "خصم إجمالي",
+      "sendOffer": "إرسال عرض",
+      "checkout": "إنهاء الشراء"
+    },
+    "sendOfferTitle": "إرسال عرض",
+    "whatsappPhoneNumber": "رقم هاتف واتساب",
+    "invalidPhoneNumber": "يرجى إدخال رقم هاتف عراقي صحيح",
+    "enterWidth": "أدخل العرض بالسنتيمتر",
+    "enterHeight": "أدخل الارتفاع بالسنتيمتر",
+    "enterWeight": "أدخل الوزن بالكيلوجرام",
+    "dimensions": {
+      "cm": "سم",
+      "kg": "كغ",
+      "enterDimensions": "أدخل الأبعاد",
+      "enterDimensionsBelow": "أدخل الأبعاد أدناه",
+      "width": "العرض",
+      "height": "الارتفاع",
+      "weight": "الوزن",
+      "acceptDimensions": "قبول الأبعاد"
+    },
+    "checkout": {
+      "title": "إنهاء الشراء",
+      "customer": "العميل",
+      "email": "البريد الإلكتروني",
+      "whatsapp": "واتساب",
+      "discount": "خصم",
+      "hide": "إخفاء",
+      "addDiscount": "إضافة خصم",
+      "enterDiscountAmount": "أدخل مبلغ الخصم",
+      "clear": "مسح",
+      "item": "عنصر",
+      "items": "العناصر",
+      "product": "المنتج",
+      "size": "الحجم",
+      "qty": "الكمية",
+      "price": "السعر",
+      "total": "المجموع الكلي",
+      "subtotal": "المجموع الفرعي",
+      "productDiscounts": "خصومات المنتج",
+      "grandTotal": "المجموع الكلي",
+      "totalAmountToPay": "المبلغ الإجمالي للدفع",
+      "orderCompleted": "تم إكمال الطلب بنجاح!",
+      "orderSummary": "ملخص الطلب",
+      "sendConfirmation": "إرسال التأكيد",
+      "paymentStatus": "حالة الدفع",
+      "paid": "مدفوع",
+      "markAsPaid": "تحديد كمدفوع",
+      "debt": "دين",
+      "debtWarning": "سيتم تسجيل هذا كدين",
+      "processingOrder": "معالجة الطلب...",
+      "completeOrder": "إكمال الطلب",
+      "failed": "فشل في إتمام الطلب"
+    },
+    "error": {
+      "emailFailed": "فشل في إرسال البريد الإلكتروني",
+      "emailFailedDescription": "حدث خطأ في إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى.",
+      "whatsappFailed": "فشل في إرسال رسالة واتساب",
+      "whatsappFailedDescription": "حدث خطأ في إعداد رسالة واتساب. يرجى المحاولة مرة أخرى.",
+      "phoneNumberMissing": "رقم هاتف العميل مفقود أو غير صحيح. يرجى إضافة رقم هاتف لإرسال رسائل واتساب."
+    },
+    "success": {
+      "offerSent": "تم إرسال العرض بنجاح",
+      "offerSentDescription": "تم إرسال عرض السعر {{orderId}} إلى {{customerName}}"
+    }
+  },
+  "admin": {
+    "brandName": "مطبعة الحاجي",
+    "adminPanel": "لوحة الإدارة",
+    "userRole": "مدير"
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "pos": "نقطة البيع",
+    "products": "المنتجات",
+    "transactions": "المعاملات",
+    "users": "المستخدمون",
+    "customers": "العملاء",
+    "posts": "المنشورات",
+    "settings": "الإعدادات"
+  },
+  "customers": {
+    "title": "العملاء",
+    "addCustomer": "إضافة عميل",
+    "table": {
+      "title": "قائمة العملاء",
+      "description": "عرض وإدارة جميع العملاء",
+      "searchPlaceholder": "البحث عن العميل بالاسم، البريد الإلكتروني، أو الهاتف...",
+      "name": "اسم العميل",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "username": "اسم المستخدم",
+      "role": "الدور",
+      "createdAt": "تم الإنشاء في",
+      "actions": "الإجراءات",
+      "viewTransactions": "عرض المعاملات",
+      "printReceipt": "طباعة الإيصال",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "entries": "السجلات"
+    },
+    "filters": {
+      "admin": "مدير",
+      "cashier": "صندوق",
+      "customer": "عميل"
+    },
+    "modal": {
+      "addCustomer": {
+        "title": "إضافة عميل جديد",
+        "form": {
+          "name": "الاسم الكامل",
+          "namePlaceholder": "أدخل الاسم الكامل للعميل",
+          "email": "عنوان البريد الإلكتروني",
+          "emailPlaceholder": "أدخل عنوان البريد الإلكتروني للعميل",
+          "phone": "رقم الهاتف",
+          "phonePlaceholder": "أدخل رقم هاتف العميل",
+          "username": "اسم المستخدم",
+          "usernamePlaceholder": "أدخل اسم مستخدم فريد",
+          "password": "كلمة المرور",
+          "passwordPlaceholder": "أدخل كلمة مرور آمنة",
+          "confirmPassword": "تأكيد كلمة المرور",
+          "confirmPasswordPlaceholder": "أكد كلمة المرور"
+        }
+      },
+      "editCustomer": {
+        "title": "تعديل العميل"
+      },
+      "transactions": {
+        "title": "معاملات العميل",
+        "loading": "جاري تحميل المعاملات...",
+        "noTransactions": "لم يتم العثور على أي معاملات لهذا العميل",
+        "totalTransactions": "إجمالي المعاملات",
+        "paidTransactions": "المعاملات المدفوعة",
+        "debtTransactions": "معاملات الدين",
+        "transactionHistory": "تاريخ المعاملات",
+        "showing": "عرض",
+        "of": "من",
+        "page": "صفحة",
+        "totalRecords": "إجمالي السجلات",
+        "totalDebt": "إجمالي الدين",
+        "export": "تصدير",
+        "exportFeature": "ميزة التصدير قادمة قريباً",
+        "noTransactionsToExport": "لا توجد معاملات للتصدير",
+        "exportSuccess": "تم تصدير المعاملات بنجاح",
+        "printError": "تعذر فتح نافذة الطباعة. يرجى المحاولة مرة أخرى.",
+        "printDebtSummary": "طباعة ملخص الدين",
+        "printPaidSummary": "طباعة ملخص المدفوع",
+        "exportAll": "تصدير جميع المعاملات إلى CSV",
+        "noDebtTransactions": "لا توجد معاملات دين متاحة لهذا العميل.",
+        "noPaidTransactions": "لا توجد معاملات مدفوعة متاحة لهذا العميل.",
+        "noTransactionsToExport": "لا توجد معاملات متاحة للتصدير.",
+        "exportSuccess": "تم تصدير المعاملات بنجاح.",
+        "exportError": "فشل في تصدير المعاملات. يرجى المحاولة مرة أخرى.",
+        "printDebtSummaryError": "فشل في إنشاء ملخص الدين. يرجى المحاولة مرة أخرى.",
+        "printPaidSummaryError": "فشل في إنشاء ملخص المدفوع. يرجى المحاولة مرة أخرى.",
+        "buttons": {
+          "close": "إغلاق"
+        }
+      },
+      "deleteCustomer": {
+        "title": "حذف العميل",
+        "warning": "تحذير! لا يمكن التراجع عن هذا الإجراء.",
+        "description": "أنت على وشك حذف حساب هذا العميل بالكامل. ستختفي جميع البيانات المرتبطة.",
+        "buttons": {
+          "cancel": "إلغاء",
+          "delete": "حذف العميل",
+          "deleting": "جاري الحذف..."
+        }
+      }
+    }
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "stats": {
+      "totalSales": "إجمالي المبيعات",
+      "totalOrders": "إجمالي الطلبات",
+      "totalCustomers": "إجمالي العملاء",
+      "totalProducts": "إجمالي المنتجات"
+    },
+    "vsLastPeriod": "مقارنة بالفترة السابقة",
+    "paidRevenue": "الإيرادات المدفوعة",
+    "debtRevenue": "إيرادات الدين",
+    "recentTransactions": "المعاملات الأخيرة"
+  },
+  "products": {
+    "title": "المنتجات",
+    "noResults": "لم يتم العثور على منتجات",
+    "noResultsDescription": "جرب تعديل معايير البحث أو الفلترة للعثور على المنتجات التي تبحث عنها.",
+    "modal": {
+      "addProduct": {
+        "title": "إضافة منتج جديد",
+        "form": {
+          "name": "اسم المنتج",
+          "namePlaceholder": "أدخل اسم المنتج",
+          "price": "السعر",
+          "pricePlaceholder": "أدخل السعر",
+          "type": "نوع المنتج",
+          "typePlaceholder": "اختر نوع المنتج",
+          "width": "العرض",
+          "widthPlaceholder": "أدخل العرض بالسنتيمتر",
+          "height": "الارتفاع",
+          "heightPlaceholder": "أدخل الارتفاع بالسنتيمتر",
+          "selectWidthHeightFirst": "اختر العرض والارتفاع أولاً",
+          "typeOptions": {
+            "pcs": "قطعة",
+            "kg": "كيلوجرام",
+            "widthHeight": "عرض × ارتفاع"
+          }
+        },
+        "buttons": {
+          "cancel": "إلغاء",
+          "addProduct": "إضافة المنتج"
+        }
+      },
+      "editProduct": {
+        "title": "تعديل المنتج",
+        "buttons": {
+          "updateProduct": "تحديث المنتج"
+        }
+      },
+      "viewProduct": {
+        "title": "عرض المنتج",
+        "description": "عرض المعلومات الكاملة حول هذا المنتج",
+        "price": "السعر",
+        "type": "النوع",
+        "dimensions": "الأبعاد",
+        "width": "العرض",
+        "height": "الارتفاع",
+        "createdAt": "تم الإنشاء في",
+        "updatedAt": "تم التحديث في"
+      },
+      "deleteProduct": {
+        "title": "حذف المنتج",
+        "warning": "تحذير! لا يمكن التراجع عن هذا الإجراء.",
+        "description": "هل أنت متأكد من أنك تريد حذف هذا المنتج؟ لا يمكن التراجع عن هذا الإجراء.",
+        "buttons": {
+          "cancel": "إلغاء",
+          "delete": "حذف المنتج",
+          "deleting": "جاري الحذف..."
+        }
+      }
+    },
+    "filters": {
+      "title": "المرشحات",
+      "description": "تصفية والبحث في المنتجات",
+      "search": "بحث",
+      "searchPlaceholder": "البحث عن المنتج بالاسم...",
+      "type": "النوع",
+      "allTypes": "جميع الأنواع",
+      "pcs": "قطعة",
+      "kg": "كيلوجرام",
+      "widthHeight": "عرض × ارتفاع",
+      "sortByName": "الاسم",
+      "sortByPrice": "السعر",
+      "sortByDate": "تاريخ الإنشاء",
+      "price": "السعر",
+      "sortBy": "ترتيب حسب",
+      "order": "الترتيب",
+      "ascending": "تصاعدي",
+      "descending": "تنازلي",
+      "minPrice": "أقل سعر",
+      "maxPrice": "أعلى سعر",
+      "clear": "مسح المرشحات",
+      "advanced": "مرشحات متقدمة",
+      "hide": "إخفاء المتقدم"
+    },
+    "table": {
+      "title": "قائمة المنتجات",
+      "description": "عرض وإدارة جميع المنتجات",
+      "name": "اسم المنتج",
+      "price": "السعر",
+      "type": "النوع",
+      "createdAt": "تم الإنشاء في",
+      "actions": "الإجراءات",
+      "loading": "جاري تحميل المنتجات...",
+      "noProducts": "لم يتم العثور على أي منتجات",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "entries": "السجلات"
+    }
+  },
+  "transactions": {
+    "title": "المعاملات",
+    "filters": {
+      "title": "المرشحات",
+      "description": "تصفية والبحث في المعاملات",
+      "search": "بحث",
+      "searchPlaceholder": "البحث باسم العميل، معرف الطلب...",
+      "status": "الحالة",
+      "allStatuses": "جميع الحالات",
+      "paid": "مدفوع",
+      "debt": "دين",
+      "pending": "في الانتظار",
+      "paymentMethod": "طريقة الدفع",
+      "allPaymentMethods": "جميع طرق الدفع",
+      "cash": "نقد",
+      "card": "بطاقة",
+      "dateRange": "نطاق التاريخ",
+      "fromDate": "من تاريخ",
+      "toDate": "إلى تاريخ",
+      "amountRange": "نطاق المبلغ",
+      "minAmount": "أقل مبلغ",
+      "maxAmount": "أعلى مبلغ",
+      "sortBy": "ترتيب حسب",
+      "sortByDate": "التاريخ",
+      "sortByAmount": "المبلغ",
+      "sortByOrderId": "معرف الطلب",
+      "sortByStatus": "الحالة",
+      "order": "الترتيب",
+      "ascending": "تصاعدي",
+      "descending": "تنازلي",
+      "clear": "مسح الكل",
+      "show": "إظهار المرشحات",
+      "hide": "إخفاء المرشحات",
+      "advanced": "مرشحات متقدمة",
+      "active": "نشط"
+    },
+    "table": {
+      "title": "قائمة المعاملات",
+      "description": "عرض وإدارة جميع المعاملات",
+      "orderId": "معرف الطلب",
+      "customer": "العميل",
+      "date": "التاريخ",
+      "amount": "المبلغ",
+      "type": "النوع",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "payDebt": "دفع الدين",
+      "acceptAsPaid": "قبول كمدفوع",
+      "acceptAsDebt": "قبول كدين",
+      "rejectOffer": "رفض العرض",
+      "noTransactions": "لم يتم العثور على أي معاملات",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "entries": "السجلات"
+    },
+    "detail": {
+      "title": "تفاصيل المعاملة",
+      "orderId": "معرف الطلب",
+      "status": "الحالة",
+      "date": "التاريخ",
+      "customerInfo": "معلومات العميل",
+      "processedBy": "تمت المعالجة بواسطة",
+      "cashierName": "اسم الصندوق",
+      "role": "الدور",
+      "orderItems": "عناصر الطلب",
+      "type": "النوع",
+      "quantity": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "dimensions": "الأبعاد",
+      "weight": "الوزن",
+      "subtotal": "المجموع الفرعي",
+      "discount": "خصم",
+      "grandTotal": "المجموع الكلي",
+      "finalAmount": "المبلغ النهائي",
+      "loading": "جاري تحميل تفاصيل المعاملة...",
+      "notFound": "لم يتم العثور على المعاملة",
+      "noItems": "لم يتم العثور على أي عناصر",
+      "noCashierInfo": "لا توجد معلومات صندوق متاحة",
+      "copyId": "تم نسخ معرف الطلب إلى الحافظة",
+      "print": "طباعة الفاتورة",
+      "sendWhatsApp": "إرسال عبر واتساب",
+      "whatsapp": {
+        "title": "إرسال عبر واتساب",
+        "messageInfo": "فاتورة المعاملة",
+        "messageDescription": "سيؤدي هذا إلى فتح واتساب برسالة معبأة مسبقاً تحتوي على معلومات مفصلة عن المعاملة.",
+        "documentInfo": "وثيقة فاتورة احترافية",
+        "documentDescription": "سيؤدي هذا إلى إنشاء فاتورة PDF احترافية وإرسالها عبر واتساب مع رسالة شخصية.",
+        "documentFeatures": "ميزات الوثيقة",
+        "feature1": "فاتورة PDF احترافية مع شعار الشركة",
+        "feature2": "تفاصيل الطلب الكاملة وتفصيل العناصر",
+        "feature3": "سهل الحفظ والطباعة أو المشاركة مع الآخرين",
+        "noPhoneNumber": "العميل ليس لديه رقم هاتف",
+        "noPhone": "لا يوجد هاتف",
+        "customerNoPhone": "هذا العميل ليس لديه رقم هاتف",
+        "sending": "جاري إنشاء الوثيقة...",
+        "sendViaWhatsApp": "فتح واتساب",
+        "sendDocumentViaWhatsApp": "إرسال الوثيقة عبر واتساب",
+        "sentSuccessfully": "تم فتح واتساب بنجاح",
+        "openedWhatsApp": "تم فتح واتساب مع تفاصيل المعاملة",
+        "documentSentSuccessfully": "تم إنشاء الوثيقة بنجاح",
+        "documentOpenedWhatsApp": "تم فتح واتساب مع وثيقة الفاتورة",
+        "sendFailed": "فشل في إنشاء رسالة واتساب",
+        "documentSendFailed": "فشل في إنشاء الوثيقة",
+        "pdfInvoiceInfo": "إنشاء فاتورة PDF",
+        "pdfInvoiceDescription": "سيؤدي هذا إلى إنشاء فاتورة PDF احترافية وفتح تطبيق واتساب الويب مع تعليمات لإرسالها.",
+        "pdfFeatures": "ميزات فاتورة PDF",
+        "pdfFeature1": "فاتورة PDF احترافية مع شعار الشركة",
+        "pdfFeature2": "تفاصيل الطلب الكاملة وتفصيل العناصر",
+        "pdfFeature3": "سهل الحفظ والطباعة أو المشاركة عبر واتساب",
+        "sendPdfInvoice": "إنشاء وإرسال فاتورة PDF",
+        "pdfGenerated": "تم إنشاء فاتورة PDF",
+        "pdfReadyToSend": "PDF جاهز للإرسال عبر واتساب",
+        "pdfSentSuccessfully": "تم إنشاء فاتورة PDF وإرسالها عبر واتساب",
+        "pdfGeneratedBackend": "تم إنشاء فاتورة PDF بنجاح على الخادم",
+        "pdfGenerationFailed": "فشل في إنشاء فاتورة PDF",
+        "tempLinkCreated": "تم إنشاء رابط فاتورة آمن",
+        "tempLinkReady": "تم إنشاء رابط فاتورة احترافي وجاهز للإرسال عبر واتساب",
+        "tempLinkFailed": "فشل في إنشاء رابط فاتورة آمن"
+    },
+    "invoice": {
+        "temp": {
+            "title": "تحميل الفاتورة",
+            "subtitle": "فاتورتك المهنية جاهزة للتحميل",
+            "downloadPdf": "تحميل فاتورة PDF",
+            "print": "طباعة",
+            "invoice": "فاتورة",
+            "billTo": "فاتورة إلى",
+            "invoiceDetails": "تفاصيل الفاتورة",
+            "date": "التاريخ",
+            "status": "الحالة",
+            "items": "العناصر",
+            "item": "العنصر",
+            "quantity": "الكمية",
+            "unitPrice": "سعر الوحدة",
+            "total": "المجموع",
+            "dimensions": "الأبعاد",
+            "weight": "الوزن",
+            "subtotal": "المجموع الفرعي",
+            "discount": "الخصم",
+            "notes": "ملاحظات",
+            "footer": "شكراً لاختيارك مطبعة حاجي!",
+            "tempId": "معرف مؤقت"
+        }
+      }
+    },
+    "status": {
+      "paid": "مدفوع",
+      "debt": "دين",
+      "pending": "في الانتظار"
+    },
+    "type": {
+      "transaction": "معاملة",
+      "offer": "عرض"
+    },
+    "offerStatus": {
+      "pending": "في الانتظار",
+      "accepted_paid": "مقبول (مدفوع)",
+      "accepted_debt": "مقبول (دين)",
+      "rejected": "مرفوض"
+    },
+    "actions": {
+      "success": "نجح",
+      "error": "خطأ",
+      "acceptAsPaid": "قبول كمدفوع",
+      "acceptAsDebt": "قبول كدين",
+      "rejectOffer": "رفض العرض",
+      "offerAcceptedAsPaid": "تم قبول العرض كمعاملة مدفوعة",
+      "offerAcceptedAsDebt": "تم قبول العرض كمعاملة دين",
+      "offerRejected": "تم رفض العرض وحذفه",
+      "failedToAcceptOffer": "فشل في قبول العرض",
+      "failedToRejectOffer": "فشل في رفض العرض"
+    }
+  },
+  "users": {
+    "table": {
+      "title": "قائمة المستخدمين",
+      "description": "عرض وإدارة جميع المستخدمين",
+      "searchPlaceholder": "البحث عن المستخدم بالاسم، البريد الإلكتروني، أو اسم المستخدم...",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "username": "اسم المستخدم",
+      "role": "الدور",
+      "createdAt": "تم الإنشاء في",
+      "actions": "الإجراءات",
+      "showing": "عرض",
+      "to": "إلى",
+      "of": "من",
+      "entries": "السجلات"
+    },
+    "modal": {
+      "addUser": {
+        "title": "إضافة مستخدم جديد",
+        "form": {
+          "name": "الاسم الكامل",
+          "namePlaceholder": "أدخل الاسم الكامل للمستخدم",
+          "email": "عنوان البريد الإلكتروني",
+          "emailPlaceholder": "أدخل عنوان البريد الإلكتروني للمستخدم",
+          "username": "اسم المستخدم",
+          "usernamePlaceholder": "أدخل اسم مستخدم فريد",
+          "phone": "رقم الهاتف",
+          "phonePlaceholder": "أدخل رقم هاتف المستخدم",
+          "role": "الدور",
+          "rolePlaceholder": "اختر دور المستخدم",
+          "roleOptions": {
+            "admin": "مدير",
+            "cashier": "صندوق"
+          },
+          "password": "كلمة المرور",
+          "passwordPlaceholder": "أدخل كلمة مرور آمنة",
+          "passwordPlaceholderEdit": "اتركه فارغاً للحفاظ على كلمة المرور الحالية",
+          "passwordConfirmation": "تأكيد كلمة المرور",
+          "passwordConfirmationPlaceholder": "أكد كلمة المرور"
+        },
+        "buttons": {
+          "addUser": "إضافة المستخدم",
+          "cancel": "إلغاء"
+        }
+      },
+      "editUser": {
+        "title": "تعديل المستخدم",
+        "buttons": {
+          "updateUser": "تحديث المستخدم"
+        }
+      },
+      "deleteUser": {
+        "title": "حذف المستخدم",
+        "warning": "تحذير! لا يمكن التراجع عن هذا الإجراء.",
+        "description": "أنت على وشك حذف حساب هذا المستخدم بالكامل. ستختفي جميع البيانات المرتبطة.",
+        "firstAdminWarning": "هذا هو أول مستخدم مدير. لا يمكن حذف هذا المستخدم لأنه المدير الرئيسي للنظام.",
+        "adminWarning": "هذا مستخدم مدير. إذا كان هذا آخر مدير، فسيتم منع الحذف.",
+        "lastAdminWarning": "هذا هو آخر مستخدم مدير. حذف هذا المستخدم سيترك النظام بدون أي مدير.",
+        "buttons": {
+          "cancel": "إلغاء",
+          "delete": "حذف المستخدم",
+          "deleting": "جاري الحذف..."
+        }
+      }
+    }
+  },
+  "posts": {
+    "title": "المنشورات",
+    "addPost": "إضافة منشور",
+    "viewPost": "عرض المنشور",
+    "newImageSelected": "تم اختيار صورة جديدة",
+    "searchPlaceholder": "البحث عن المنشور بالعنوان أو الوصف...",
+    "noPostsFound": "لم يتم العثور على أي منشورات",
+    "noPostsFoundDescription": "لم يتم العثور على أي منشورات وفقاً لمعايير البحث الخاصة بك. حاول تحسين معايير البحث.",
+    "clearSearch": "مسح البحث",
+    "noPostsYet": "لا توجد منشورات بعد",
+    "noPostsYetDescription": "أنشئ أول منشور في مدونتك لبدء إدارة المحتوى.",
+    "published": "منشور",
+    "showing": "عرض",
+    "to": "إلى",
+    "of": "من",
+    "posts": "المنشورات",
+    "filteredFrom": "مفلتر من",
+    "total": "المجموع الكلي",
+    "previous": "السابق",
+    "next": "التالي",
+    "resultsCount": "من المنشورات",
+    "showingResults": "عرض",
+    "toResults": "إلى",
+    "ofResults": "من",
+    "postsResults": "المنشورات",
+    "filteredFromResults": "مفلتر من",
+    "totalResults": "المجموع الكلي",
+    "titlePlaceholder": "أدخل عنوان المنشور",
+    "descriptionPlaceholder": "أدخل وصف المنشور",
+    "image": "الصورة",
+    "clickToUpload": "انقر للرفع",
+    "supportedFormats": "PNG, JPG, GIF حتى 10MB",
+    "currentImage": "الصورة الحالية",
+    "replaceImage": "انقر للاستبدال",
+    "replaceOrAddImage": "انقر للاستبدال أو إضافة صورة",
+    "editPost": "تعديل المنشور",
+    "content": "المحتوى",
+    "modal": {
+      "addPost": {
+        "title": "إضافة منشور جديد",
+        "form": {
+          "title": "عنوان المنشور",
+          "titlePlaceholder": "أدخل عنوان المنشور",
+          "description": "الوصف",
+          "descriptionPlaceholder": "أدخل وصف المنشور",
+          "content": "المحتوى",
+          "contentPlaceholder": "أدخل محتوى المنشور",
+          "image": "الصورة",
+          "imagePlaceholder": "ارفع صورة",
+          "selectImage": "اختر صورة"
+        },
+        "buttons": {
+          "cancel": "إلغاء",
+          "addPost": "إضافة المنشور"
+        }
+      },
+      "editPost": {
+        "title": "تعديل المنشور",
+        "buttons": {
+          "updatePost": "تحديث المنشور"
+        }
+      },
+      "deletePost": {
+        "title": "حذف المنشور",
+        "warning": "تحذير! لا يمكن التراجع عن هذا الإجراء.",
+        "description": "أنت على وشك حذف هذا المنشور بالكامل. ستختفي جميع البيانات المرتبطة.",
+        "buttons": {
+          "cancel": "إلغاء",
+          "delete": "حذف المنشور",
+          "deleting": "جاري الحذف..."
+        }
+      },
+      "viewPost": {
+        "title": "عرض المنشور",
+        "buttons": {
+          "close": "إغلاق"
+        }
+      }
+    }
+  },
+  "export": {
+    "exportCSV": "تصدير CSV",
+    "exporting": "جاري التصدير...",
+    "success": "تم تصدير {{count}} عنصر بنجاح إلى CSV",
+    "noUsers": "لا يوجد مستخدمون للتصدير",
+    "usersExportedSuccessfully": "تم تصدير المستخدمين بنجاح",
+    "noTransactions": "لا توجد معاملات للتصدير",
+    "transactionsExportedSuccessfully": "تم تصدير المعاملات بنجاح"
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "title": "مرحباً بعودتك",
+        "subtitle": "تسجيل الدخول إلى حسابك",
+        "form": {
+          "username": "اسم المستخدم",
+          "password": "كلمة المرور",
+          "rememberMe": "تذكرني",
+          "loginButton": "تسجيل الدخول",
+          "forgotPassword": "نسيت كلمة المرور؟",
+          "createAccount": "إنشاء حساب",
+          "signUp": "التسجيل"
+        },
+        "validation": {
+          "username": {
+            "required": "اسم المستخدم مطلوب"
+          },
+          "password": {
+            "required": "كلمة المرور مطلوبة",
+            "minLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
+          }
+        }
+      },
+      "register": {
+        "title": "إنشاء حساب",
+        "subtitle": "التسجيل للبدء",
+        "form": {
+          "name": "الاسم الكامل",
+          "email": "البريد الإلكتروني",
+          "password": "كلمة المرور",
+          "confirmPassword": "تأكيد كلمة المرور",
+          "signUp": "التسجيل"
+        },
+        "validation": {
+          "name": {
+            "required": "الاسم مطلوب",
+            "minLength": "الاسم يجب أن يكون حرفين على الأقل"
+          },
+          "email": {
+            "required": "البريد الإلكتروني مطلوب",
+            "invalid": "يرجى إدخال بريد إلكتروني صحيح"
+          },
+          "password": {
+            "required": "كلمة المرور مطلوبة",
+            "minLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
+          },
+          "confirmPassword": {
+            "required": "يرجى تأكيد كلمة المرور",
+            "mismatch": "كلمات المرور غير متطابقة"
+          }
+        }
+      },
+      "confirmPassword": {
+        "title": "تأكيد كلمة المرور",
+        "description": "هذه منطقة آمنة للتطبيق. يرجى تأكيد كلمة المرور قبل المتابعة."
+      }
+    },
+    "admin": {
+      "dashboard": {
+        "title": "لوحة التحكم",
+        "welcome": "مرحباً بعودتك!",
+        "overview": "هذا ما يحدث اليوم مع عملك.",
+        "stats": {
+          "totalSales": "إجمالي المبيعات",
+          "totalOrders": "إجمالي الطلبات",
+          "totalProducts": "إجمالي المنتجات",
+          "totalCustomers": "إجمالي العملاء"
+        },
+        "vsLastPeriod": "مقارنة بالفترة السابقة",
+        "paidRevenue": "الإيرادات المدفوعة",
+        "debtRevenue": "إيرادات الدين",
+        "recentTransactions": "المعاملات الأخيرة"
+      },
+      "products": {
+        "title": "المنتجات",
+        "subtitle": "إدارة كتالوج منتجاتك",
+        "filters": {
+          "title": "المرشحات",
+          "description": "تصفية والبحث في المنتجات",
+          "search": "بحث",
+          "searchPlaceholder": "البحث عن المنتج بالاسم...",
+          "type": "النوع",
+          "allTypes": "جميع الأنواع",
+          "pcs": "قطعة",
+          "kg": "كيلوجرام",
+          "widthHeight": "عرض × ارتفاع",
+          "sortBy": "ترتيب حسب",
+          "sortByName": "الاسم",
+          "sortByPrice": "السعر",
+          "sortByDate": "تاريخ الإنشاء",
+          "order": "الترتيب",
+          "ascending": "تصاعدي",
+          "descending": "تنازلي",
+          "minPrice": "أقل سعر",
+          "maxPrice": "أعلى سعر",
+          "clear": "مسح الكل",
+          "show": "إظهار المرشحات",
+          "hide": "إخفاء المرشحات",
+          "advanced": "مرشحات متقدمة"
+        },
+        "table": {
+          "title": "قائمة المنتجات",
+          "description": "عرض وإدارة جميع المنتجات",
+          "loading": "جاري تحميل المنتجات...",
+          "searchPlaceholder": "البحث عن المنتج بالاسم...",
+          "name": "اسم المنتج",
+          "price": "السعر",
+          "type": "النوع",
+          "createdAt": "تم الإنشاء في",
+          "actions": "الإجراءات",
+          "noProducts": "لم يتم العثور على أي منتجات",
+          "deleteSelected": "حذف المحدد",
+          "showing": "عرض",
+          "to": "إلى",
+          "of": "من",
+          "entries": "السجلات"
+        },
+        "modal": {
+          "addProduct": {
+            "title": "إضافة منتج جديد",
+            "form": {
+              "name": "اسم المنتج",
+              "price": "السعر",
+              "type": "النوع",
+              "addProduct": "إضافة المنتج"
+            }
+          },
+          "editProduct": {
+            "title": "تعديل المنتج",
+            "form": {
+              "updateProduct": "تحديث المنتج"
+            }
+          },
+          "deleteProduct": {
+            "title": "حذف المنتج",
+            "description": "هل أنت متأكد من أنك تريد حذف هذا المنتج؟",
+            "form": {
+              "delete": "حذف المنتج"
+            }
+          },
+          "viewProduct": {
+            "title": "تفاصيل المنتج",
+            "productName": "اسم المنتج",
+            "price": "السعر",
+            "type": "النوع",
+            "createdAt": "تم الإنشاء في",
+            "updatedAt": "آخر تحديث"
+          }
+        }
+      },
+      "transactions": {
+        "title": "المعاملات",
+        "table": {
+          "orderId": "معرف الطلب",
+          "customer": "العميل",
+          "date": "التاريخ",
+          "amount": "المبلغ",
+          "status": "الحالة",
+          "actions": "الإجراءات",
+          "payDebt": "دفع الدين",
+          "acceptAsPaid": "قبول كمدفوع",
+          "acceptAsDebt": "قبول كدين"
+        },
+        "filters": {
+          "title": "المرشحات",
+          "description": "تصفية والبحث في المعاملات",
+          "search": "بحث",
+          "searchPlaceholder": "البحث باسم العميل، معرف الطلب...",
+          "status": "الحالة",
+          "allStatuses": "جميع الحالات",
+          "paid": "مدفوع",
+          "debt": "دين",
+          "allTypes": "جميع الأنواع",
+          "allOfferStatuses": "جميع حالات العروض",
+          "pending": "في الانتظار",
+          "paymentMethod": "طريقة الدفع",
+          "allPaymentMethods": "جميع طرق الدفع",
+          "cash": "نقد",
+          "card": "بطاقة",
+          "dateRange": "نطاق التاريخ",
+          "fromDate": "من تاريخ",
+          "toDate": "إلى تاريخ",
+          "amountRange": "نطاق المبلغ",
+          "minAmount": "أقل مبلغ",
+          "maxAmount": "أعلى مبلغ",
+          "sortBy": "ترتيب حسب",
+          "sortByDate": "التاريخ",
+          "sortByAmount": "المبلغ",
+          "sortByOrderId": "معرف الطلب",
+          "sortByStatus": "الحالة",
+          "order": "الترتيب",
+          "ascending": "تصاعدي",
+          "descending": "تنازلي",
+          "clear": "مسح الكل",
+          "show": "إظهار المرشحات",
+          "hide": "إخفاء المرشحات",
+          "advanced": "مرشحات متقدمة",
+          "active": "نشط"
+        }
+      },
+      "customers": {
+        "title": "العملاء",
+        "subtitle": "إدارة معلومات العملاء",
+        "table": {
+          "name": "اسم العميل",
+          "email": "البريد الإلكتروني",
+          "phone": "الهاتف",
+          "transactions": "المعاملات",
+          "actions": "الإجراءات",
+          "viewTransactions": "عرض المعاملات"
+        },
+        "modal": {
+          "addCustomer": {
+            "title": "إضافة عميل جديد",
+            "form": {
+              "name": "اسم العميل",
+              "email": "البريد الإلكتروني",
+              "phone": "الهاتف",
+              "addCustomer": "إضافة العميل"
+            }
+          },
+          "editCustomer": {
+            "title": "تعديل العميل",
+            "form": {
+              "updateCustomer": "تحديث العميل"
+            }
+          },
+          "deleteCustomer": {
+            "title": "حذف العميل",
+            "description": "هل أنت متأكد من أنك تريد حذف هذا العميل؟",
+            "form": {
+              "delete": "حذف العميل"
+            }
+          },
+          "viewTransactions": {
+            "title": "معاملات العميل",
+            "description": "عرض جميع المعاملات لهذا العميل",
+            "loading": "جاري تحميل المعاملات...",
+            "noTransactions": "لم يتم العثور على أي معاملات لهذا العميل",
+            "buttons": {
+              "close": "إغلاق"
+            }
+          }
+        }
+      },
+      "users": {
+        "title": "المستخدمون",
+        "subtitle": "إدارة حسابات المستخدمين والصلاحيات",
+        "table": {
+          "name": "الاسم",
+          "email": "البريد الإلكتروني",
+          "role": "الدور",
+          "createdAt": "تم الإنشاء في",
+          "actions": "الإجراءات"
+        },
+        "modal": {
+          "addUser": {
+            "title": "إضافة مستخدم جديد",
+            "form": {
+              "name": "الاسم الكامل",
+              "email": "البريد الإلكتروني",
+              "password": "كلمة المرور",
+              "role": "الدور",
+              "addUser": "إضافة المستخدم"
+            }
+          },
+          "editUser": {
+            "title": "تعديل المستخدم",
+            "form": {
+              "updateUser": "تحديث المستخدم"
+            }
+          },
+          "deleteUser": {
+            "title": "حذف المستخدم",
+            "description": "هل أنت متأكد من أنك تريد حذف هذا المستخدم؟",
+            "form": {
+              "delete": "حذف المستخدم"
+            }
+          }
+        }
+      },
+      "posts": {
+        "title": "المنشورات",
+        "subtitle": "إدارة منشورات المدونة والمحتوى",
+        "table": {
+          "title": "عنوان المنشور",
+          "status": "الحالة",
+          "createdAt": "تم الإنشاء في",
+          "actions": "الإجراءات"
+        },
+        "page": {
+          "noPostsYet": "لا توجد منشورات بعد",
+          "checkBackSoon": "تحقق مرة أخرى قريباً للحصول على آخر التحديثات والنصائح!",
+          "view": "عرض",
+          "loadMorePosts": "تحميل المزيد من المنشورات",
+          "loadMore": "تحميل المزيد",
+          "loading": "جاري التحميل...",
+          "showLess": "إظهار أقل",
+          "less": "أقل",
+          "showing": "عرض",
+          "of": "من",
+          "posts": "منشورات",
+          "dashboard": "لوحة التحكم"
+        },
+        "modal": {
+          "addPost": {
+            "title": "إضافة منشور جديد",
+            "form": {
+              "title": "عنوان المنشور",
+              "description": "الوصف",
+              "content": "المحتوى",
+              "imageUrl": "رابط الصورة",
+              "status": "الحالة",
+              "addPost": "إضافة المنشور"
+            }
+          },
+          "editPost": {
+            "title": "تعديل المنشور",
+            "form": {
+              "updatePost": "تحديث المنشور"
+            }
+          },
+          "deletePost": {
+            "title": "حذف المنشور",
+            "description": "هل أنت متأكد من أنك تريد حذف هذا المنشور؟",
+            "form": {
+              "delete": "حذف المنشور"
+            }
+          },
+          "viewPost": {
+            "title": "تفاصيل المنشور",
+            "postTitle": "عنوان المنشور",
+            "description": "الوصف",
+            "content": "المحتوى",
+            "status": "الحالة",
+            "createdAt": "تم الإنشاء في",
+            "updatedAt": "آخر تحديث"
+          }
+        },
+        "searchPlaceholder": "البحث عن المنشور بالعنوان أو الوصف..."
+      },
+      "settings": {
+        "title": "الإعدادات",
+        "description": "إدارة الملف الشخصي وإعدادات حسابك",
+        "sections": {
+          "profile": "إعدادات الملف الشخصي",
+          "security": "الأمان",
+          "appearance": "المظهر",
+          "notifications": "الإشعارات",
+          "language": "اللغة"
+        },
+        "form": {
+          "name": "الاسم الكامل",
+          "email": "البريد الإلكتروني",
+          "currentPassword": "كلمة المرور الحالية",
+          "newPassword": "كلمة المرور الجديدة",
+          "confirmPassword": "تأكيد كلمة المرور الجديدة",
+          "theme": "المظهر",
+          "language": "اللغة"
+        },
+        "validation": {
+          "name": {
+            "required": "الاسم مطلوب"
+          },
+          "email": {
+            "required": "البريد الإلكتروني مطلوب",
+            "invalid": "يرجى إدخال بريد إلكتروني صحيح"
+          },
+          "currentPassword": {
+            "required": "كلمة المرور الحالية مطلوبة"
+          },
+          "newPassword": {
+            "required": "كلمة المرور الجديدة مطلوبة",
+            "minLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل"
+          },
+          "confirmPassword": {
+            "required": "يرجى تأكيد كلمة المرور",
+            "mismatch": "كلمات المرور غير متطابقة"
+          }
+        },
+        "backup": {
+          "failed": "فشل النسخ الاحتياطي"
+        }
+      }
+    },
+    "cashier": {
+      "pos": {
+        "title": "نقطة البيع",
+        "subtitle": "إدارة المبيعات والمعاملات",
+        "scanBarcode": "امسح الباركود أو ابحث عن المنتج",
+        "addToCart": "إضافة إلى السلة",
+        "subtotal": "المجموع الفرعي",
+        "tax": "الضريبة",
+        "grandTotal": "المجموع الكلي",
+        "cash": "دفع نقدي",
+        "card": "دفع بالبطاقة",
+        "printReceipt": "طباعة الإيصال",
+        "searchProducts": "البحث عن المنتجات",
+        "searchProductsPlaceholder": "البحث عن المنتج بالاسم...",
+        "searchCustomers": "البحث عن العملاء",
+        "searchCustomersPlaceholder": "البحث عن العميل بالاسم أو الهاتف...",
+        "selectCustomer": "اختر العميل",
+        "customerName": "اسم العميل",
+        "customerNamePlaceholder": "أدخل اسم العميل...",
+        "cart": {
+          "title": "سلة التسوق",
+          "empty": "السلة فارغة",
+          "subtotal": "المجموع الفرعي",
+          "remove": "إزالة"
+        },
+        "actions": {
+          "clearCart": "مسح السلة",
+          "checkout": "إنهاء الشراء",
+          "sendWhatsApp": "إرسال واتساب",
+          "sendEmail": "إرسال بريد إلكتروني"
+        },
+        "enterWidth": "أدخل العرض بالسنتيمتر",
+        "enterHeight": "أدخل الارتفاع بالسنتيمتر",
+        "enterWeight": "أدخل الوزن بالكيلوجرام",
+        "dimensions": {
+          "cm": "سم",
+          "kg": "كغ",
+          "enterDimensions": "أدخل الأبعاد",
+          "enterDimensionsBelow": "أدخل الأبعاد أدناه",
+          "width": "العرض",
+          "height": "الارتفاع",
+          "weight": "الوزن",
+          "acceptDimensions": "قبول الأبعاد",
+          "acceptWeight": "قبول الوزن",
+          "dimensionsAccepted": "تم قبول الأبعاد",
+          "weightAccepted": "تم قبول الوزن"
+        },
+        "emptyCartMessage": "أضف منتجات إلى سلة التسوق للبدء",
+        "whatsapp": {
+          "orderTitle": "تفاصيل الطلب",
+          "customer": "العميل",
+          "phone": "الهاتف",
+          "items": "المنتجات",
+          "quantity": "الكمية",
+          "unitPrice": "سعر الوحدة",
+          "dimensions": "الأبعاد",
+          "weight": "الوزن",
+          "total": "المجموع الكلي",
+          "grandTotal": "المجموع الكلي",
+          "thankYou": "شكراً لطلبك!"
+        },
+        "email": {
+          "orderTitle": "تفاصيل الطلب",
+          "customer": "العميل",
+          "phone": "الهاتف",
+          "items": "المنتجات",
+          "quantity": "الكمية",
+          "unitPrice": "سعر الوحدة",
+          "dimensions": "الأبعاد",
+          "weight": "الوزن",
+          "total": "المجموع الكلي",
+          "grandTotal": "المجموع الكلي",
+          "thankYou": "شكراً لطلبك!"
+        },
+        "checkout": {
+          "title": "إنهاء الشراء",
+          "subtitle": "مراجعة وإنهاء طلبك",
+          "customerInfo": "معلومات العميل",
+          "customerName": "اسم العميل",
+          "customerEmail": "بريد العميل الإلكتروني",
+          "customerPhone": "هاتف العميل",
+          "orderSummary": "ملخص الطلب",
+          "orderItems": "عناصر الطلب",
+          "orderTotal": "إجمالي الطلب",
+          "subtotal": "المجموع الفرعي",
+          "tax": "الضريبة",
+          "total": "المجموع الكلي",
+          "paymentMethod": "طريقة الدفع",
+          "cash": "نقد",
+          "card": "بطاقة",
+          "bankTransfer": "تحويل بنكي",
+          "check": "شيك",
+          "other": "أخرى",
+          "orderNotes": "ملاحظات الطلب",
+          "orderNotesPlaceholder": "أضف أي تعليمات خاصة أو ملاحظات...",
+          "sendEmailConfirmation": "إرسال تأكيد البريد الإلكتروني",
+          "sendWhatsAppConfirmation": "إرسال تأكيد واتساب",
+          "email": "البريد الإلكتروني",
+          "whatsapp": "واتساب",
+          "completeOrder": "إكمال الطلب",
+          "processingOrder": "معالجة الطلب...",
+          "sending": "جاري الإرسال...",
+          "emailRequired": "بريد العميل الإلكتروني مطلوب",
+          "phoneRequired": "رقم هاتف العميل مطلوب",
+          "orderCompleted": "تم إكمال الطلب بنجاح!",
+          "totalAmountToPay": "المبلغ الإجمالي للدفع",
+          "product": "المنتج",
+          "size": "الحجم",
+          "qty": "الكمية",
+          "price": "السعر",
+          "items": "العناصر",
+          "item": "عنصر",
+          "productDiscounts": "خصومات المنتج"
+        },
+        "error": {
+          "emailFailed": "فشل في إرسال البريد الإلكتروني",
+          "emailFailedDescription": "حدث خطأ في إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى.",
+          "whatsappFailed": "فشل في إرسال رسالة واتساب",
+          "whatsappFailedDescription": "حدث خطأ في إعداد رسالة واتساب. يرجى المحاولة مرة أخرى."
+        }
+      },
+      "profile": {
+        "title": "الملف الشخصي"
+      }
+    },
+    "customer": {
+      "dashboard": {
+        "title": "لوحة تحكم العميل",
+        "welcome": "مرحباً بك في لوحة التحكم الخاصة بك",
+        "overview": "عرض طلباتك ومعلومات حسابك",
+        "welcomeBack": "مرحباً بعودتك، {{name}}! 👋",
+        "printingJourneyOverview": "إليك نظرة عامة على رحلة الطباعة الخاصة بك",
+        "memberSince": "عضو منذ",
+        "totalOrders": "إجمالي الطلبات",
+        "totalSpent": "إجمالي المبلغ المنفق",
+        "paidAmount": "المبلغ المدفوع",
+        "debtAmount": "مبلغ الدين",
+        "allTransactions": "جميع المعاملات",
+        "totalTransactions": "الإجمالي: {{count}} معاملة",
+        "searchPlaceholder": "البحث برقم الطلب، اسم المنتج، أو الحالة...",
+        "loadingTransactions": "جاري تحميل المعاملات...",
+        "noTransactionsFound": "لم يتم العثور على معاملات",
+        "orderId": "رقم الطلب",
+        "date": "التاريخ",
+        "product": "المنتج",
+        "type": "النوع",
+        "qty": "الكمية",
+        "unitPrice": "سعر الوحدة",
+        "total": "الإجمالي",
+        "status": "الحالة",
+        "unknownProduct": "منتج غير معروف",
+        "noItems": "لا توجد عناصر",
+        "more": "المزيد",
+        "showing": "عرض",
+        "to": "إلى",
+        "of": "من",
+        "transactions": "معاملات",
+        "previous": "السابق",
+        "prev": "السابق",
+        "next": "التالي",
+        "noOrdersYet": "لا توجد طلبات بعد",
+        "dayAgo": "{{count}} يوم مضى",
+        "daysAgo": "{{count}} أيام مضت",
+        "weeksAgo": "{{count}} أسابيع مضت",
+        "monthsAgo": "{{count}} أشهر مضت",
+        "notAvailable": "غير متوفر"
+      }
+    },
+    "guest": {
+      "welcome": {
+        "getStarted": "البدء",
+        "subtitle": "مطبعة الحاجي - خدمات الطباعة المهنية",
+        "description": "شريكك الموثوق لجميع احتياجات الطباعة في إقليم كردستان",
+        "quoteRequestSent": "تم إرسال طلب التسعير!",
+        "quoteRequestDescription": "سنتصل بك خلال 24 ساعة.",
+        "quoteRequestError": "فشل في إرسال طلب التسعير. يرجى المحاولة مرة أخرى.",
+        "quoteRequestErrorLater": "فشل في إرسال طلب التسعير. يرجى المحاولة لاحقاً.",
+        "enterFullName": "أدخل اسمك الكامل",
+        "projectDescription": "أخبرنا عن مشروع الطباعة الخاص بك... ما نوع المواد التي تحتاجها؟ كم؟ ما هي المتطلبات الخاصة؟"
+      },
+      "posts": {
+        "title": "منشورات المدونة",
+        "subtitle": "آخر الأخبار والتحديثات من مطبعة الحاجي"
+      }
+    }
+  },
+  "components": {
+    "sidebar": {
+      "dashboard": "لوحة التحكم",
+      "pos": "نقطة البيع",
+      "products": "المنتجات",
+      "transactions": "المعاملات",
+      "users": "المستخدمون",
+      "customers": "العملاء",
+      "posts": "المنشورات",
+      "settings": "الإعدادات"
+    },
+    "user": {
+      "settings": "الإعدادات",
+      "logout": "تسجيل الخروج",
+      "profile": "الملف الشخصي",
+      "deleteAccount": "حذف الحساب",
+      "deleteAccountDescription": "احذف حسابك وجميع موارده",
+      "warning": "تحذير",
+      "warningDescription": "يرجى المتابعة بحذر، لا يمكن التراجع عن هذا."
+    },
+    "export": {
+      "exportCSV": "تصدير CSV",
+      "exporting": "جاري التصدير...",
+      "success": "تم تصدير {{count}} منتج بنجاح إلى CSV",
+      "failed": "فشل في تصدير المنتجات",
+      "noProducts": "لا توجد منتجات للتصدير",
+      "noCustomersToExport": "لا يوجد عملاء للتصدير",
+      "customersExportedSuccessfully": "تم تصدير العملاء بنجاح",
+      "exportFailed": "فشل التصدير",
+      "noTransactions": "لا توجد معاملات للتصدير",
+      "transactionsExportedSuccessfully": "تم تصدير المعاملات بنجاح"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "مرحباً بعودتك",
+      "subtitle": "تسجيل الدخول إلى حسابك",
+      "welcome": {
+        "title": "مرحباً!",
+        "subtitle": "شريكك الموثوق لجميع احتياجات الطباعة",
+        "hello": "مرحباً!",
+        "premiumServices": "مرحباً بك في خدمات الطباعة المتميزة",
+        "features": {
+          "highQuality": "طباعة عالية الجودة",
+          "professionalResults": "نتائج مهنية",
+          "fastReliable": "خدمة سريعة وموثوقة"
+        }
+      },
+      "footer": "Quantum Tech Agency!"
+    },
+    "loginSubtitle": "تسجيل الدخول إلى حسابك",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "rememberMe": "تذكرني",
+    "loginButton": "تسجيل الدخول",
+    "backToHome": "العودة إلى الصفحة الرئيسية"
+  },
+  "welcome": {
+    "getStarted": "البدء",
+    "hero": {
+      "title": "مهني",
+      "subtitle": "خدمات الطباعة",
+      "description": "حول أفكارك إلى مطبوعات مذهلة بتقنيتنا المتطورة وحرفيتنا الخبيرة. الجودة والسرعة والموثوقية في كل مشروع.",
+      "contactUs": "اتصل بنا",
+      "explorePosts": "استكشف المنشورات",
+      "posts": "المنشورات"
+    },
+    "contact": {
+      "scrollHint": "مرر لرؤية جميع خيارات الاتصال",
+      "title": "تواصل معنا",
+      "subtitle": "نحن هنا لمساعدتك في احتياجاتك للطباعة",
+      "phoneNumbers": "أرقام الهاتف",
+      "whatsappHint": "انقر على واتساب للدردشة",
+      "primary": "أساسي",
+      "secondary": "ثانوي",
+      "emailAddress": "عنوان البريد الإلكتروني",
+      "emailHint": "أرسل لنا بريداً إلكترونياً",
+      "businessEmail": "البريد الإلكتروني التجاري",
+      "ourLocation": "موقعنا",
+      "visitOffice": "قم بزيارة مكتبنا",
+      "businessAddress": "العنوان التجاري",
+      "socialMedia": "تابعنا",
+      "socialHint": "ابق على تواصل معنا",
+      "form": {
+        "title": "أرسل لنا رسالة",
+        "subtitle": "تواصل معنا مباشرة",
+        "sendMessage": "إرسال الرسالة",
+        "yourName": "اسمك",
+        "yourEmail": "بريدك الإلكتروني",
+        "subject": "الموضوع",
+        "yourMessage": "رسالتك",
+        "sending": "جاري الإرسال...",
+        "cancel": "إلغاء",
+        "successMessage": "تم إرسال الرسالة بنجاح! سنتواصل معك قريباً.",
+        "errorMessage": "فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "mobile": {
+      "quickMenu": "القائمة السريعة"
+    }
+  },
+  "toast": {
+    "success": "نجح",
+    "error": "خطأ",
+    "info": "معلومات",
+    "productCreated": "تم إنشاء المنتج بنجاح",
+    "productUpdated": "تم تحديث المنتج بنجاح",
+    "productDeleted": "تم حذف المنتج بنجاح",
+    "failedToCreate": "فشل في إنشاء المنتج",
+    "failedToUpdate": "فشل في تحديث المنتج",
+    "failedToDelete": "فشل في حذف المنتج",
+    "customerCreated": "تم إنشاء العميل بنجاح",
+    "customerUpdated": "تم تحديث العميل بنجاح",
+    "transactionCreated": "تم إنشاء المعاملة بنجاح",
+    "postCreated": "تم إنشاء المنشور بنجاح",
+    "postUpdated": "تم تحديث المنشور بنجاح",
+    "postDeleted": "تم حذف المنشور بنجاح",
+    "failedToCreateCustomer": "فشل في إنشاء العميل",
+    "failedToUpdateCustomer": "فشل في تحديث العميل",
+    "failedToDeleteCustomer": "فشل في حذف العميل",
+    "customerDeleted": "تم حذف العميل بنجاح",
+    "userCreated": "تم إنشاء المستخدم بنجاح",
+    "userUpdated": "تم تحديث المستخدم بنجاح",
+    "userDeleted": "تم حذف المستخدم بنجاح",
+    "failedToCreateUser": "فشل في إنشاء المستخدم",
+    "failedToUpdateUser": "فشل في تحديث المستخدم",
+    "failedToDeleteUser": "فشل في حذف المستخدم",
+    "failedToLoadTransactions": "فشل في تحميل المعاملات",
+    "transactionPaid": "تم تحديد المعاملة كمدفوعة بنجاح",
+    "failedToPayDebt": "فشل في تحديد المعاملة كمدفوعة",
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "failedToSendWhatsApp": "فشل في إرسال رسالة واتساب: {{error}}",
+    "orderProcessed": "تم معالجة الطلب {{orderId}} بنجاح.",
+    "orderCompleted": "تم إكمال الطلب بنجاح.",
+    "failedToSendEmail": "فشل في إرسال البريد الإلكتروني: {{error}}",
+    "failedToPrepareWhatsApp": "فشل في إعداد رسالة واتساب: {{error}}",
+    "failedToDeletePost": "فشل في حذف المنشور",
+    "transactionCreateFailed": "فشل في إنشاء المعاملة",
+    "warning": "تحذير"
+  },
+  "settings": {
+    "sections": {
+      "language": "اللغة"
+    },
+    "tabs": {
+      "business": "معلومات الأعمال",
+      "backup": "النسخ الاحتياطي",
+      "invoiceTemplate": "قالب الفاتورة"
+    },
+    "business": {
+      "title": "معلومات الشركة",
+      "description": "عرض معلومات الشركة ومعلومات الشركة",
+      "companyName": "اسم الشركة",
+      "companySlogan": "شعار الشركة",
+      "notSpecified": "غير محدد",
+      "contactInformation": "معلومات الاتصال",
+      "contactDescription": "عرض معلومات اتصال الشركة وقنوات الاتصال",
+      "primaryPhone": "الهاتف الأساسي",
+      "secondaryPhone": "الهاتف الثانوي",
+      "emailAddress": "عنوان البريد الإلكتروني",
+      "locationInformation": "معلومات الموقع",
+      "locationDescription": "عرض عنوان الشركة ومعلومات الموقع",
+      "businessAddress": "عنوان الشركة",
+      "noAddressProvided": "لم يتم توفير عنوان",
+      "city": "المدينة",
+      "country": "البلد"
+    },
+    "backup": {
+      "title": "نسخ احتياطي لقاعدة البيانات",
+      "description": "إدارة النسخ الاحتياطية لقاعدة البيانات وحماية البيانات",
+      "status": "حالة النسخ الاحتياطي",
+      "statusReady": "النظام جاهز لعمليات النسخ الاحتياطي. النسخ الاحتياطية المنتظمة تساعد في حماية بياناتك.",
+      "lastBackup": "آخر نسخة احتياطية",
+      "manualBackupOnly": "نسخ احتياطي يدوي فقط",
+      "createFirstBackup": "أنشئ أول نسخة احتياطية باستخدام الزر أدناه",
+      "backupType": "نوع النسخ الاحتياطي",
+      "fullDatabaseBackup": "نسخ احتياطي كامل لقاعدة البيانات",
+      "includesAllTables": "يشمل جميع الجداول والبيانات",
+      "createBackupNow": "إنشاء نسخة احتياطية الآن",
+      "creatingBackup": "جاري إنشاء النسخة الاحتياطية...",
+      "downloadLatestBackup": "تحميل آخر نسخة احتياطية",
+      "backupInformation": "معلومات النسخ الاحتياطي",
+      "backupInfoDescription": "معلومات مهمة حول نظام النسخ الاحتياطي الخاص بك",
+      "whatGetsBackedUp": "ما يتم نسخه احتياطياً:",
+      "businessSettings": "جميع إعدادات الشركة والتكوين",
+      "userAccounts": "حسابات المستخدمين والأدوار",
+      "productCatalog": "كتالوج المنتجات والأسعار",
+      "customerInfo": "معلومات العملاء",
+      "transactionHistory": "تاريخ المعاملات والسجلات",
+      "systemPosts": "منشورات النظام والمحتوى",
+      "backupRecommendations": "توصيات النسخ الاحتياطي:",
+      "backupBeforeUpdates": "أنشئ نسخة احتياطية قبل التحديثات الكبيرة للنظام",
+      "downloadAndStore": "حمل النسخة الاحتياطية واحفظها في مكان آمن",
+      "testRestoreProcedures": "اختبر إجراءات الاستعادة بشكل دوري",
+      "keepMultipleCopies": "احتفظ بنسخ متعددة احتياطية للاحتياط",
+      "createSuccess": "تم إنشاء النسخة الاحتياطية بنجاح",
+      "failed": "فشل النسخ الاحتياطي"
+    },
+    "invoiceTemplate": {
+      "title": "قالب الفاتورة",
+      "description": "خصص قوالب الفواتير والتنسيق",
+      "save": "حفظ الإعدادات",
+      "saving": "جاري الحفظ...",
+      "reset": "إعادة تعيين للافتراضي",
+      "livePreview": "معاينة مباشرة",
+      "colors": "الألوان",
+      "typography": "الخط",
+      "logo": "الشعار",
+      "company": "الشركة",
+      "layout": "التخطيط",
+      "content": "المحتوى",
+      "colorSettings": "إعدادات الألوان",
+      "headerColor": "لون الرأس",
+      "footerColor": "لون التذييل",
+      "tableHeaderColor": "لون رأس الجدول",
+      "typographySettings": "إعدادات الخط",
+      "fontFamily": "عائلة الخط",
+      "baseFontSize": "حجم الخط الأساسي",
+      "logoSettings": "إعدادات الشعار",
+      "showLogo": "إظهار الشعار",
+      "logoPosition": "موضع الشعار",
+      "left": "يسار",
+      "center": "وسط",
+      "right": "يمين",
+      "logoWidth": "عرض الشعار",
+      "logoHeight": "ارتفاع الشعار",
+      "companySettings": "إعدادات الشركة",
+      "companyTitle": "عنوان الشركة",
+      "companyName": "اسم الشركة",
+      "companyAddress": "عنوان الشركة",
+      "primaryPhone": "الهاتف الأساسي",
+      "secondaryPhone": "الهاتف الثانوي",
+      "companyEmail": "بريد الشركة الإلكتروني",
+      "companyWebsite": "موقع الشركة",
+      "layoutSettings": "إعدادات التخطيط",
+      "layoutType": "نوع التخطيط",
+      "classic": "كلاسيكي",
+      "modern": "حديث",
+      "minimal": "بسيط",
+      "headerHeight": "ارتفاع الرأس",
+      "footerHeight": "ارتفاع التذييل",
+      "contentSettings": "إعدادات المحتوى",
+      "showCompanyInfo": "إظهار معلومات الشركة",
+      "showDateTime": "إظهار التاريخ والوقت",
+      "remarksLabel": "تسمية الملاحظات",
+      "empty": {
+        "title": "لا توجد قوالب فواتير",
+        "description": "أنشئ قوالب فواتير مخصصة لتخصيص فواتيرك",
+        "createTemplate": "إنشاء قالب"
+      }
+    }
+  }
+}
