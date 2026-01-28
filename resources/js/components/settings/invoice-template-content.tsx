@@ -67,11 +67,11 @@ export function InvoiceTemplateContent({
     };
 
     const handleFileSelect = async (file: File) => {
-        // Validate file size (2MB max)
-        if (file.size > 2 * 1024 * 1024) {
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
             toast({
                 title: t('toast.error'),
-                description: 'File size must be less than 2MB',
+                description: 'File size must be less than 5MB',
                 variant: 'destructive',
             });
             return;
@@ -129,9 +129,16 @@ export function InvoiceTemplateContent({
                 // Clear preview on failure to revert to saved logo
                 setFilePreview(null);
                 onFileSelect(null);
+                
+                // Handle 413 error specifically
+                let errorMessage = errorData.message || 'Failed to upload logo';
+                if (uploadResponse.status === 413) {
+                    errorMessage = 'File is too large. Maximum size is 5MB. Please reduce the image size and try again.';
+                }
+                
                 toast({
                     title: t('toast.error'),
-                    description: errorData.message || 'Failed to upload logo',
+                    description: errorMessage,
                     variant: 'destructive',
                 });
             }

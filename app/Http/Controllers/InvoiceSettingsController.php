@@ -61,7 +61,7 @@ class InvoiceSettingsController extends Controller
     {
         try {
             $request->validate([
-                'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120' // 5MB max
             ]);
             
             // Delete old logo if exists
@@ -108,8 +108,8 @@ class InvoiceSettingsController extends Controller
             }
             
             // Generate the public URL for the logo
-            // Use asset() helper to ensure proper URL generation
-            $logoUrl = asset('storage/' . $path);
+            // Use Storage::url() for reliable URL generation that works with symlinks
+            $logoUrl = Storage::disk('public')->url($path);
             
             // Update settings with new logo URL
             $settings->update(['logo_url' => $logoUrl]);
@@ -125,9 +125,18 @@ class InvoiceSettingsController extends Controller
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
+            // Check if it's a file size error
+            $errorMessage = $e->getMessage();
+            if (str_contains($errorMessage, '413') || str_contains($errorMessage, 'too large') || str_contains($errorMessage, 'Request Entity Too Large')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'File is too large. Maximum size is 5MB. Please reduce the image size and try again.'
+                ], 413);
+            }
+            
             return response()->json([
                 'success' => false,
-                'message' => 'Upload failed: ' . $e->getMessage()
+                'message' => 'Upload failed: ' . $errorMessage
             ], 500);
         }
     }
