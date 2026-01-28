@@ -28,8 +28,8 @@
     "file": "assets/vendor-Ddv_GVLC.js",
     "name": "vendor"
   },
-  "_whatsapp-service-cqtsFLlB.js": {
-    "file": "assets/whatsapp-service-cqtsFLlB.js",
+  "_whatsapp-service-BeRVNg0t.js": {
+    "file": "assets/whatsapp-service-BeRVNg0t.js",
     "name": "whatsapp-service",
     "imports": [
       "_vendor-Ddv_GVLC.js",
@@ -59,7 +59,7 @@
     "src": "resources/fonts/Rabar_021.woff"
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-B49EJY8L.js",
+    "file": "assets/app-BiAel6pI.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -97,7 +97,7 @@
     ]
   },
   "resources/js/components/modals/add-customer-modal.tsx": {
-    "file": "assets/add-customer-modal-CK50nwlh.js",
+    "file": "assets/add-customer-modal-B2RAiSCU.js",
     "name": "add-customer-modal",
     "src": "resources/js/components/modals/add-customer-modal.tsx",
     "isDynamicEntry": true,
@@ -119,7 +119,7 @@
     ]
   },
   "resources/js/components/modals/add-product-modal.tsx": {
-    "file": "assets/add-product-modal-Bos4bPhv.js",
+    "file": "assets/add-product-modal-CTFxeZnm.js",
     "name": "add-product-modal",
     "src": "resources/js/components/modals/add-product-modal.tsx",
     "isDynamicEntry": true,
@@ -141,7 +141,7 @@
     ]
   },
   "resources/js/components/modals/add-user-modal.tsx": {
-    "file": "assets/add-user-modal-3HO2xoRE.js",
+    "file": "assets/add-user-modal-CDjTt41I.js",
     "name": "add-user-modal",
     "src": "resources/js/components/modals/add-user-modal.tsx",
     "isDynamicEntry": true,
@@ -163,7 +163,7 @@
     ]
   },
   "resources/js/components/modals/calculator-modal.tsx": {
-    "file": "assets/calculator-modal-9ja0sPal.js",
+    "file": "assets/calculator-modal-DKsr-i7K.js",
     "name": "calculator-modal",
     "src": "resources/js/components/modals/calculator-modal.tsx",
     "isDynamicEntry": true,
@@ -185,7 +185,7 @@
     ]
   },
   "resources/js/components/modals/checkout-modal.tsx": {
-    "file": "assets/checkout-modal-1_2cUJ6S.js",
+    "file": "assets/checkout-modal-U_FBLZsi.js",
     "name": "checkout-modal",
     "src": "resources/js/components/modals/checkout-modal.tsx",
     "isDynamicEntry": true,
@@ -193,7 +193,7 @@
       "_ui-B_81ecHX.js",
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
-      "_whatsapp-service-cqtsFLlB.js",
+      "_whatsapp-service-BeRVNg0t.js",
       "_i18n-CgK4U1xh.js",
       "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
@@ -208,7 +208,7 @@
     ]
   },
   "resources/js/components/modals/customer-transactions-modal.tsx": {
-    "file": "assets/customer-transactions-modal-zWAv5ncD.js",
+    "file": "assets/customer-transactions-modal-CYHDr6qU.js",
     "name": "customer-transactions-modal",
     "src": "resources/js/components/modals/customer-transactions-modal.tsx",
     "isDynamicEntry": true,
@@ -231,7 +231,7 @@
     ]
   },
   "resources/js/components/modals/delete-customer-modal.tsx": {
-    "file": "assets/delete-customer-modal-Cyh6uwnb.js",
+    "file": "assets/delete-customer-modal-Bce2PAAq.js",
     "name": "delete-customer-modal",
     "src": "resources/js/components/modals/delete-customer-modal.tsx",
     "isDynamicEntry": true,
@@ -253,7 +253,7 @@
     ]
   },
   "resources/js/components/modals/delete-post-modal.tsx": {
-    "file": "assets/delete-post-modal-BZ2gcPxw.js",
+    "file": "assets/delete-post-modal-D6m4h-2I.js",
     "name": "delete-post-modal",
     "src": "resources/js/components/modals/delete-post-modal.tsx",
     "isDynamicEntry": true,
@@ -275,7 +275,7 @@
     ]
   },
   "resources/js/components/modals/delete-product-modal.tsx": {
-    "file": "assets/delete-product-modal-B42gfydS.js",
+    "file": "assets/delete-product-modal-IMiy94nk.js",
     "name": "delete-product-modal",
     "src": "resources/js/components/modals/delete-product-modal.tsx",
     "isDynamicEntry": true,
@@ -297,7 +297,7 @@
     ]
   },
   "resources/js/components/modals/delete-transaction-modal.tsx": {
-    "file": "assets/delete-transaction-modal-Cc9ECGfa.js",
+    "file": "assets/delete-transaction-modal-C6yyhXjC.js",
     "name": "delete-transaction-modal",
     "src": "resources/js/components/modals/delete-transaction-modal.tsx",
     "isDynamicEntry": true,
@@ -319,7 +319,7 @@
     ]
   },
   "resources/js/components/modals/delete-user-modal.tsx": {
-    "file": "assets/delete-user-modal-CXWL2LxS.js",
+    "file": "assets/delete-user-modal-Ct7cEhIL.js",
     "name": "delete-user-modal",
     "src": "resources/js/components/modals/delete-user-modal.tsx",
     "isDynamicEntry": true,
@@ -341,7 +341,7 @@
     ]
   },
   "resources/js/components/modals/offer-modal.tsx": {
-    "file": "assets/offer-modal-DOlyyMLd.js",
+    "file": "assets/offer-modal-CXSyp-p8.js",
     "name": "offer-modal",
     "src": "resources/js/components/modals/offer-modal.tsx",
     "isDynamicEntry": true,
@@ -349,7 +349,7 @@
       "_ui-B_81ecHX.js",
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
-      "_whatsapp-service-cqtsFLlB.js",
+      "_whatsapp-service-BeRVNg0t.js",
       "_i18n-CgK4U1xh.js",
       "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
@@ -364,7 +364,7 @@
     ]
   },
   "resources/js/components/modals/post-modal.tsx": {
-    "file": "assets/post-modal-DqBzSmwc.js",
+    "file": "assets/post-modal-C3il_PPK.js",
     "name": "post-modal",
     "src": "resources/js/components/modals/post-modal.tsx",
     "isDynamicEntry": true,
@@ -386,7 +386,7 @@
     ]
   },
   "resources/js/components/modals/transaction-detail-modal.tsx": {
-    "file": "assets/transaction-detail-modal-BAqxL3Vl.js",
+    "file": "assets/transaction-detail-modal-B8riVOxS.js",
     "name": "transaction-detail-modal",
     "src": "resources/js/components/modals/transaction-detail-modal.tsx",
     "isDynamicEntry": true,
@@ -408,7 +408,7 @@
     ]
   },
   "resources/js/components/modals/view-product-modal.tsx": {
-    "file": "assets/view-product-modal-BRbUv2Do.js",
+    "file": "assets/view-product-modal-JTSD-7oD.js",
     "name": "view-product-modal",
     "src": "resources/js/components/modals/view-product-modal.tsx",
     "isDynamicEntry": true,

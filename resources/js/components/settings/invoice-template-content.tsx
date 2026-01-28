@@ -62,6 +62,24 @@ export function InvoiceTemplateContent({
     const filePreview = externalFilePreview !== undefined ? externalFilePreview : internalFilePreview;
     const setFilePreview = onFilePreviewChange || setInternalFilePreview;
 
+    // Helper function to ensure logo URL is properly resolved
+    const getLogoUrl = (logoUrl: string | undefined | null): string => {
+        if (!logoUrl) return '';
+        
+        // If it's already a full URL, return as is
+        if (logoUrl.startsWith('http://') || logoUrl.startsWith('https://')) {
+            return logoUrl;
+        }
+        
+        // If it's a relative URL starting with /, use transformRoute to make it absolute
+        if (logoUrl.startsWith('/')) {
+            return transformRoute(logoUrl);
+        }
+        
+        // Otherwise, assume it's relative to storage and prepend /storage/
+        return transformRoute('/storage/' + logoUrl);
+    };
+
     const updateSetting = (key: keyof InvoiceSettings, value: string | number | boolean) => {
         onSettingsChange(key, value);
     };
@@ -432,10 +450,16 @@ export function InvoiceTemplateContent({
                                                 <div className="flex items-center gap-4">
                                                     <div className="flex-shrink-0">
                                                         <img 
-                                                            src={filePreview || settings.logo_url || ''} 
+                                                            src={filePreview || getLogoUrl(settings.logo_url) || ''} 
                                                             alt="Company Logo" 
                                                             className="max-w-32 max-h-32 object-contain"
                                                             style={{ backgroundColor: 'transparent', border: 'none', outline: 'none' }}
+                                                            onError={(e) => {
+                                                                // Log error for debugging
+                                                                console.error('Failed to load logo:', filePreview || settings.logo_url);
+                                                                // Hide broken image
+                                                                (e.target as HTMLImageElement).style.display = 'none';
+                                                            }}
                                                         />
                                                     </div>
                                                     <div className="flex-1">

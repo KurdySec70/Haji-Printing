@@ -108,8 +108,18 @@ class InvoiceSettingsController extends Controller
             }
             
             // Generate the public URL for the logo
-            // Use Storage::url() for reliable URL generation that works with symlinks
-            $logoUrl = Storage::disk('public')->url($path);
+            // Use asset() helper which properly handles base paths and subdirectory deployments
+            // The path from storeAs() is already relative to storage/app/public (e.g., 'logos/logo-xxx.png')
+            $logoUrl = asset('storage/' . $path);
+            
+            // Ensure it's an absolute URL (asset() should handle this, but double-check)
+            if (!str_starts_with($logoUrl, 'http')) {
+                // If asset() returned relative URL, make it absolute using APP_URL
+                $appUrl = rtrim(config('app.url', env('APP_URL', '')), '/');
+                if ($appUrl) {
+                    $logoUrl = $appUrl . '/' . ltrim($logoUrl, '/');
+                }
+            }
             
             // Update settings with new logo URL
             $settings->update(['logo_url' => $logoUrl]);
