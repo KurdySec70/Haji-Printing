@@ -74,9 +74,21 @@ class InvoiceSettingsController extends Controller
                 }
             }
             
-            // Ensure logos directory exists
-            if (!Storage::disk('public')->directoryExists('logos')) {
-                Storage::disk('public')->makeDirectory('logos', 0755, true);
+            // Ensure logos directory exists with proper permissions
+            $logosPath = 'logos';
+            if (!Storage::disk('public')->directoryExists($logosPath)) {
+                Storage::disk('public')->makeDirectory($logosPath, 0755, true);
+            }
+            
+            // Set directory permissions explicitly (for Unix-like systems)
+            $fullDirPath = Storage::disk('public')->path($logosPath);
+            if (file_exists($fullDirPath) && is_dir($fullDirPath)) {
+                @chmod($fullDirPath, 0755);
+                // Ensure parent directories are writable
+                $parentPath = dirname($fullDirPath);
+                if (file_exists($parentPath) && is_dir($parentPath)) {
+                    @chmod($parentPath, 0755);
+                }
             }
             
             // Upload new logo
@@ -86,7 +98,7 @@ class InvoiceSettingsController extends Controller
             
             // Verify file was created
             if (!Storage::disk('public')->exists($path)) {
-                throw new \Exception('Failed to save logo file');
+                throw new \Exception('Failed to save logo file. Please check directory permissions.');
             }
             
             // Set file permissions (for Unix-like systems, has no effect on Windows)

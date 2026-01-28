@@ -7,6 +7,7 @@ import { Transaction } from '@/types';
 import { InvoiceTemplateTabs } from './invoice-template-tabs';
 import { InvoiceTemplateContent } from './invoice-template-content';
 import { InvoicePreview } from './invoice-preview';
+import { transformRoute } from '@/utils/routeHelper';
 
 interface InvoiceSettings {
     header_color: string;
@@ -112,7 +113,7 @@ export function InvoiceTemplateSettings() {
         const loadSettings = async () => {
             setLoading(true);
             try {
-                const response = await fetch('/admin/api/invoice-settings');
+                const response = await fetch(transformRoute('/admin/api/invoice-settings'));
                 const data = await response.json();
                 if (data.settings) {
                     setSettings(data.settings);
@@ -137,10 +138,11 @@ export function InvoiceTemplateSettings() {
         setSaving(true);
         try {
             // Logo is already uploaded in real-time, just save all settings
-            const response = await fetch('/admin/api/invoice-settings', {
+            const response = await fetch(transformRoute('/admin/api/invoice-settings'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
                 body: JSON.stringify({ settings }),
             });
@@ -186,11 +188,11 @@ export function InvoiceTemplateSettings() {
         try {
             setSaving(true);
             
-            const response = await fetch('/admin/api/invoice-settings/reset', {
+            const response = await fetch(transformRoute('/admin/api/invoice-settings/reset'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // No CSRF token needed
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
             });
             

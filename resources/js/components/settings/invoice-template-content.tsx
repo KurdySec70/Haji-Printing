@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ChevronDown } from 'lucide-react';
+import { transformRoute } from '@/utils/routeHelper';
 
 interface InvoiceSettings {
     header_color: string;
@@ -94,11 +95,12 @@ export function InvoiceTemplateContent({
             const formData = new FormData();
             formData.append('logo', file);
             
-            const uploadResponse = await fetch('/admin/api/upload-logo', {
+            const uploadResponse = await fetch(transformRoute('/admin/api/upload-logo'), {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
             });
 
