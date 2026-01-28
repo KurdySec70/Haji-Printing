@@ -1,16 +1,15 @@
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, Transaction, Product } from '@/types';
 import { useTranslation } from 'react-i18next';
 
 import { PointOfSaleScreen } from '@/components/pos/point-of-sale-screen';
 
 interface PointOfSaleProps {
-    products?: unknown[];
+    products?: Product[];
+    transactionToEdit?: Transaction | null;
 }
 
-export default function PointOfSale({ products: _products = [] }: PointOfSaleProps) {
-    void _products;
-
+export default function PointOfSale({ products = [], transactionToEdit = null }: PointOfSaleProps) {
     const { t } = useTranslation();
 
     const breadcrumbs: BreadcrumbItem[] = [
@@ -22,7 +21,7 @@ export default function PointOfSale({ products: _products = [] }: PointOfSalePro
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <PointOfSaleScreen />
+            <PointOfSaleScreen products={products} transactionToEdit={transactionToEdit} />
         </AppLayout>
     );
 }

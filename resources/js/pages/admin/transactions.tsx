@@ -207,12 +207,13 @@ export default function Transactions({ transactions: initialTransactions = { dat
         // Handle view transaction - can be implemented later
     };
 
-    const handleTransactionUpdate = (updatedTransaction: Transaction) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleTransactionUpdate = (_updatedTransaction: Transaction) => {
         // Update specific transaction in local state
         setLocalTransactions(prev => ({
             ...prev,
             data: prev.data.map(t =>
-                t.id === updatedTransaction.id ? updatedTransaction : t
+                t.id === _updatedTransaction.id ? _updatedTransaction : t
             )
         }));
     };
@@ -282,7 +283,6 @@ export default function Transactions({ transactions: initialTransactions = { dat
                     loading={state.loading}
                     onView={handleViewTransaction}
                     onPageChange={handlePageChange}
-                    onTransactionUpdate={handleTransactionUpdate}
                     onTransactionRemove={handleTransactionRemove}
                     onFullRefresh={handleRefresh}
                     sortBy={filters.sortBy}

@@ -6,8 +6,8 @@
       "_vendor-Ddv_GVLC.js"
     ]
   },
-  "_icons-g_8r37Rf.js": {
-    "file": "assets/icons-g_8r37Rf.js",
+  "_icons-baWWUKtE.js": {
+    "file": "assets/icons-baWWUKtE.js",
     "name": "icons",
     "imports": [
       "_vendor-Ddv_GVLC.js"
@@ -28,8 +28,8 @@
     "file": "assets/vendor-Ddv_GVLC.js",
     "name": "vendor"
   },
-  "_whatsapp-service-CcRHPngD.js": {
-    "file": "assets/whatsapp-service-CcRHPngD.js",
+  "_whatsapp-service-cqtsFLlB.js": {
+    "file": "assets/whatsapp-service-cqtsFLlB.js",
     "name": "whatsapp-service",
     "imports": [
       "_vendor-Ddv_GVLC.js",
@@ -38,7 +38,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-vlGpYaJP.css",
+    "file": "assets/app-BXLQgJsZ.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -59,7 +59,7 @@
     "src": "resources/fonts/Rabar_021.woff"
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-D6OzGqQC.js",
+    "file": "assets/app-B49EJY8L.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -68,7 +68,7 @@
       "_vendor-Ddv_GVLC.js",
       "_utils-CjxovF-h.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js"
+      "_icons-baWWUKtE.js"
     ],
     "dynamicImports": [
       "resources/js/components/modals/checkout-modal.tsx",
@@ -84,10 +84,11 @@
       "resources/js/components/modals/delete-product-modal.tsx",
       "resources/js/components/modals/delete-customer-modal.tsx",
       "resources/js/components/modals/delete-user-modal.tsx",
-      "resources/js/components/modals/delete-post-modal.tsx"
+      "resources/js/components/modals/delete-post-modal.tsx",
+      "resources/js/components/modals/delete-transaction-modal.tsx"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -96,7 +97,7 @@
     ]
   },
   "resources/js/components/modals/add-customer-modal.tsx": {
-    "file": "assets/add-customer-modal-DzhLGoRZ.js",
+    "file": "assets/add-customer-modal-CK50nwlh.js",
     "name": "add-customer-modal",
     "src": "resources/js/components/modals/add-customer-modal.tsx",
     "isDynamicEntry": true,
@@ -105,11 +106,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -118,7 +119,7 @@
     ]
   },
   "resources/js/components/modals/add-product-modal.tsx": {
-    "file": "assets/add-product-modal-CUxzAUNZ.js",
+    "file": "assets/add-product-modal-Bos4bPhv.js",
     "name": "add-product-modal",
     "src": "resources/js/components/modals/add-product-modal.tsx",
     "isDynamicEntry": true,
@@ -127,11 +128,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -140,7 +141,7 @@
     ]
   },
   "resources/js/components/modals/add-user-modal.tsx": {
-    "file": "assets/add-user-modal-GpKsd5UO.js",
+    "file": "assets/add-user-modal-3HO2xoRE.js",
     "name": "add-user-modal",
     "src": "resources/js/components/modals/add-user-modal.tsx",
     "isDynamicEntry": true,
@@ -149,11 +150,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -162,7 +163,7 @@
     ]
   },
   "resources/js/components/modals/calculator-modal.tsx": {
-    "file": "assets/calculator-modal-D4tt-_oK.js",
+    "file": "assets/calculator-modal-9ja0sPal.js",
     "name": "calculator-modal",
     "src": "resources/js/components/modals/calculator-modal.tsx",
     "isDynamicEntry": true,
@@ -171,11 +172,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -184,7 +185,7 @@
     ]
   },
   "resources/js/components/modals/checkout-modal.tsx": {
-    "file": "assets/checkout-modal-BPK2Jjbc.js",
+    "file": "assets/checkout-modal-1_2cUJ6S.js",
     "name": "checkout-modal",
     "src": "resources/js/components/modals/checkout-modal.tsx",
     "isDynamicEntry": true,
@@ -192,13 +193,13 @@
       "_ui-B_81ecHX.js",
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
-      "_whatsapp-service-CcRHPngD.js",
+      "_whatsapp-service-cqtsFLlB.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -207,7 +208,7 @@
     ]
   },
   "resources/js/components/modals/customer-transactions-modal.tsx": {
-    "file": "assets/customer-transactions-modal-BO89O7eq.js",
+    "file": "assets/customer-transactions-modal-zWAv5ncD.js",
     "name": "customer-transactions-modal",
     "src": "resources/js/components/modals/customer-transactions-modal.tsx",
     "isDynamicEntry": true,
@@ -215,12 +216,13 @@
       "_ui-B_81ecHX.js",
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
+      "resources/js/components/modals/delete-transaction-modal.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -229,7 +231,7 @@
     ]
   },
   "resources/js/components/modals/delete-customer-modal.tsx": {
-    "file": "assets/delete-customer-modal-Byh-fXfg.js",
+    "file": "assets/delete-customer-modal-Cyh6uwnb.js",
     "name": "delete-customer-modal",
     "src": "resources/js/components/modals/delete-customer-modal.tsx",
     "isDynamicEntry": true,
@@ -238,11 +240,11 @@
       "resources/js/app.tsx",
       "_vendor-Ddv_GVLC.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -251,7 +253,7 @@
     ]
   },
   "resources/js/components/modals/delete-post-modal.tsx": {
-    "file": "assets/delete-post-modal-fynpPaJM.js",
+    "file": "assets/delete-post-modal-BZ2gcPxw.js",
     "name": "delete-post-modal",
     "src": "resources/js/components/modals/delete-post-modal.tsx",
     "isDynamicEntry": true,
@@ -260,11 +262,11 @@
       "resources/js/app.tsx",
       "_vendor-Ddv_GVLC.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -273,7 +275,7 @@
     ]
   },
   "resources/js/components/modals/delete-product-modal.tsx": {
-    "file": "assets/delete-product-modal-Cb0xkR_U.js",
+    "file": "assets/delete-product-modal-B42gfydS.js",
     "name": "delete-product-modal",
     "src": "resources/js/components/modals/delete-product-modal.tsx",
     "isDynamicEntry": true,
@@ -282,11 +284,33 @@
       "resources/js/app.tsx",
       "_vendor-Ddv_GVLC.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
+    ],
+    "assets": [
+      "assets/Rabar_021-C59yIIs8.eot",
+      "assets/Rabar_021-BtaGnsAG.woff",
+      "assets/Rabar_021-BtFo_qo2.ttf"
+    ]
+  },
+  "resources/js/components/modals/delete-transaction-modal.tsx": {
+    "file": "assets/delete-transaction-modal-Cc9ECGfa.js",
+    "name": "delete-transaction-modal",
+    "src": "resources/js/components/modals/delete-transaction-modal.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ui-B_81ecHX.js",
+      "_vendor-Ddv_GVLC.js",
+      "resources/js/app.tsx",
+      "_i18n-CgK4U1xh.js",
+      "_icons-baWWUKtE.js",
+      "_utils-CjxovF-h.js"
+    ],
+    "css": [
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -295,7 +319,7 @@
     ]
   },
   "resources/js/components/modals/delete-user-modal.tsx": {
-    "file": "assets/delete-user-modal-ZyV6bAyd.js",
+    "file": "assets/delete-user-modal-CXWL2LxS.js",
     "name": "delete-user-modal",
     "src": "resources/js/components/modals/delete-user-modal.tsx",
     "isDynamicEntry": true,
@@ -304,11 +328,11 @@
       "resources/js/app.tsx",
       "_vendor-Ddv_GVLC.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -317,7 +341,7 @@
     ]
   },
   "resources/js/components/modals/offer-modal.tsx": {
-    "file": "assets/offer-modal-DU1btA24.js",
+    "file": "assets/offer-modal-DOlyyMLd.js",
     "name": "offer-modal",
     "src": "resources/js/components/modals/offer-modal.tsx",
     "isDynamicEntry": true,
@@ -325,13 +349,13 @@
       "_ui-B_81ecHX.js",
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
-      "_whatsapp-service-CcRHPngD.js",
+      "_whatsapp-service-cqtsFLlB.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -340,7 +364,7 @@
     ]
   },
   "resources/js/components/modals/post-modal.tsx": {
-    "file": "assets/post-modal-Bo3nWR-a.js",
+    "file": "assets/post-modal-DqBzSmwc.js",
     "name": "post-modal",
     "src": "resources/js/components/modals/post-modal.tsx",
     "isDynamicEntry": true,
@@ -349,11 +373,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -362,7 +386,7 @@
     ]
   },
   "resources/js/components/modals/transaction-detail-modal.tsx": {
-    "file": "assets/transaction-detail-modal-EWLqjstC.js",
+    "file": "assets/transaction-detail-modal-BAqxL3Vl.js",
     "name": "transaction-detail-modal",
     "src": "resources/js/components/modals/transaction-detail-modal.tsx",
     "isDynamicEntry": true,
@@ -371,11 +395,11 @@
       "_vendor-Ddv_GVLC.js",
       "resources/js/app.tsx",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_utils-CjxovF-h.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",
@@ -384,7 +408,7 @@
     ]
   },
   "resources/js/components/modals/view-product-modal.tsx": {
-    "file": "assets/view-product-modal-Hc6gsmCZ.js",
+    "file": "assets/view-product-modal-BRbUv2Do.js",
     "name": "view-product-modal",
     "src": "resources/js/components/modals/view-product-modal.tsx",
     "isDynamicEntry": true,
@@ -393,11 +417,11 @@
       "resources/js/app.tsx",
       "_utils-CjxovF-h.js",
       "_i18n-CgK4U1xh.js",
-      "_icons-g_8r37Rf.js",
+      "_icons-baWWUKtE.js",
       "_vendor-Ddv_GVLC.js"
     ],
     "css": [
-      "assets/app-vlGpYaJP.css"
+      "assets/app-BXLQgJsZ.css"
     ],
     "assets": [
       "assets/Rabar_021-C59yIIs8.eot",

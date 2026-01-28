@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, MessageCircle, Mail, CreditCard, ShoppingCart, DollarSign, Percent } from 'lucide-react';
 import { formatIQDWithSymbol } from '@/lib/currency';
 import { OrderData, sendOrderEmailWithInvoice } from '@/services/communication';
-import { TransactionData } from '@/types';
+import { TransactionData, Transaction } from '@/types';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
 import { useTransactionOperations } from '@/hooks/useTransactionOperations';
-import { calculateOrderTotal, applyOrderDiscount, calculateUnitPrice } from '@/lib/pricing-service';
+import { calculateOrderTotal, calculateUnitPrice } from '@/lib/pricing-service';
 // Removed unused import
 import { sendInvoiceViaWhatsApp } from '@/services/whatsapp-service';
 
@@ -40,6 +40,8 @@ interface CheckoutModalProps {
     calculateTotalPrice?: (product: Product) => number;
     onProductDiscountChange?: (productKey: string | number, discount: number) => void;
     onTransactionCreated?: () => void;
+    transactionToEdit?: Transaction | null; // Transaction to edit (null means create mode)
+    onTransactionUpdated?: (updatedTransaction: Transaction) => void; // Callback when transaction is updated
 }
 
 const CheckoutModal: React.FC<CheckoutModalProps> = ({
@@ -50,17 +52,40 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     customerName,
     calculateTotalPrice,
     onProductDiscountChange,
-    onTransactionCreated
+    onTransactionCreated,
+    transactionToEdit = null,
+    onTransactionUpdated
 }) => {
     const { t } = useTranslation();
     const { toast } = useToast();
-    const { createNewTransaction } = useTransactionOperations();
-    const [sendEmail, setSendEmail] = useState(true);
-    const [sendWhatsApp, setSendWhatsApp] = useState(true);
+    const { createNewTransaction, updateExistingTransaction } = useTransactionOperations();
+    const [sendEmail, setSendEmail] = useState(false);
+    const [sendWhatsApp, setSendWhatsApp] = useState(false);
     const [isPaid, setIsPaid] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
     const [discountAmount, setDiscountAmount] = useState<number | null>(null);
     const [showDiscountInput, setShowDiscountInput] = useState(false);
+
+    const isEditMode = !!transactionToEdit;
+
+    // Initialize form values when editing
+    useEffect(() => {
+        if (isEditMode && transactionToEdit) {
+            setIsPaid(transactionToEdit.status === 'paid');
+            setDiscountAmount(transactionToEdit.discount_amount || null);
+            setShowDiscountInput(!!transactionToEdit.discount_amount);
+            // Don't send email/WhatsApp by default when editing
+            setSendEmail(false);
+            setSendWhatsApp(false);
+        } else {
+            // Reset to defaults for create mode
+            setIsPaid(true);
+            setDiscountAmount(null);
+            setShowDiscountInput(false);
+            setSendEmail(false);
+            setSendWhatsApp(false);
+        }
+    }, [isEditMode, transactionToEdit]);
 
     if (!isOpen) return null;
 
@@ -70,26 +95,101 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
         setIsProcessing(true);
 
         try {
+            // If editing, update existing transaction
+            if (isEditMode && transactionToEdit) {
+                // Prepare items with discounts
+                const updatedItems = products.map(product => {
+                    // Calculate unit price (accounts for width*height area calculation)
+                    const calculatedUnitPrice = calculateUnitPrice(product);
+                    const productDiscount = product.discount || 0;
+                    const itemTotal = calculateTotalPrice ? calculateTotalPrice(product) : ((calculatedUnitPrice * product.quantity) - productDiscount);
+                    
+                    return {
+                        id: product.id,
+                        name: product.name,
+                        quantity: product.quantity,
+                        unit_price: calculatedUnitPrice,
+                        total: itemTotal,
+                        type: product.type,
+                        dimensions: product.type === 'width*height' && product.manualWidth && product.manualHeight
+                            ? `${product.manualWidth}×${product.manualHeight} cm`
+                            : undefined,
+                        weight: product.type === 'kg' && product.manualWeight
+                            ? `${product.manualWeight} kg`
+                            : undefined,
+                        discount: productDiscount
+                    };
+                });
+
+                // Recalculate totals from updated items to ensure accuracy
+                const updatedSubtotal = updatedItems.reduce((sum, item) => {
+                    const itemSubtotal = (item.unit_price || 0) * (item.quantity || 1);
+                    return sum + itemSubtotal;
+                }, 0);
+                
+                const updatedProductDiscounts = updatedItems.reduce((sum, item) => {
+                    return sum + (item.discount || 0);
+                }, 0);
+                
+                const updatedOrderDiscount = discountAmount || 0;
+                const updatedGrandTotal = updatedSubtotal - updatedProductDiscounts - updatedOrderDiscount;
+
+                const transactionData = {
+                    status: (isPaid ? 'paid' : 'debt') as 'paid' | 'debt',
+                    notes: transactionToEdit.notes || `Order updated via POS - ${products.length} items`,
+                    amount: updatedGrandTotal,
+                    items: updatedItems,
+                    subtotal: updatedSubtotal,
+                    discount_amount: updatedOrderDiscount,
+                    grand_total: updatedGrandTotal,
+                    customer_id: transactionToEdit.customer_id,
+                    customer: transactionToEdit.customer,
+                };
+
+                const result = await updateExistingTransaction(transactionToEdit.id, transactionData);
+
+                if (result?.success && result.data?.transaction) {
+                    onTransactionUpdated?.(result.data.transaction as Transaction);
+                    
+                    toast({
+                        title: t('pos.checkout.orderUpdated'),
+                        description: t('toast.transactionUpdatedSuccessfully'),
+                        variant: 'success',
+                    });
+
+                    onClose();
+                    return;
+                }
+            }
+
+            // Create new transaction (existing code)
             const orderData: OrderData = {
                 customer_name: selectedCustomer?.name || '',
                 customer_email: selectedCustomer?.email || '',
                 customer_phone: selectedCustomer?.phone,
-                order_items: products.map(product => ({
-                    id: product.id,
-                    name: product.name,
-                    quantity: product.quantity,
-                    unit_price: product.price,
-                    total: calculateTotalPrice ? calculateTotalPrice(product) : (product.price * product.quantity),
-                    type: product.type,
-                    width: product.type === 'width*height' ? product.manualWidth : undefined,
-                    height: product.type === 'width*height' ? product.manualHeight : undefined,
-                    dimensions: product.type === 'width*height' && product.manualWidth && product.manualHeight
-                        ? `${product.manualWidth}×${product.manualHeight} cm`
-                        : undefined,
-                    weight: product.type === 'kg' && product.manualWeight
-                        ? `${product.manualWeight} kg`
-                        : undefined
-                })),
+                order_items: products.map(product => {
+                    // Calculate unit price (accounts for width*height area calculation)
+                    const calculatedUnitPrice = calculateUnitPrice(product);
+                    const productDiscount = product.discount || 0;
+                    const itemTotal = calculateTotalPrice ? calculateTotalPrice(product) : ((calculatedUnitPrice * product.quantity) - productDiscount);
+                    
+                    return {
+                        id: product.id,
+                        name: product.name,
+                        quantity: product.quantity,
+                        unit_price: calculatedUnitPrice,
+                        total: itemTotal,
+                        type: product.type,
+                        width: product.type === 'width*height' ? product.manualWidth : undefined,
+                        height: product.type === 'width*height' ? product.manualHeight : undefined,
+                        dimensions: product.type === 'width*height' && product.manualWidth && product.manualHeight
+                            ? `${product.manualWidth}×${product.manualHeight} cm`
+                            : undefined,
+                        weight: product.type === 'kg' && product.manualWeight
+                            ? `${product.manualWeight} kg`
+                            : undefined
+                    };
+                }),
                 grand_total: grandTotal,
                 subtotal: subtotal,
                 discount_amount: discountAmount || 0,
@@ -104,16 +204,21 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 status: (isPaid ? 'paid' : 'debt') as 'paid' | 'debt',
                 type: 'transaction' as 'transaction' | 'offer',
                 notes: `Order completed via POS - ${products.length} items`,
-                items: orderData.order_items.map(item => ({
-                    id: item.id,
-                    name: item.name,
-                    quantity: item.quantity,
-                    unit_price: item.unit_price,
-                    total: item.total,
-                    type: item.type,
-                    dimensions: item.dimensions,
-                    weight: item.weight
-                })),
+                items: orderData.order_items.map((item, index) => {
+                    const product = products[index];
+                    const productDiscount = product?.discount || 0;
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        quantity: item.quantity,
+                        unit_price: item.unit_price,
+                        total: item.total,
+                        type: item.type,
+                        dimensions: item.dimensions,
+                        weight: item.weight,
+                        discount: productDiscount
+                    };
+                }),
                 subtotal: subtotal,
                 discount_amount: discountAmount || 0,
                 grand_total: grandTotal,
@@ -146,16 +251,22 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                         created_at: new Date().toISOString(),
                         updated_at: new Date().toISOString()
                     },
-                    items: orderData.order_items.map((item, index) => ({
-                        id: index + 1, // Use index as ID since OrderItem doesn't have id
+                items: orderData.order_items.map((item, index) => {
+                    const product = products[index];
+                    const productDiscount = product?.discount || 0;
+                    // Use calculated unit_price from order_items (already calculated)
+                    return {
+                        id: product?.id || index + 1,
                         name: item.name,
                         quantity: item.quantity,
-                        unit_price: item.unit_price,
+                        unit_price: item.unit_price, // This is already calculated with area for width*height
                         total: item.total,
-                        type: 'pcs', // Default type since OrderItem doesn't have type
-                        dimensions: '',
-                        weight: ''
-                    })),
+                        type: item.type || 'pcs',
+                        dimensions: item.dimensions || '',
+                        weight: item.weight || '',
+                        discount: productDiscount
+                    };
+                }),
                     subtotal: subtotal,
                     discount_amount: discountAmount || 0,
                     grand_total: grandTotal,
@@ -222,9 +333,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
     // Use the new pricing service for clean calculations
     const orderCalculation = calculateOrderTotal(products);
+    
+    // Calculate subtotal from products (sum of all item totals before discounts)
     const subtotal = orderCalculation.subtotal;
-    // Apply additional order-level discount on top of individual product discounts
-    const grandTotal = applyOrderDiscount(orderCalculation.grandTotal, discountAmount || 0);
+    
+    // Calculate grand total: subtotal - product discounts - order discount
+    const totalProductDiscounts = orderCalculation.totalDiscount;
+    const orderDiscount = discountAmount || 0;
+    const grandTotal = subtotal - totalProductDiscounts - orderDiscount;
 
     const customer = selectedCustomer || { name: customerName || 'Not specified' };
 
@@ -238,7 +354,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                             <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600 dark:text-orange-400" />
                         </div>
                         <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
-                            {t('pos.checkout.title')}
+                            {isEditMode ? t('pos.checkout.editTitle') : t('pos.checkout.title')}
                         </h2>
                     </div>
                 </div>
@@ -253,18 +369,21 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                 <div className="flex items-center gap-2 mb-2">
                                     <User className="w-4 h-4 text-indigo-600" />
                                     <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">{t('pos.checkout.customer')}</h3>
+                                    {isEditMode && (
+                                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">({t('pos.checkout.readOnly')})</span>
+                                    )}
                                 </div>
                                 <div className="space-y-1 text-xs sm:text-sm">
                                     <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
                                         <span className="text-gray-500 dark:text-gray-400">{t('common.labels.name')}:</span>
-                                        <span className="font-medium text-gray-900 dark:text-white break-words">
+                                        <span className={`font-medium break-words ${isEditMode ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
                                             {customer.name}
                                         </span>
                                     </div>
                                     {selectedCustomer?.phone && (
                                         <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
                                             <span className="text-gray-500 dark:text-gray-400">{t('common.labels.phone')}:</span>
-                                            <span className="font-medium text-gray-900 dark:text-white break-words">
+                                            <span className={`font-medium break-words ${isEditMode ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
                                                 {selectedCustomer?.phone || '-'}
                                             </span>
                                         </div>
@@ -272,7 +391,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                     {selectedCustomer?.email && (
                                         <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
                                             <span className="text-gray-500 dark:text-gray-400">{t('common.labels.email')}:</span>
-                                            <span className="font-medium text-gray-900 dark:text-white break-words">
+                                            <span className={`font-medium break-words ${isEditMode ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
                                                 {selectedCustomer?.email || '-'}
                                             </span>
                                         </div>
@@ -280,11 +399,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                 </div>
                             </div>
 
-                            {/* Communication Options */}
-                            <div className="bg-white dark:bg-[#1a1a1a] rounded-lg p-3 border border-gray-200 dark:border-gray-800 shadow-sm">
+                            {/* Communication Options - Disabled in edit mode */}
+                            <div className={`bg-white dark:bg-[#1a1a1a] rounded-lg p-3 border border-gray-200 dark:border-gray-800 shadow-sm ${isEditMode ? 'opacity-60' : ''}`}>
                                 <div className="flex items-center gap-2 mb-2">
                                     <MessageCircle className="w-4 h-4 text-indigo-600" />
                                     <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">{t('pos.checkout.sendConfirmation')}</h3>
+                                    {isEditMode && (
+                                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">({t('pos.checkout.disabled')})</span>
+                                    )}
                                 </div>
                                 <div className="space-y-2 sm:space-y-3">
                                     <label className={`flex items-center gap-2 sm:gap-3 cursor-pointer p-2 rounded-lg transition-all duration-200 ${
@@ -299,7 +421,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                                 type="checkbox"
                                                 checked={sendEmail}
                                                 onChange={(e) => setSendEmail(e.target.checked)}
-                                                disabled={!selectedCustomer?.email}
+                                                disabled={isEditMode || !selectedCustomer?.email}
                                                 className="sr-only"
                                             />
                                             <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-md border-2 transition-all duration-200 flex items-center justify-center ${
@@ -349,7 +471,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                                 type="checkbox"
                                                 checked={sendWhatsApp}
                                                 onChange={(e) => setSendWhatsApp(e.target.checked)}
-                                                disabled={!selectedCustomer?.phone}
+                                                disabled={isEditMode || !selectedCustomer?.phone}
                                                 className="sr-only"
                                             />
                                             <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-md border-2 transition-all duration-200 flex items-center justify-center ${
@@ -765,8 +887,8 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
                                     <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span className="hidden sm:inline">{t('pos.checkout.completeOrder')}</span>
-                                    <span className="sm:hidden">{t('pos.actions.checkout')}</span>
+                                    <span className="hidden sm:inline">{isEditMode ? t('pos.checkout.updateOrder') : t('pos.checkout.completeOrder')}</span>
+                                    <span className="sm:hidden">{isEditMode ? t('pos.checkout.update') : t('pos.actions.checkout')}</span>
                                 </>
                             )}
                         </button>

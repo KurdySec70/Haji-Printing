@@ -49,6 +49,7 @@ interface SelectedProductsTableProps {
     selectedCustomer?: Customer | null;
     className?: string;
     userRole?: string | null;
+    isEditMode?: boolean;
 }
 
 export default function SelectedProductsTable({
@@ -67,7 +68,8 @@ export default function SelectedProductsTable({
     onProductSelect,
     selectedCustomer = null,
     className = '',
-    userRole = null
+    userRole = null,
+    isEditMode = false
 }: SelectedProductsTableProps) {
     const { t } = useTranslation();
     const [calculatorOpen, setCalculatorOpen] = useState(false);
@@ -142,7 +144,7 @@ export default function SelectedProductsTable({
                     {/* Product Search and Customer Selection */}
                     {onProductSelect && (
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                            {/* Product Search */}
+                            {/* Product Search - Always enabled */}
                             <div className="flex items-center gap-2 flex-1">
                                 <Search className="w-4 h-4 text-[#F58E18] dark:text-[#FB923C] flex-shrink-0" />
                                 <ProductSearchDropdown
@@ -153,24 +155,41 @@ export default function SelectedProductsTable({
                                 />
                             </div>
                             
-                            {/* Customer Selection */}
-                            <div className="flex items-center gap-2 flex-1">
-                                <User className="w-4 h-4 text-[#3b82f6] dark:text-[#60A5FA] flex-shrink-0" />
-                                <CustomerSearchDropdown
-                                    onCustomerSelect={(customer) => {
-                                        onCustomerSelect?.(customer);
-                                        onCustomerNameChange?.(customer.name);
-                                    }}
-                                    placeholder={t('pos.searchCustomersPlaceholder')}
-                                    value={customerName}
-                                    onClear={() => {
-                                        onCustomerNameChange?.('');
-                                        onCustomerSelect?.(null as Customer | null);
-                                    }}
-                                    className="flex-1"
-                                    role={userRole ?? undefined}
-                                />
-                            </div>
+                            {/* Customer Selection - Disabled in edit mode */}
+                            {!isEditMode ? (
+                                <div className="flex items-center gap-2 flex-1">
+                                    <User className="w-4 h-4 text-[#3b82f6] dark:text-[#60A5FA] flex-shrink-0" />
+                                    <CustomerSearchDropdown
+                                        onCustomerSelect={(customer) => {
+                                            onCustomerSelect?.(customer);
+                                            onCustomerNameChange?.(customer.name);
+                                        }}
+                                        placeholder={t('pos.searchCustomersPlaceholder')}
+                                        value={customerName}
+                                        onClear={() => {
+                                            onCustomerNameChange?.('');
+                                            onCustomerSelect?.(null as Customer | null);
+                                        }}
+                                        className="flex-1"
+                                        role={userRole ?? undefined}
+                                    />
+                                </div>
+                            ) : (
+                                /* Customer Display (Read-only) in Edit Mode */
+                                selectedCustomer && (
+                                    <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-[#1a1a1a] rounded-lg border border-gray-200 dark:border-gray-800 flex-1">
+                                        <User className="w-4 h-4 text-[#3b82f6] dark:text-[#60A5FA] flex-shrink-0" />
+                                        <div className="flex-1">
+                                            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                                {t('pos.checkout.customer')} ({t('pos.checkout.readOnly')})
+                                            </div>
+                                            <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                                {selectedCustomer.name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            )}
                         </div>
                     )}
                 </div>
@@ -208,7 +227,6 @@ export default function SelectedProductsTable({
                                         </th>
                                         <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">
                                             {t('pos.dimensions.enterDimensions')}
-                                            <span className="text-xs text-gray-400 dark:text-gray-500 ml-1">(0.01)</span>
                                         </th>
                                         <th className="text-left py-3 px-4 font-medium text-gray-700 dark:text-gray-300">
                                             {t('products.table.price')}
@@ -246,11 +264,11 @@ export default function SelectedProductsTable({
                                             <div className="text-xs text-gray-500 dark:text-gray-400">
                                                 {product.manualWidth && product.manualHeight ? (
                                                     <span className="text-blue-600 dark:text-blue-400 font-medium">
-                                                        {parseFloat(product.manualWidth.toString()).toFixed(2)} × {parseFloat(product.manualHeight.toString()).toFixed(2)} cm
+                                                        {Math.floor(Number(product.manualWidth))} × {Math.floor(Number(product.manualHeight))} cm
                                                     </span>
                                                 ) : product.width && product.height ? (
                                                     <span className="text-gray-500 dark:text-gray-400">
-                                                        {typeof product.width === 'number' ? product.width.toFixed(2) : product.width} × {typeof product.height === 'number' ? product.height.toFixed(2) : product.height} cm
+                                                        {typeof product.width === 'number' ? Math.floor(product.width) : Math.floor(Number(product.width))} × {typeof product.height === 'number' ? Math.floor(product.height) : Math.floor(Number(product.height))} cm
                                                     </span>
                                                 ) : (
                                                     <span className="text-orange-500 dark:text-orange-400 italic">
@@ -269,7 +287,7 @@ export default function SelectedProductsTable({
                                         {onUpdateQuantity ? (
                                             <div className="flex items-center gap-2">
                                                 <button
-                                                    onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.max(1, quantity - 1))}
+                                                    onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.max(1, Math.floor(quantity) - 1))}
                                                     className="w-7 h-7 rounded-full bg-gray-100 dark:bg-[#431407] hover:bg-gray-200 dark:hover:bg-[#431407] border border-gray-300 dark:border-[#431407] flex items-center justify-center text-sm font-medium text-gray-600 dark:text-[#fed7aa] hover:text-gray-800 dark:hover:text-[#fed7aa] transition-colors cursor-pointer"
                                                 >
                                                     −
@@ -279,51 +297,59 @@ export default function SelectedProductsTable({
                                                     className="w-8 h-7 rounded bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-sm font-medium text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 transition-colors cursor-pointer"
                                                     title={t('common.calculator')}
                                                 >
-                                                    {quantity}
+                                                    {Math.floor(quantity)}
                                                 </button>
                                                 <button
-                                                    onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), quantity + 1)}
+                                                    onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.floor(quantity) + 1)}
                                                     className="w-7 h-7 rounded-full bg-gray-100 dark:bg-[#431407] hover:bg-gray-200 dark:hover:bg-[#431407] border border-gray-300 dark:border-[#431407] flex items-center justify-center text-sm font-medium text-gray-600 dark:text-[#fed7aa] hover:text-gray-800 dark:hover:text-[#fed7aa] transition-colors cursor-pointer"
                                                 >
                                                     +
                                                 </button>
                                             </div>
                                         ) : (
-                                            <span className="font-medium text-gray-900 dark:text-gray-100">{quantity}</span>
+                                            <span className="font-medium text-gray-900 dark:text-gray-100">{Math.floor(quantity)}</span>
                                         )}
                                     </td>
                                     <td className="py-3 px-4">
                                         {product.type === 'width*height' && onUpdateDimensions ? (
                                             <div className="flex items-center gap-3">
                                                 {/* Dimensions Inputs */}
-                                                <div className="flex flex-col gap-1">
-                                                    <div className="flex items-center gap-1">
-                                                        <label className="text-xs text-gray-500 dark:text-gray-400 w-6">
+                                                <div className="flex flex-col gap-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 w-8">
                                                             W:
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            value={product.manualWidth || ''}
-                                                        onChange={(e) => onUpdateDimensions(product.cartItemId ?? String(product.id), e.target.value, product.manualHeight || '')}
-                                                            className="w-12 px-1 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                                            value={product.manualWidth ? Math.floor(Number(product.manualWidth)) : ''}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value === '' ? '' : Math.floor(Number(e.target.value)) || 0;
+                                                            onUpdateDimensions(product.cartItemId ?? String(product.id), value, product.manualHeight || '');
+                                                        }}
+                                                            className="w-20 px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                                                             placeholder="0"
                                                             min="0"
-                                                            step="0.01"
+                                                            step="1"
                                                         />
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400">cm</span>
                                                     </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <label className="text-xs text-gray-500 dark:text-gray-400 w-6">
+                                                    <div className="flex items-center gap-2">
+                                                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 w-8">
                                                             H:
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            value={product.manualHeight || ''}
-                                                        onChange={(e) => onUpdateDimensions(product.cartItemId ?? String(product.id), product.manualWidth || '', e.target.value)}
-                                                            className="w-12 px-1 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                                            value={product.manualHeight ? Math.floor(Number(product.manualHeight)) : ''}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value === '' ? '' : Math.floor(Number(e.target.value)) || 0;
+                                                            onUpdateDimensions(product.cartItemId ?? String(product.id), product.manualWidth || '', value);
+                                                        }}
+                                                            className="w-20 px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                                                             placeholder="0"
                                                             min="0"
-                                                            step="0.01"
+                                                            step="1"
                                                         />
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400">cm</span>
                                                     </div>
                                                 </div>
                                                 
@@ -430,8 +456,24 @@ export default function SelectedProductsTable({
                                         </div>
                                     </td>
                                     <td className="py-3 px-4">
-                                        <div className="font-bold text-green-600 dark:text-green-400">
-                                            {formatIQDWithSymbol(total)}
+                                        <div className="flex flex-col gap-1">
+                                            {product.discount && product.discount > 0 ? (
+                                                <>
+                                                    <div className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                                                        {formatIQDWithSymbol(pricing?.totalPrice || total + product.discount)}
+                                                    </div>
+                                                    <div className="font-bold text-green-600 dark:text-green-400">
+                                                        {formatIQDWithSymbol(total)}
+                                                    </div>
+                                                    <div className="text-xs text-red-600 dark:text-red-400 font-medium">
+                                                        -{formatIQDWithSymbol(product.discount)}
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="font-bold text-green-600 dark:text-green-400">
+                                                    {formatIQDWithSymbol(total)}
+                                                </div>
+                                            )}
                                         </div>
                                     </td>
                                     <td className="py-3 px-4 text-center">
@@ -479,11 +521,11 @@ export default function SelectedProductsTable({
                                                         <div className="text-xs text-gray-500 dark:text-gray-400">
                                                             {product.manualWidth && product.manualHeight ? (
                                                                 <span className="text-blue-600 dark:text-blue-400 font-medium">
-                                                                    {parseFloat(product.manualWidth.toString()).toFixed(2)} × {parseFloat(product.manualHeight.toString()).toFixed(2)} cm
+                                                                    {Math.floor(Number(product.manualWidth))} × {Math.floor(Number(product.manualHeight))} cm
                                                                 </span>
                                                             ) : product.width && product.height ? (
                                                                 <span className="text-gray-500 dark:text-gray-400">
-                                                                    {typeof product.width === 'number' ? product.width.toFixed(2) : product.width} × {typeof product.height === 'number' ? product.height.toFixed(2) : product.height} cm
+                                                                    {typeof product.width === 'number' ? Math.floor(product.width) : Math.floor(Number(product.width))} × {typeof product.height === 'number' ? Math.floor(product.height) : Math.floor(Number(product.height))} cm
                                                                 </span>
                                                             ) : (
                                                                 <span className="text-orange-500 dark:text-orange-400 italic">
@@ -511,7 +553,7 @@ export default function SelectedProductsTable({
                                             {onUpdateQuantity ? (
                                                 <div className="flex items-center gap-2">
                                                     <button
-                                                        onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.max(1, quantity - 1))}
+                                                        onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.max(1, Math.floor(quantity) - 1))}
                                                         className="w-6 h-6 rounded-full bg-gray-200 dark:bg-[#262626] hover:bg-gray-300 dark:hover:bg-[#333333] flex items-center justify-center text-sm font-medium text-gray-600 dark:text-gray-400 transition-colors"
                                                     >
                                                         −
@@ -521,17 +563,17 @@ export default function SelectedProductsTable({
                                                         className="w-8 h-6 rounded bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-sm font-medium text-blue-600 dark:text-blue-300 transition-colors"
                                                         title={t('common.calculator')}
                                                     >
-                                                        {quantity}
+                                                        {Math.floor(quantity)}
                                                     </button>
                                                     <button
-                                                        onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), quantity + 1)}
+                                                        onClick={() => onUpdateQuantity(product.cartItemId ?? String(product.id), Math.floor(quantity) + 1)}
                                                         className="w-6 h-6 rounded-full bg-gray-200 dark:bg-[#262626] hover:bg-gray-300 dark:hover:bg-[#333333] flex items-center justify-center text-sm font-medium text-gray-600 dark:text-gray-400 transition-colors"
                                                     >
                                                         +
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <span className="font-medium text-gray-900 dark:text-gray-100">{quantity}</span>
+                                                <span className="font-medium text-gray-900 dark:text-gray-100">{Math.floor(quantity)}</span>
                                             )}
                                         </div>
 
@@ -543,32 +585,40 @@ export default function SelectedProductsTable({
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     <div className="flex items-center gap-2">
-                                                        <label className="text-xs text-gray-500 dark:text-gray-400">
+                                                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                                             W:
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            value={product.manualWidth || ''}
-                                                        onChange={(e) => onUpdateDimensions(product.cartItemId ?? String(product.id), e.target.value, product.manualHeight || '')}
-                                                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                                            value={product.manualWidth ? Math.floor(Number(product.manualWidth)) : ''}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value === '' ? '' : Math.floor(Number(e.target.value)) || 0;
+                                                            onUpdateDimensions(product.cartItemId ?? String(product.id), value, product.manualHeight || '');
+                                                        }}
+                                                            className="w-20 px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                                                             placeholder="0"
                                                             min="0"
-                                                            step="0.01"
+                                                            step="1"
                                                         />
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400">cm</span>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                        <label className="text-xs text-gray-500 dark:text-gray-400">
+                                                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                                             H:
                                                         </label>
                                                         <input
                                                             type="number"
-                                                            value={product.manualHeight || ''}
-                                                        onChange={(e) => onUpdateDimensions(product.cartItemId ?? String(product.id), product.manualWidth || '', e.target.value)}
-                                                            className="w-16 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                                            value={product.manualHeight ? Math.floor(Number(product.manualHeight)) : ''}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value === '' ? '' : Math.floor(Number(e.target.value)) || 0;
+                                                            onUpdateDimensions(product.cartItemId ?? String(product.id), product.manualWidth || '', value);
+                                                        }}
+                                                            className="w-20 px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                                                             placeholder="0"
                                                             min="0"
-                                                            step="0.01"
+                                                            step="1"
                                                         />
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400">cm</span>
                                                     </div>
                                                     
                                                     {/* Accept Button for Mobile */}
@@ -688,8 +738,24 @@ export default function SelectedProductsTable({
                                                 <div className="text-xs text-gray-500 dark:text-gray-400">
                                                     {t('common.labels.total')}
                                                 </div>
-                                                <div className="font-bold text-green-600 dark:text-green-400 text-sm">
-                                                    {formatIQDWithSymbol(total)}
+                                                <div className="flex flex-col items-end gap-1">
+                                                    {product.discount && product.discount > 0 ? (
+                                                        <>
+                                                            <div className="text-xs text-gray-400 dark:text-gray-500 line-through">
+                                                                {formatIQDWithSymbol(pricing?.totalPrice || total + product.discount)}
+                                                            </div>
+                                                            <div className="font-bold text-green-600 dark:text-green-400 text-sm">
+                                                                {formatIQDWithSymbol(total)}
+                                                            </div>
+                                                            <div className="text-xs text-red-600 dark:text-red-400 font-medium">
+                                                                -{formatIQDWithSymbol(product.discount)}
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <div className="font-bold text-green-600 dark:text-green-400 text-sm">
+                                                            {formatIQDWithSymbol(total)}
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -705,28 +771,34 @@ export default function SelectedProductsTable({
             {/* Footer - Always visible and fixed */}
             <div className="sticky bottom-0 px-3 sm:px-6 py-3 sm:py-4 pb-8 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1a1a1a] rounded-b-lg">
                 <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3">
-                    <button
-                        onClick={onClearCart}
-                        disabled={isEmpty}
-                        className={`px-3 py-2 sm:px-4 text-sm border rounded-lg transition-colors ${
-                            isEmpty
-                                ? 'text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-800 cursor-not-allowed'
-                                : 'text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-[#262626] hover:border-red-300 dark:hover:border-red-800 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
-                        }`}
-                    >
-                        {t('pos.actions.clearCart')}
-                    </button>
-                    <button
-                        onClick={onOffer}
-                        disabled={isEmpty || !selectedCustomer}
-                        className={`px-3 py-2 sm:px-4 text-sm border rounded-lg transition-colors ${
-                            isEmpty || !selectedCustomer
-                                ? 'text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-800 cursor-not-allowed'
-                                : 'text-[#3b82f6] dark:text-[#60A5FA] border-[#3b82f6] dark:border-[#3b82f6] hover:bg-[#3b82f6] hover:text-white dark:hover:bg-[#3b82f6] dark:hover:text-white cursor-pointer'
-                        }`}
-                    >
-                        {t('pos.actions.sendOffer')}
-                    </button>
+                    {/* Clear Cart Button - Hidden in edit mode */}
+                    {!isEditMode && (
+                        <button
+                            onClick={onClearCart}
+                            disabled={isEmpty}
+                            className={`px-3 py-2 sm:px-4 text-sm border rounded-lg transition-colors ${
+                                isEmpty
+                                    ? 'text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-800 cursor-not-allowed'
+                                    : 'text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-[#262626] hover:border-red-300 dark:hover:border-red-800 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
+                            }`}
+                        >
+                            {t('pos.actions.clearCart')}
+                        </button>
+                    )}
+                    {/* Offer Button - Hidden in edit mode */}
+                    {!isEditMode && (
+                        <button
+                            onClick={onOffer}
+                            disabled={isEmpty || !selectedCustomer}
+                            className={`px-3 py-2 sm:px-4 text-sm border rounded-lg transition-colors ${
+                                isEmpty || !selectedCustomer
+                                    ? 'text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-800 cursor-not-allowed'
+                                    : 'text-[#3b82f6] dark:text-[#60A5FA] border-[#3b82f6] dark:border-[#3b82f6] hover:bg-[#3b82f6] hover:text-white dark:hover:bg-[#3b82f6] dark:hover:text-white cursor-pointer'
+                            }`}
+                        >
+                            {t('pos.actions.sendOffer')}
+                        </button>
+                    )}
                     <button
                         onClick={onCheckout}
                         disabled={isEmpty || !selectedCustomer}
@@ -736,7 +808,7 @@ export default function SelectedProductsTable({
                                 : 'bg-[#F58E18] hover:bg-[#EA580C] dark:bg-[#F58E18] dark:hover:bg-[#EA580C] text-white shadow-sm hover:shadow-md cursor-pointer'
                         }`}
                     >
-                        {t('pos.actions.checkout')}
+                        {isEditMode ? t('pos.checkout.updateOrder') : t('pos.actions.checkout')}
                     </button>
                 </div>
             </div>

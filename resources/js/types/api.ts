@@ -72,6 +72,7 @@ export interface TransactionItem {
     type: string;
     dimensions?: string;
     weight?: string;
+    discount?: number;
 }
 
 export interface Customer {

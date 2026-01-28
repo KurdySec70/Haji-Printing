@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PointOfSaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\InvoiceSettingsController;
@@ -25,9 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
     Route::resource('posts', PostController::class);
     
-    Route::get('point-of-sale', function () {
-        return Inertia::render('admin/point-of-sale');
-    })->name('point-of-sale');
+    Route::get('point-of-sale', [PointOfSaleController::class, 'index'])->name('point-of-sale');
     
     // Invoice Settings API routes
     Route::get('api/invoice-settings', [InvoiceSettingsController::class, 'get'])->name('api.invoice-settings.get');

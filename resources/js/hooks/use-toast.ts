@@ -7,7 +7,7 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 3
+const TOAST_LIMIT = 1 // Only show one toast at a time
 const TOAST_REMOVE_DELAY = 4000
 
 type ToasterToast = ToastProps & {
@@ -31,6 +31,10 @@ function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER
   return count.toString()
 }
+
+// Queue for pending toasts
+const toastQueue: ToasterToast[] = []
+let isShowingToast = false
 
 type ActionType = typeof actionTypes
 
@@ -69,17 +73,45 @@ const addToRemoveQueue = (toastId: string) => {
       type: "REMOVE_TOAST",
       toastId: toastId,
     })
+    // After removing current toast, show next one from queue
+    showNextToastFromQueue()
   }, TOAST_REMOVE_DELAY)
 
   toastTimeouts.set(toastId, timeout)
 }
 
+// Function to show next toast from queue
+const showNextToastFromQueue = () => {
+  if (toastQueue.length === 0) {
+    isShowingToast = false
+    return
+  }
+
+  isShowingToast = true
+  const nextToast = toastQueue.shift()
+  if (nextToast) {
+    dispatch({
+      type: "ADD_TOAST",
+      toast: {
+        ...nextToast,
+        open: true,
+        onOpenChange: (open) => {
+          if (!open) {
+            dispatch({ type: "DISMISS_TOAST", toastId: nextToast.id })
+          }
+        },
+      },
+    })
+  }
+}
+
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
+      // Only allow one toast at a time
       return {
         ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
+        toasts: [action.toast].slice(0, TOAST_LIMIT),
       }
 
     case "UPDATE_TOAST":
@@ -113,17 +145,26 @@ export const reducer = (state: State, action: Action): State => {
         ),
       }
     }
-    case "REMOVE_TOAST":
+    case "REMOVE_TOAST": {
       if (action.toastId === undefined) {
+        // Clear all toasts and queue
+        toastQueue.length = 0
+        isShowingToast = false
         return {
           ...state,
           toasts: [],
         }
       }
+      const filteredToasts = state.toasts.filter((t) => t.id !== action.toastId)
+      // If toast was removed and no toasts remain, show next from queue
+      if (filteredToasts.length === 0) {
+        setTimeout(() => showNextToastFromQueue(), 100)
+      }
       return {
         ...state,
-        toasts: state.toasts.filter((t) => t.id !== action.toastId),
+        toasts: filteredToasts,
       }
+    }
   }
 }
 
@@ -148,18 +189,36 @@ function toast({ ...props }: Toast) {
       type: "UPDATE_TOAST",
       toast: { ...props, id },
     })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+  const dismiss = () => {
+    dispatch({ type: "DISMISS_TOAST", toastId: id })
+    // Show next toast from queue after dismissing
+    setTimeout(() => showNextToastFromQueue(), 100)
+  }
 
+  const newToast: ToasterToast = {
+    ...props,
+    id,
+    open: true,
+    onOpenChange: (open) => {
+      if (!open) dismiss()
+    },
+  }
+
+  // If a toast is already showing, add to queue
+  if (isShowingToast || memoryState.toasts.length > 0) {
+    toastQueue.push(newToast)
+    return {
+      id: id,
+      dismiss,
+      update,
+    }
+  }
+
+  // Show toast immediately if none is showing
+  isShowingToast = true
   dispatch({
     type: "ADD_TOAST",
-    toast: {
-      ...props,
-      id,
-      open: true,
-      onOpenChange: (open) => {
-        if (!open) dismiss()
-      },
-    },
+    toast: newToast,
   })
 
   return {

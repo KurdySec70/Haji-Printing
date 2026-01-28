@@ -263,4 +263,17 @@ export const createTransaction = async (transactionData: Partial<Transaction>): 
     }
 };
 
+/**
+ * Update an existing transaction
+ */
+export const updateTransaction = async (transactionId: number, transactionData: Partial<Transaction>): Promise<TransactionResponse> => {
+    try {
+        const response = await apiClient.put(`/api/transactions/${transactionId}`, transactionData);
+        return response.data;
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to update transaction';
+        throw new Error(errorMessage);
+    }
+};
+
 

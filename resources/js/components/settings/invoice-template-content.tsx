@@ -83,8 +83,8 @@ export function InvoiceTemplateContent({
         reader.onload = (e) => {
             const previewUrl = e.target?.result as string;
             setFilePreview(previewUrl);
-            // Update settings immediately with preview URL for real-time preview
-            onSettingsChange('logo_url', previewUrl);
+            // Note: Don't set logo_url to base64 - it's too large for database storage
+            // The preview will use filePreview prop instead
         };
         reader.readAsDataURL(file);
 
@@ -124,6 +124,9 @@ export function InvoiceTemplateContent({
                 });
             } else {
                 const errorData = await uploadResponse.json().catch(() => ({}));
+                // Clear preview on failure to revert to saved logo
+                setFilePreview(null);
+                onFileSelect(null);
                 toast({
                     title: t('toast.error'),
                     description: errorData.message || 'Failed to upload logo',
@@ -132,6 +135,9 @@ export function InvoiceTemplateContent({
             }
         } catch (error) {
             console.error('Error uploading logo:', error);
+            // Clear preview on failure to revert to saved logo
+            setFilePreview(null);
+            onFileSelect(null);
             toast({
                 title: t('toast.error'),
                 description: 'Failed to upload logo. Please try again.',

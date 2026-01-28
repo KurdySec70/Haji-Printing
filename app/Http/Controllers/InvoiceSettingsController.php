@@ -28,7 +28,7 @@ class InvoiceSettingsController extends Controller
             'settings.primary_font' => 'string|max:50',
             'settings.font_size_base' => 'integer|min:8|max:20',
             'settings.font_weight' => 'nullable|string|in:300,400,500,600,700,800',
-            'settings.logo_url' => 'nullable|string|max:500',
+            'settings.logo_url' => 'nullable|string|max:2048',
             'settings.logo_width' => 'integer|min:50|max:200',
             'settings.logo_height' => 'integer|min:50|max:200',
             'settings.company_title' => 'string|max:100',

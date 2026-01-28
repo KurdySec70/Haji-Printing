@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -48,7 +49,7 @@ class TransactionController extends Controller
                 'items', 'subtotal', 'discount_amount', 'grand_total', 'transaction_date', 'created_at', 'notes'
             ])->with([
                 'customer:id,name,email',
-                'cashier:id,name,role'
+                'cashier:id,name,email,role'
             ]);
 
         // Apply filters
@@ -130,8 +131,9 @@ class TransactionController extends Controller
             ];
         })();
 
-        // Return JSON for API requests (like from the modal)
-        if ($request->expectsJson() || $request->has('per_page')) {
+        // Return JSON only for explicit API requests (expectsJson header or /api/ route)
+        // Don't return JSON for regular Inertia page requests even if they have query params
+        if ($request->expectsJson() && $request->is('api/*')) {
             return response()->json([
                 'success' => true,
                 'transactions' => $result['transactions'],
@@ -142,7 +144,7 @@ class TransactionController extends Controller
               ->header('Expires', '0');
         }
 
-        // Return Inertia response for page requests
+        // Return Inertia response for page requests (default)
         return Inertia::render('admin/transactions', $result);
     }
 
@@ -174,7 +176,7 @@ class TransactionController extends Controller
             $transaction = Transaction::create([
                 'order_id' => $isOffer ? Transaction::generateOfferId() : Transaction::generateOrderId(),
                 'customer_id' => $request->customer_id,
-                'cashier_id' => $request->cashier_id ?? null,
+                'cashier_id' => $request->cashier_id ?? Auth::id(),
                 'amount' => $request->amount,
                 'status' => $request->status,
                 'type' => $type,
@@ -199,7 +201,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction created successfully',
-                'transaction' => $transaction->load('customer'),
+                'transaction' => $transaction->load(['customer', 'cashier']),
             ]);
 
         } catch (\Exception $e) {
@@ -239,15 +241,23 @@ class TransactionController extends Controller
             'status' => 'sometimes|in:paid,debt',
             'notes' => 'nullable|string|max:1000',
             'amount' => 'sometimes|numeric|min:0',
+            'items' => 'nullable|array',
             'subtotal' => 'sometimes|numeric|min:0',
             'discount_amount' => 'nullable|numeric|min:0',
             'grand_total' => 'sometimes|numeric|min:0',
         ]);
 
         try {
-            $transaction->update($request->only([
+            $updateData = $request->only([
                 'status', 'notes', 'amount', 'subtotal', 'discount_amount', 'grand_total'
-            ]));
+            ]);
+            
+            // Include items if provided
+            if ($request->has('items')) {
+                $updateData['items'] = $request->items;
+            }
+            
+            $transaction->update($updateData);
 
             Log::info('Transaction updated successfully', [
                 'transaction_id' => $transaction->id,
@@ -260,7 +270,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction updated successfully',
-                'transaction' => $transaction->load('customer'),
+                'transaction' => $transaction->load(['customer', 'cashier']),
             ]);
 
         } catch (\Exception $e) {
@@ -280,7 +290,7 @@ class TransactionController extends Controller
     /**
      * Remove the specified transaction.
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Request $request, Transaction $transaction)
     {
         try {
             $orderId = $transaction->order_id;

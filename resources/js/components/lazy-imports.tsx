@@ -59,6 +59,10 @@ export const LazyDeletePostModal = withLazyWrapper(
     lazy(() => import('@/components/modals/delete-post-modal'))
 );
 
+export const LazyDeleteTransactionModal = withLazyWrapper(
+    lazy(() => import('@/components/modals/delete-transaction-modal'))
+);
+
 
 // Additional components can be added here as needed
 
@@ -78,4 +82,5 @@ export const LazyComponents = {
     DeleteCustomerModal: LazyDeleteCustomerModal,
     DeleteUserModal: LazyDeleteUserModal,
     DeletePostModal: LazyDeletePostModal,
+    DeleteTransactionModal: LazyDeleteTransactionModal,
 };

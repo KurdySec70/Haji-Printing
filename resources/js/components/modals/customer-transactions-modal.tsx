@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Receipt, X, User, Calendar, DollarSign, CreditCard, AlertCircle, CheckCircle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, RefreshCw, Clock, Printer, Download } from 'lucide-react';
+import { Receipt, X, User, Calendar, DollarSign, CreditCard, AlertCircle, CheckCircle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, RefreshCw, Clock, Printer, Download, Edit, Trash2, Search, RotateCcw, Filter, ArrowUpDown, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
+import DeleteTransactionModal from './delete-transaction-modal';
 import {
     Table,
     TableBody,
@@ -14,7 +16,7 @@ import {
 import { formatIQDWithSymbol } from '@/lib/currency';
 import { transformRoute } from '@/utils/routeHelper';
 import { generateInvoiceTemplate, type InvoiceSettings } from '@/utils/invoice-template';
-import type { Transaction as ApiTransaction } from '@/types';
+import type { Transaction } from '@/types';
 
 interface Customer {
     id: number;
@@ -27,38 +29,6 @@ interface Customer {
     updated_at: string;
 }
 
-interface Transaction {
-    id: number;
-    order_id: string;
-    customer_id: number;
-    amount: number;
-    status: 'paid' | 'debt' | 'pending';
-    type: 'transaction' | 'offer';
-    notes?: string;
-    items: TransactionItem[];
-    subtotal: number;
-    discount_amount: number;
-    grand_total: number;
-    transaction_date: string;
-    created_at: string;
-    updated_at: string;
-    customer: {
-        id: number;
-        name: string;
-        email?: string;
-        phone?: string;
-        created_at?: string;
-        updated_at?: string;
-    };
-}
-
-interface TransactionItem {
-    id: number;
-    name: string;
-    quantity: number;
-    price: number;
-    total: number;
-}
 
 interface CustomerTransactionsModalProps {
     customer: Customer | null;
@@ -83,26 +53,117 @@ export default function CustomerTransactionsModal({
     const [printingDebtSummary, setPrintingDebtSummary] = useState(false);
     const [printingPaidSummary, setPrintingPaidSummary] = useState(false);
     const [exportingTransactions, setExportingTransactions] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [transactionToDelete, setTransactionToDelete] = useState<Transaction | null>(null);
+
+    // Search, filter, and sort states
+    const [searchQuery, setSearchQuery] = useState('');
+    const [statusFilter, setStatusFilter] = useState<'all' | 'paid' | 'debt'>('all');
+    const [typeFilter, setTypeFilter] = useState<'all' | 'transaction' | 'offer'>('all');
+    const [sortBy, setSortBy] = useState<'date' | 'amount'>('date');
+    const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
+    
+    // Custom dropdown states
+    const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+    const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
+    const [isSortByDropdownOpen, setIsSortByDropdownOpen] = useState(false);
+    const [isSortOrderDropdownOpen, setIsSortOrderDropdownOpen] = useState(false);
+    
+    // Refs for dropdown click outside detection
+    const statusDropdownRef = useRef<HTMLDivElement>(null);
+    const typeDropdownRef = useRef<HTMLDivElement>(null);
+    const sortByDropdownRef = useRef<HTMLDivElement>(null);
+    const sortOrderDropdownRef = useRef<HTMLDivElement>(null);
+
+    // Option arrays for dropdowns (memoized to avoid recreation on every render)
+    const statusOptions = useMemo(() => [
+        { value: 'all', label: t('customers.modal.transactions.filters.all', { defaultValue: 'All Status' }) },
+        { value: 'paid', label: t('customers.modal.transactions.filters.paid', { defaultValue: 'Paid' }) },
+        { value: 'debt', label: t('customers.modal.transactions.filters.debt', { defaultValue: 'Debt' }) },
+    ], [t]);
+
+    const typeOptions = useMemo(() => [
+        { value: 'all', label: t('customers.modal.transactions.filters.allTypes', { defaultValue: 'All Types' }) },
+        { value: 'transaction', label: t('customers.modal.transactions.filters.transaction', { defaultValue: 'Transaction' }) },
+        { value: 'offer', label: t('customers.modal.transactions.filters.offer', { defaultValue: 'Offer' }) },
+    ], [t]);
+
+    const sortByOptions = useMemo(() => [
+        { value: 'date', label: t('customers.modal.transactions.sort.date', { defaultValue: 'Date' }) },
+        { value: 'amount', label: t('customers.modal.transactions.sort.amount', { defaultValue: 'Amount' }) },
+    ], [t]);
+
+    const sortOrderOptions = useMemo(() => [
+        { value: 'desc', label: t('customers.modal.transactions.sort.descending', { defaultValue: 'Descending' }) },
+        { value: 'asc', label: t('customers.modal.transactions.sort.ascending', { defaultValue: 'Ascending' }) },
+    ], [t]);
+
+    // Click outside detection for dropdowns
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
+                setIsStatusDropdownOpen(false);
+            }
+            if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target as Node)) {
+                setIsTypeDropdownOpen(false);
+            }
+            if (sortByDropdownRef.current && !sortByDropdownRef.current.contains(event.target as Node)) {
+                setIsSortByDropdownOpen(false);
+            }
+            if (sortOrderDropdownRef.current && !sortOrderDropdownRef.current.contains(event.target as Node)) {
+                setIsSortOrderDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const fetchCustomerTransactions = useCallback(async () => {
         if (!customer) return;
-        
+
         setLoading(true);
         try {
-            const response = await fetch(transformRoute(`/api/transactions?customer_id=${customer.id}&per_page=${perPage}&page=${currentPage}`), {
+            // Build query params
+            const params = new URLSearchParams({
+                customer_id: customer.id.toString(),
+                per_page: perPage.toString(),
+                page: currentPage.toString(),
+                sort_by: sortBy === 'date' ? 'transaction_date' : 'grand_total',
+                sort_order: sortOrder,
+            });
+
+            // Add search if provided
+            if (searchQuery.trim()) {
+                params.append('search', searchQuery.trim());
+            }
+
+            // Add status filter
+            if (statusFilter !== 'all') {
+                params.append('status', statusFilter);
+            }
+
+            // Add type filter
+            if (typeFilter !== 'all') {
+                params.append('type', typeFilter);
+            }
+
+            const response = await fetch(transformRoute(`/api/transactions?${params.toString()}`), {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                 },
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
-            
+
             if (data.success && data.transactions && data.transactions.data) {
                 setTransactions(data.transactions.data);
                 setTotalPages(data.transactions.last_page || 1);
@@ -124,7 +185,7 @@ export default function CustomerTransactionsModal({
         } finally {
             setLoading(false);
         }
-    }, [customer, currentPage, perPage, toast, t]);
+    }, [customer, currentPage, perPage, searchQuery, statusFilter, typeFilter, sortBy, sortOrder, toast, t]);
 
     const fetchInvoiceSettings = useCallback(async (): Promise<InvoiceSettings | undefined> => {
         try {
@@ -381,7 +442,7 @@ export default function CustomerTransactionsModal({
             }
 
             const totalDebtAmount = debtTransactions.reduce((sum, transaction) => {
-                const amount = Number(transaction.grand_total ?? transaction.amount ?? 0);
+                const amount = Number(transaction.grand_total ?? 0);
                 return sum + amount;
             }, 0);
 
@@ -427,7 +488,7 @@ export default function CustomerTransactionsModal({
             }
 
             const totalPaidAmount = paidTransactions.reduce((sum, transaction) => {
-                const amount = Number(transaction.grand_total ?? transaction.amount ?? 0);
+                const amount = Number(transaction.grand_total ?? 0);
                 return sum + amount;
             }, 0);
 
@@ -580,7 +641,7 @@ export default function CustomerTransactionsModal({
         try {
             const settings = await fetchInvoiceSettings();
 
-            const normalizedTransaction: ApiTransaction = {
+            const normalizedTransaction: Transaction = {
                 id: transaction.id,
                 order_id: transaction.order_id,
                 customer_id: transaction.customer_id,
@@ -600,11 +661,12 @@ export default function CustomerTransactionsModal({
                     id: item.id ?? index + 1,
                     name: item.name,
                     quantity: item.quantity,
-                    unit_price: item.price,
+                    unit_price: item.unit_price ?? 0,
                     total: item.total,
-                    type: 'pcs',
-                    dimensions: undefined,
-                    weight: undefined,
+                    type: item.type ?? 'pcs',
+                    dimensions: item.dimensions,
+                    weight: item.weight,
+                    discount: item.discount,
                 })),
                 subtotal: transaction.subtotal,
                 discount_amount: transaction.discount_amount,
@@ -723,6 +785,45 @@ export default function CustomerTransactionsModal({
             });
         }
     };
+
+    const handleEditTransaction = (transaction: Transaction) => {
+        // Navigate to POS page with transaction ID for editing
+        router.visit(`/admin/point-of-sale?edit=${transaction.id}`);
+    };
+
+    const handleDeleteTransaction = (transaction: Transaction) => {
+        setTransactionToDelete(transaction);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setTransactionToDelete(null);
+    };
+
+    const handleTransactionDeleted = (transactionId: number) => {
+        // Remove the deleted transaction from local state
+        setTransactions(prev => prev.filter(t => t.id !== transactionId));
+        setTotalTransactionCount(prev => prev - 1);
+        handleCloseDeleteModal();
+        // Refresh to get accurate data
+        fetchCustomerTransactions();
+    };
+
+    const handleResetFilters = () => {
+        setSearchQuery('');
+        setStatusFilter('all');
+        setTypeFilter('all');
+        setSortBy('date');
+        setSortOrder('desc');
+        setCurrentPage(1);
+        setIsStatusDropdownOpen(false);
+        setIsTypeDropdownOpen(false);
+        setIsSortByDropdownOpen(false);
+        setIsSortOrderDropdownOpen(false);
+    };
+
+    const hasActiveFilters = searchQuery.trim() !== '' || statusFilter !== 'all' || typeFilter !== 'all' || sortBy !== 'date' || sortOrder !== 'desc';
 
     // Calculate totals
     const totalTransactions = totalTransactionCount;
@@ -947,7 +1048,193 @@ export default function CustomerTransactionsModal({
                                 </div>
                             </div>
                         </div>
-                        
+
+                        {/* Search, Filter, and Sort Controls - Compact Inline Design */}
+                        <div className="bg-gradient-to-r from-gray-50 to-gray-100/50 dark:from-[#262626] dark:to-[#1f1f1f] px-3 sm:px-4 py-3 border-b border-gray-200/50 dark:border-gray-800/50">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2">
+                                {/* Search Input - Takes remaining space */}
+                                <div className="relative flex-1 min-w-0">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4 z-10" />
+                                    <input
+                                        type="text"
+                                        placeholder={t('customers.modal.transactions.searchPlaceholder', { defaultValue: 'Search by order ID or notes...' })}
+                                        value={searchQuery}
+                                        onChange={(e) => {
+                                            setSearchQuery(e.target.value);
+                                            setCurrentPage(1);
+                                        }}
+                                        className="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-200 dark:border-gray-700 rounded-xl bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 dark:focus:border-blue-500 transition-all duration-200"
+                                    />
+                                </div>
+
+                                {/* Filters and Sorts - Compact Custom Design */}
+                                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                                    {/* Status Filter - Custom Dropdown */}
+                                    <div className="relative" ref={statusDropdownRef}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+                                            className="flex items-center gap-1.5 px-3 py-2 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-sm hover:shadow-md hover:border-blue-300/50 dark:hover:border-blue-600/50 transition-all duration-200 cursor-pointer min-w-[120px] sm:min-w-[140px]"
+                                        >
+                                            <Filter className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex-1 text-left">
+                                                {statusOptions.find(opt => opt.value === statusFilter)?.label || statusOptions[0].label}
+                                            </span>
+                                            <ChevronDown className={`w-3 h-3 text-gray-400 dark:text-gray-500 transition-transform duration-200 flex-shrink-0 ${isStatusDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        
+                                        {isStatusDropdownOpen && (
+                                            <div className="absolute top-full left-0 mt-1.5 bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-lg z-50 overflow-hidden min-w-full">
+                                                {statusOptions.map((option) => (
+                                                    <button
+                                                        key={option.value}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setStatusFilter(option.value as 'all' | 'paid' | 'debt');
+                                                            setCurrentPage(1);
+                                                            setIsStatusDropdownOpen(false);
+                                                        }}
+                                                        className={`w-full px-3 py-2 text-left text-xs sm:text-sm transition-colors duration-150 ${
+                                                            statusFilter === option.value
+                                                                ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium'
+                                                                : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400'
+                                                        }`}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Type Filter - Custom Dropdown */}
+                                    <div className="relative" ref={typeDropdownRef}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
+                                            className="flex items-center gap-1.5 px-3 py-2 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-sm hover:shadow-md hover:border-purple-300/50 dark:hover:border-purple-600/50 transition-all duration-200 cursor-pointer min-w-[120px] sm:min-w-[140px]"
+                                        >
+                                            <CreditCard className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex-1 text-left">
+                                                {typeOptions.find(opt => opt.value === typeFilter)?.label || typeOptions[0].label}
+                                            </span>
+                                            <ChevronDown className={`w-3 h-3 text-gray-400 dark:text-gray-500 transition-transform duration-200 flex-shrink-0 ${isTypeDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        
+                                        {isTypeDropdownOpen && (
+                                            <div className="absolute top-full left-0 mt-1.5 bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-lg z-50 overflow-hidden min-w-full">
+                                                {typeOptions.map((option) => (
+                                                    <button
+                                                        key={option.value}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setTypeFilter(option.value as 'all' | 'transaction' | 'offer');
+                                                            setCurrentPage(1);
+                                                            setIsTypeDropdownOpen(false);
+                                                        }}
+                                                        className={`w-full px-3 py-2 text-left text-xs sm:text-sm transition-colors duration-150 ${
+                                                            typeFilter === option.value
+                                                                ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium'
+                                                                : 'text-gray-700 dark:text-gray-300 hover:bg-purple-50/50 dark:hover:bg-purple-900/20 hover:text-purple-600 dark:hover:text-purple-400'
+                                                        }`}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Sort By - Custom Dropdown */}
+                                    <div className="relative" ref={sortByDropdownRef}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsSortByDropdownOpen(!isSortByDropdownOpen)}
+                                            className="flex items-center gap-1.5 px-3 py-2 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-300/50 dark:hover:border-emerald-600/50 transition-all duration-200 cursor-pointer min-w-[100px] sm:min-w-[120px]"
+                                        >
+                                            <ArrowUpDown className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex-1 text-left">
+                                                {sortByOptions.find(opt => opt.value === sortBy)?.label || sortByOptions[0].label}
+                                            </span>
+                                            <ChevronDown className={`w-3 h-3 text-gray-400 dark:text-gray-500 transition-transform duration-200 flex-shrink-0 ${isSortByDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        
+                                        {isSortByDropdownOpen && (
+                                            <div className="absolute top-full left-0 mt-1.5 bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-lg z-50 overflow-hidden min-w-full">
+                                                {sortByOptions.map((option) => (
+                                                    <button
+                                                        key={option.value}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setSortBy(option.value as 'date' | 'amount');
+                                                            setCurrentPage(1);
+                                                            setIsSortByDropdownOpen(false);
+                                                        }}
+                                                        className={`w-full px-3 py-2 text-left text-xs sm:text-sm transition-colors duration-150 ${
+                                                            sortBy === option.value
+                                                                ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 font-medium'
+                                                                : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400'
+                                                        }`}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Sort Order - Custom Dropdown */}
+                                    <div className="relative" ref={sortOrderDropdownRef}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsSortOrderDropdownOpen(!isSortOrderDropdownOpen)}
+                                            className="flex items-center gap-1.5 px-3 py-2 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-sm hover:shadow-md hover:border-amber-300/50 dark:hover:border-amber-600/50 transition-all duration-200 cursor-pointer min-w-[100px] sm:min-w-[120px]"
+                                        >
+                                            <Clock className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex-1 text-left">
+                                                {sortOrderOptions.find(opt => opt.value === sortOrder)?.label || sortOrderOptions[0].label}
+                                            </span>
+                                            <ChevronDown className={`w-3 h-3 text-gray-400 dark:text-gray-500 transition-transform duration-200 flex-shrink-0 ${isSortOrderDropdownOpen ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        
+                                        {isSortOrderDropdownOpen && (
+                                            <div className="absolute top-full left-0 mt-1.5 bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-md border border-gray-200/60 dark:border-gray-700/60 rounded-xl shadow-lg z-50 overflow-hidden min-w-full">
+                                                {sortOrderOptions.map((option) => (
+                                                    <button
+                                                        key={option.value}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setSortOrder(option.value as 'desc' | 'asc');
+                                                            setCurrentPage(1);
+                                                            setIsSortOrderDropdownOpen(false);
+                                                        }}
+                                                        className={`w-full px-3 py-2 text-left text-xs sm:text-sm transition-colors duration-150 ${
+                                                            sortOrder === option.value
+                                                                ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-medium'
+                                                                : 'text-gray-700 dark:text-gray-300 hover:bg-amber-50/50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400'
+                                                        }`}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Reset Filters Button - Custom Soft Design */}
+                                    {hasActiveFilters && (
+                                        <button
+                                            onClick={handleResetFilters}
+                                            className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 backdrop-blur-sm border border-red-200/60 dark:border-red-800/60 rounded-xl shadow-sm hover:shadow-md hover:border-red-300/70 dark:hover:border-red-700/70 transition-all duration-200 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-xs sm:text-sm font-medium"
+                                        >
+                                            <RotateCcw className="w-3.5 h-3.5" />
+                                            <span className="hidden sm:inline">{t('customers.modal.transactions.resetFilters', { defaultValue: 'Reset' })}</span>
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
                         {loading ? (
                             <div className="flex items-center justify-center py-12">
                                 <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -959,8 +1246,22 @@ export default function CustomerTransactionsModal({
                             <div className="flex flex-col items-center justify-center py-12">
                                 <Receipt className="w-12 h-12 text-gray-400 mb-3" />
                                 <p className="text-gray-500 dark:text-gray-400">
-                                    {t('customers.modal.transactions.noTransactions')}
+                                    {hasActiveFilters
+                                        ? t('customers.modal.transactions.noMatchingTransactions', { defaultValue: 'No transactions match your filters' })
+                                        : t('customers.modal.transactions.noTransactions')
+                                    }
                                 </p>
+                                {hasActiveFilters && (
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={handleResetFilters}
+                                        className="mt-3"
+                                    >
+                                        <RotateCcw className="w-4 h-4 mr-2" />
+                                        {t('customers.modal.transactions.clearFilters', { defaultValue: 'Clear Filters' })}
+                                    </Button>
+                                )}
                             </div>
                         ) : (
                             <>
@@ -1049,17 +1350,38 @@ export default function CustomerTransactionsModal({
                                                                 onClick={() => handlePrintTransaction(transaction)}
                                                                 disabled={printingTransactionId === transaction.id}
                                                                 title={printLabel}
-                                                                className="h-6 sm:h-8 px-2 sm:px-3 text-xs sm:text-sm border-[#8b5cf6] dark:border-[#8b5cf6] text-[#8b5cf6] dark:text-[#a78bfa] hover:bg-[#8b5cf6] hover:text-white dark:hover:bg-[#8b5cf6] dark:hover:text-white"
+                                                                className="h-6 sm:h-8 w-6 sm:w-8 p-0 border-[#8b5cf6] dark:border-[#8b5cf6] text-[#8b5cf6] dark:text-[#a78bfa] hover:bg-[#8b5cf6] hover:text-white dark:hover:bg-[#8b5cf6] dark:hover:text-white"
                                                             >
                                                                 {printingTransactionId === transaction.id ? (
                                                                     <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 animate-spin" />
                                                                 ) : (
                                                                     <Printer className="w-3 h-3 sm:w-4 sm:h-4" />
                                                                 )}
-                                                                <span className="hidden sm:inline ml-1">
-                                                                    {printLabel}
-                                                                </span>
                                                             </Button>
+                                                            {/* Edit Button - Only for transactions (not offers) */}
+                                                            {transaction.type === 'transaction' && (
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    onClick={() => handleEditTransaction(transaction)}
+                                                                    title={t('transactions.actions.edit')}
+                                                                    className="h-6 sm:h-8 w-6 sm:w-8 p-0 border-orange-500 dark:border-orange-500 text-orange-500 dark:text-orange-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white"
+                                                                >
+                                                                    <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
+                                                                </Button>
+                                                            )}
+                                                            {/* Delete Button - Only for transactions (not offers) */}
+                                                            {transaction.type === 'transaction' && (
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    onClick={() => handleDeleteTransaction(transaction)}
+                                                                    title={t('transactions.actions.delete')}
+                                                                    className="h-6 sm:h-8 w-6 sm:w-8 p-0 border-red-500 dark:border-red-500 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white"
+                                                                >
+                                                                    <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                                                                </Button>
+                                                            )}
                                                         </div>
                                                     </TableCell>
                                                 </TableRow>
@@ -1162,6 +1484,14 @@ export default function CustomerTransactionsModal({
                     </div>
                 </div>
             </div>
+
+            {/* Delete Transaction Modal */}
+            <DeleteTransactionModal
+                transaction={transactionToDelete}
+                isOpen={isDeleteModalOpen}
+                onClose={handleCloseDeleteModal}
+                onTransactionDeleted={handleTransactionDeleted}
+            />
         </div>
     );
 }
@@ -1229,7 +1559,7 @@ function generateDebtSummaryTemplate(
 
     const rowsHtml = debtTransactions.length > 0
         ? debtTransactions.map((transaction, index) => {
-            const amount = Number(transaction.grand_total ?? transaction.amount ?? 0);
+            const amount = Number(transaction.grand_total ?? 0);
             const formattedAmount = formatIQDWithSymbol(amount);
             const date = transaction.transaction_date || transaction.created_at;
             const formattedDate = date ? new Date(date).toLocaleString() : '';
@@ -1629,7 +1959,7 @@ function generatePaidSummaryTemplate(
 
     const rowsHtml = paidTransactions.length > 0
         ? paidTransactions.map((transaction, index) => {
-            const amount = Number(transaction.grand_total ?? transaction.amount ?? 0);
+            const amount = Number(transaction.grand_total ?? 0);
             const formattedAmount = formatIQDWithSymbol(amount);
             const date = transaction.transaction_date || transaction.created_at;
             const formattedDate = date ? new Date(date).toLocaleString() : '';

@@ -298,8 +298,12 @@ export function InvoiceTemplateSettings() {
                                     
                 {/* Preview Panel - Right Column (Fitted) */}
                 <div className="lg:col-span-3">
-                    <InvoicePreview 
-                        settings={settings}
+                    <InvoicePreview
+                        settings={{
+                            ...settings,
+                            // Use filePreview for real-time preview when available
+                            logo_url: filePreview || settings.logo_url
+                        }}
                         transaction={mockTransaction}
                     />
                 </div>

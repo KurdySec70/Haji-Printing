@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Transaction } from '@/types';
-import { LazyTransactionDetailModal } from '@/components/lazy-imports';
+import { LazyTransactionDetailModal, LazyDeleteTransactionModal } from '@/components/lazy-imports';
 import { 
     Table, 
     TableBody, 
@@ -21,7 +22,9 @@ import {
     DollarSign,
     RefreshCw,
     Receipt,
-    Eye
+    Eye,
+    Edit,
+    Trash2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { formatIQDWithSymbol } from '@/lib/currency';
@@ -42,7 +45,6 @@ interface TransactionTableProps {
     loading?: boolean;
     onView?: (transaction: Transaction) => void;
     onPageChange?: (page: number) => void;
-    onTransactionUpdate?: (updatedTransaction: Transaction) => void;
     onTransactionRemove?: (transactionId: number) => void;
     onFullRefresh?: () => Promise<void>;
     className?: string;
@@ -56,6 +58,7 @@ export default function TransactionTable({
     loading = false,
     onView,
     onPageChange,
+    onTransactionRemove,
     onFullRefresh,
     className = '',
     sortBy = 'transaction_date',
@@ -66,6 +69,8 @@ export default function TransactionTable({
     const { toast } = useToast();
     const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [transactionToDelete, setTransactionToDelete] = useState<Transaction | null>(null);
     const [loadingActions, setLoadingActions] = useState<{[key: number]: string}>({});
 
     const handleViewTransaction = (transaction: Transaction) => {
@@ -77,6 +82,72 @@ export default function TransactionTable({
     const handleCloseModal = () => {
         setIsDetailModalOpen(false);
         setSelectedTransaction(null);
+    };
+
+    const handleEditTransaction = (transaction: Transaction) => {
+        // Navigate to POS page with transaction ID for editing
+        router.visit(`/admin/point-of-sale?edit=${transaction.id}`);
+    };
+
+    const handleDeleteTransaction = (transaction: Transaction) => {
+        setTransactionToDelete(transaction);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setTransactionToDelete(null);
+    };
+
+    const handleTransactionDeleted = (transactionId: number) => {
+        onTransactionRemove?.(transactionId);
+        handleCloseDeleteModal();
+        // Refresh the table
+        if (onFullRefresh) {
+            onFullRefresh();
+        }
+    };
+
+    // Helper function to convert transaction items to Product format for checkout modal (currently unused)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const convertTransactionToProducts = (transaction: Transaction) => {
+        return transaction.items.map((item, index) => {
+            // Parse dimensions if available
+            let manualWidth: number | undefined;
+            let manualHeight: number | undefined;
+            let manualWeight: number | undefined;
+
+            if (item.dimensions) {
+                const dimMatch = item.dimensions.match(/(\d+)\s*×\s*(\d+)\s*cm/);
+                if (dimMatch) {
+                    manualWidth = parseInt(dimMatch[1]);
+                    manualHeight = parseInt(dimMatch[2]);
+                }
+            }
+
+            if (item.weight) {
+                const weightMatch = item.weight.match(/(\d+(?:\.\d+)?)\s*kg/);
+                if (weightMatch) {
+                    manualWeight = parseFloat(weightMatch[1]);
+                }
+            }
+
+            return {
+                id: item.id,
+                name: item.name,
+                price: item.unit_price,
+                quantity: item.quantity,
+                type: item.type as 'pcs' | 'kg' | 'width*height',
+                manualWidth,
+                manualHeight,
+                manualWeight,
+                discount: 0, // Product-level discounts are not stored separately in transaction
+                dimensionsAccepted: true,
+                cartItemId: `edit-${transaction.id}-${index}`,
+                created_at: transaction.created_at,
+                updated_at: transaction.updated_at,
+            };
+        });
     };
 
     // Offer action handlers
@@ -478,9 +549,36 @@ export default function TransactionTable({
                                                                  size="sm"
                                                                  onClick={() => handleViewTransaction(transaction)}
                                                                  className="h-8 w-8 p-0 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                                                                 title={t('transactions.actions.view')}
                                                              >
                                                                  <Eye className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                                                              </Button>
+
+                                                             {/* Edit Button - Only for transactions (not offers) */}
+                                                             {transaction.type === 'transaction' && (
+                                                                 <Button
+                                                                     variant="ghost"
+                                                                     size="sm"
+                                                                     onClick={() => handleEditTransaction(transaction)}
+                                                                     className="h-8 w-8 p-0 hover:bg-orange-50 dark:hover:bg-orange-900/20"
+                                                                     title={t('transactions.actions.edit')}
+                                                                 >
+                                                                     <Edit className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                                                                 </Button>
+                                                             )}
+
+                                                             {/* Delete Button - Only for transactions (not offers) */}
+                                                             {transaction.type === 'transaction' && (
+                                                                 <Button
+                                                                     variant="ghost"
+                                                                     size="sm"
+                                                                     onClick={() => handleDeleteTransaction(transaction)}
+                                                                     className="h-8 w-8 p-0 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                                                     title={t('transactions.actions.delete')}
+                                                                 >
+                                                                     <Trash2 className="w-4 h-4 text-red-600 dark:text-red-400" />
+                                                                 </Button>
+                                                             )}
 
                                                              {/* Offer Action Buttons */}
                                                              {transaction.type === 'offer' && transaction.offer_status === 'pending' && (
@@ -613,6 +711,14 @@ export default function TransactionTable({
                 isOpen={isDetailModalOpen}
                 onClose={handleCloseModal}
                 transaction={selectedTransaction}
+            />
+
+            {/* Delete Transaction Modal */}
+            <LazyDeleteTransactionModal
+                transaction={transactionToDelete}
+                isOpen={isDeleteModalOpen}
+                onClose={handleCloseDeleteModal}
+                onTransactionDeleted={handleTransactionDeleted}
             />
         </div>
     );

@@ -7,10 +7,10 @@ import enTranslations from '../locales/en.json';
 import kuTranslations from '../locales/ku.json';
 import arTranslations from '../locales/ar.json';
 
-// Get saved language from localStorage or use default
+// Get saved language from localStorage or use default (Kurdish)
 const getInitialLanguage = () => {
   const savedLanguage = localStorage.getItem('i18nextLng');
-  return savedLanguage && ['en', 'ku', 'ar'].includes(savedLanguage) ? savedLanguage : 'en';
+  return savedLanguage && ['en', 'ku', 'ar'].includes(savedLanguage) ? savedLanguage : 'ku';
 };
 
 i18n
@@ -28,8 +28,8 @@ i18n
         translation: arTranslations
       }
     },
-    lng: getInitialLanguage(), // Use saved language or default
-    fallbackLng: 'en', // fallback language
+    lng: getInitialLanguage(), // Use saved language or default (Kurdish)
+    fallbackLng: 'ku', // fallback language (Kurdish)
     debug: false, // Disable i18n debug logs to suppress missing key warnings
     
     // Suppress missing key warnings

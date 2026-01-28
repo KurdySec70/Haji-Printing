@@ -407,8 +407,9 @@ export const generateInvoiceTemplate = (transaction: Transaction, settings?: Inv
                     <thead>
                         <tr>
                             <th>Description</th>
-                            <th class="text-center" style="width: 80px;">Quantity</th>
+                            <th class="text-center" style="width: 60px;">Qty</th>
                             <th class="text-center" style="width: 80px;">Price</th>
+                            <th class="text-center" style="width: 70px;">Discount</th>
                             <th class="text-right" style="width: 80px;">Total</th>
                         </tr>
                     </thead>
@@ -416,7 +417,7 @@ export const generateInvoiceTemplate = (transaction: Transaction, settings?: Inv
                         ${transaction.items.map((item) => {
                             // Detect if text contains Arabic/Kurdish characters
                             const hasRTL = /[\u0600-\u06FF]/.test(item.name || '');
-                            
+
                             // Wrap Arabic/Kurdish text in RTL span for proper direction
                             let displayName = escapeHtml(item.name);
                             if (hasRTL) {
@@ -433,18 +434,22 @@ export const generateInvoiceTemplate = (transaction: Transaction, settings?: Inv
                                     return part;
                                 }).join('');
                             }
-                            
+
                             // Set entire cell to RTL with embed if it contains Arabic/Kurdish text
                             const rtlAttr = hasRTL ? ' dir="rtl" style="direction: rtl; unicode-bidi: embed; text-align: right;"' : '';
-                            
+
+                            // Get item discount - could be a number or percentage
+                            const itemDiscount = item.discount || 0;
+
                             return `
                         <tr>
                             <td${rtlAttr}>
                                 <strong>${displayName}</strong><br>
-                                <small>${item.type ? `${escapeHtml(item.type)}` : ''}${item.dimensions ? ` | Size: ${escapeHtml(item.dimensions)}` : ''}</small>
+                                <small>${item.type ? `${escapeHtml(item.type)}` : ''}${item.dimensions ? ` | Size: ${escapeHtml(item.dimensions)}` : ''}${item.weight ? ` | Weight: ${escapeHtml(item.weight)}` : ''}</small>
                             </td>
                             <td class="text-center">${item.quantity}</td>
                             <td class="text-center">${formatIQDWithSymbol(item.unit_price)}</td>
+                            <td class="text-center">${itemDiscount > 0 ? formatIQDWithSymbol(itemDiscount) : '-'}</td>
                             <td class="text-right">${formatIQDWithSymbol(item.total)}</td>
                         </tr>
                         `;
@@ -456,33 +461,57 @@ export const generateInvoiceTemplate = (transaction: Transaction, settings?: Inv
 
                     <div class="totals-right">
                         <table class="totals-table">
-                            ${transaction.type === 'offer' ? `
-                            <tr>
-                                <td>Offer Amount :</td>
-                                <td class="text-right">${formatIQDWithSymbol(transaction.grand_total)}</td>
-                            </tr>
-                            <tr>
-                                <td>Discount :</td>
-                                <td class="text-right">${transaction.discount_amount > 0 ? formatIQDWithSymbol(transaction.discount_amount) : '0'}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Total Offer :</strong></td>
-                                <td class="text-right"><strong>${formatIQDWithSymbol(transaction.grand_total)}</strong></td>
-                            </tr>
-                            ` : `
-                            <tr>
-                                <td>Debt :</td>
-                                <td class="text-right">${transaction.status === 'debt' ? formatIQDWithSymbol(transaction.grand_total) : '0'}</td>
-                            </tr>
-                            <tr>
-                                <td>Discount :</td>
-                                <td class="text-right">${transaction.discount_amount > 0 ? formatIQDWithSymbol(transaction.discount_amount) : '0'}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Subtotal :</strong></td>
-                                <td class="text-right"><strong>${formatIQDWithSymbol(transaction.grand_total)}</strong></td>
-                            </tr>
-                            `}
+                            ${(() => {
+                                // Calculate subtotal from items (unit_price * quantity, before discounts)
+                                const calculatedSubtotal = transaction.subtotal > 0
+                                    ? transaction.subtotal
+                                    : transaction.items.reduce((sum, item) => sum + (item.unit_price * item.quantity), 0);
+
+                                // Total discount = subtotal - grand_total (this is the actual total discount applied)
+                                const totalDiscount = calculatedSubtotal - transaction.grand_total;
+
+                                if (transaction.type === 'offer') {
+                                    return `
+                                    <tr>
+                                        <td>Subtotal :</td>
+                                        <td class="text-right">${formatIQDWithSymbol(calculatedSubtotal)}</td>
+                                    </tr>
+                                    ${totalDiscount > 0 ? `
+                                    <tr>
+                                        <td>Discount :</td>
+                                        <td class="text-right" style="color: #dc2626;">-${formatIQDWithSymbol(totalDiscount)}</td>
+                                    </tr>
+                                    ` : ''}
+                                    <tr>
+                                        <td><strong>Total Offer :</strong></td>
+                                        <td class="text-right"><strong>${formatIQDWithSymbol(transaction.grand_total)}</strong></td>
+                                    </tr>
+                                    `;
+                                } else {
+                                    return `
+                                    <tr>
+                                        <td>Subtotal :</td>
+                                        <td class="text-right">${formatIQDWithSymbol(calculatedSubtotal)}</td>
+                                    </tr>
+                                    ${totalDiscount > 0 ? `
+                                    <tr>
+                                        <td>Discount :</td>
+                                        <td class="text-right" style="color: #dc2626;">-${formatIQDWithSymbol(totalDiscount)}</td>
+                                    </tr>
+                                    ` : ''}
+                                    ${transaction.status === 'debt' ? `
+                                    <tr>
+                                        <td>Status :</td>
+                                        <td class="text-right" style="color: #dc2626; font-weight: bold;">DEBT</td>
+                                    </tr>
+                                    ` : ''}
+                                    <tr>
+                                        <td><strong>Grand Total :</strong></td>
+                                        <td class="text-right"><strong>${formatIQDWithSymbol(transaction.grand_total)}</strong></td>
+                                    </tr>
+                                    `;
+                                }
+                            })()}
                         </table>
                     </div>
                 </div>

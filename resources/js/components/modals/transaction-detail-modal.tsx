@@ -33,7 +33,8 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
             const response = await fetch(transformRoute(`/api/transactions/${transactionId}`));
             if (response.ok) {
                 const data = await response.json();
-                setTransaction(data);
+                // Handle both response formats: { transaction: {...} } or { success: true, transaction: {...} }
+                setTransaction(data.transaction || data);
             } else {
                 setTransaction(null);
             }
@@ -48,7 +49,29 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
         if (isOpen && transactionId && !initialTransaction) {
             fetchTransaction();
         } else if (initialTransaction) {
-            setTransaction(initialTransaction);
+            // If transaction is passed but doesn't have cashier loaded and has cashier_id, fetch it
+            if (initialTransaction.cashier_id && !initialTransaction.cashier && initialTransaction.id) {
+                // Use the transaction ID to fetch full details
+                const fetchFullTransaction = async () => {
+                    setLoading(true);
+                    try {
+                        const response = await fetch(transformRoute(`/api/transactions/${initialTransaction.id}`));
+                        if (response.ok) {
+                            const data = await response.json();
+                            setTransaction(data.transaction || data);
+                        } else {
+                            setTransaction(initialTransaction);
+                        }
+                    } catch {
+                        setTransaction(initialTransaction);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+                fetchFullTransaction();
+            } else {
+                setTransaction(initialTransaction);
+            }
         }
     }, [isOpen, transactionId, initialTransaction, fetchTransaction]);
 
@@ -341,13 +364,24 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
                                     <h3 className="font-medium text-gray-900 dark:text-white">{t('transactions.detail.processedBy')}</h3>
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    {transaction.cashier ? (
+                                    {transaction.cashier && transaction.cashier.name ? (
                                         <>
-                                            <div className="flex justify-between">
+                                            <div className="flex justify-between items-center">
                                                 <span className="text-gray-500 dark:text-gray-400">{t('transactions.detail.cashierName')}:</span>
-                                                <span className="font-medium text-gray-900 dark:text-white">
-                                                    {transaction.cashier.name}
-                                                </span>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="font-medium text-gray-900 dark:text-white">
+                                                        {transaction.cashier.name}
+                                                    </span>
+                                                    {transaction.cashier.role && (
+                                                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                                            transaction.cashier.role === 'admin' 
+                                                                ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
+                                                                : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                                        }`}>
+                                                            {transaction.cashier.role === 'admin' ? t('transactions.detail.admin') : t('transactions.detail.cashier')}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                             {transaction.cashier.email && (
                                                 <div className="flex justify-between">
@@ -357,20 +391,14 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
                                                     </span>
                                                 </div>
                                             )}
-                                            <div className="flex justify-between">
-                                                <span className="text-gray-500 dark:text-gray-400">{t('transactions.detail.role')}:</span>
-                                                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                                                    transaction.cashier.role === 'admin' 
-                                                        ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
-                                                        : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                                                }`}>
-                                                    {transaction.cashier.role === 'admin' ? 'Admin' : 'Cashier'}
-                                                </span>
-                                            </div>
                                         </>
+                                    ) : transaction.cashier_id ? (
+                                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                                            {t('transactions.noCashierInfo')} (ID: {transaction.cashier_id})
+                                        </div>
                                     ) : (
                                         <div className="text-sm text-gray-500 dark:text-gray-400">
-                                            {t('transactions.detail.noCashierInfo')}
+                                            {t('transactions.noCashierInfo')}
                                         </div>
                                     )}
                                 </div>
@@ -407,6 +435,9 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
                                                     {t('transactions.detail.unitPrice')}
                                                 </th>
                                                 <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                                    {t('pos.checkout.discount')}
+                                                </th>
+                                                <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                                                     {t('pos.checkout.total')}
                                                 </th>
                                             </tr>
@@ -414,42 +445,58 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
                                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                                             {(transaction.items?.length || 0) === 0 ? (
                                                 <tr>
-                                                    <td colSpan={5} className="px-3 py-8 text-center text-gray-500 dark:text-gray-400">
+                                                    <td colSpan={6} className="px-3 py-8 text-center text-gray-500 dark:text-gray-400">
                                                         {t('transactions.detail.noItems')}
                                                     </td>
                                                 </tr>
                                             ) : (
-                                                transaction.items?.map((item, index) => (
-                                                    <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                                        <td className="px-3 py-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                            {item.name}
-                                                        </td>
-                                                        <td className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
-                                                            <div className="space-y-1">
-                                                                <div>{item.type}</div>
-                                                                {item.dimensions && (
-                                                                    <div className="text-xs text-gray-400">
-                                                                        {t('transactions.detail.dimensions')}: {item.dimensions}
-                                                                    </div>
+                                                transaction.items?.map((item, index: number) => {
+                                                    // Use discount from item if available, otherwise calculate it
+                                                    const itemDiscount = item.discount !== undefined && item.discount !== null
+                                                        ? parseFloat(String(item.discount)) || 0
+                                                        : Math.max(0, ((parseFloat(String(item.unit_price)) || 0) * (parseFloat(String(item.quantity)) || 0)) - (parseFloat(String(item.total)) || 0));
+                                                    
+                                                    return (
+                                                        <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                                            <td className="px-3 py-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                                {item.name}
+                                                            </td>
+                                                            <td className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
+                                                                <div className="space-y-1">
+                                                                    <div>{item.type}</div>
+                                                                    {item.dimensions && (
+                                                                        <div className="text-xs text-gray-400">
+                                                                            {t('transactions.detail.dimensions')}: {item.dimensions}
+                                                                        </div>
+                                                                    )}
+                                                                    {item.weight && (
+                                                                        <div className="text-xs text-gray-400">
+                                                                            {t('transactions.detail.weight')}: {item.weight}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-3 py-2 text-sm text-gray-900 dark:text-white text-right">
+                                                                {item.quantity}
+                                                            </td>
+                                                            <td className="px-3 py-2 text-sm text-gray-900 dark:text-white text-right">
+                                                                {formatIQDWithSymbol(item.unit_price)}
+                                                            </td>
+                                                            <td className="px-3 py-2 text-sm text-right">
+                                                                {itemDiscount > 0 ? (
+                                                                    <span className="text-red-600 dark:text-red-400 font-medium">
+                                                                        -{formatIQDWithSymbol(itemDiscount)}
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="text-gray-400 dark:text-gray-500">-</span>
                                                                 )}
-                                                                {item.weight && (
-                                                                    <div className="text-xs text-gray-400">
-                                                                        {t('transactions.detail.weight')}: {item.weight}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-3 py-2 text-sm text-gray-900 dark:text-white text-right">
-                                                            {item.quantity}
-                                                        </td>
-                                                        <td className="px-3 py-2 text-sm text-gray-900 dark:text-white text-right">
-                                                            {formatIQDWithSymbol(item.unit_price)}
-                                                        </td>
-                                                        <td className="px-3 py-2 text-sm font-medium text-gray-900 dark:text-white text-right">
-                                                            {formatIQDWithSymbol(item.total)}
-                                                        </td>
-                                                    </tr>
-                                                ))
+                                                            </td>
+                                                            <td className="px-3 py-2 text-sm font-medium text-gray-900 dark:text-white text-right">
+                                                                {formatIQDWithSymbol(item.total)}
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })
                                             )}
                                         </tbody>
                                     </table>
@@ -473,15 +520,72 @@ const TransactionDetailModal: React.FC<TransactionDetailModalProps> = ({
                                         </span>
                                     </div>
                                     
-                                    {/* Discount */}
-                                    {transaction.discount_amount > 0 && (
-                                        <div className="flex justify-between items-center bg-red-50 dark:bg-red-900/20 p-2 rounded-lg border border-red-200 dark:border-red-800">
-                                            <span className="text-sm font-semibold text-red-700 dark:text-red-300">{t('transactions.detail.discount')}:</span>
-                                            <span className="text-lg font-bold text-red-700 dark:text-red-300">
-                                                -{formatIQDWithSymbol(transaction.discount_amount)}
-                                            </span>
-                                        </div>
-                                    )}
+                                    {/* Calculate all discounts */}
+                                    {(() => {
+                                        const totalProductDiscounts = (transaction.items || []).reduce((sum: number, item) => {
+                                            // Use discount from item if available, otherwise calculate it
+                                            const itemDiscount = item.discount !== undefined && item.discount !== null
+                                                ? parseFloat(String(item.discount)) || 0
+                                                : Math.max(0, ((parseFloat(String(item.unit_price)) || 0) * (parseFloat(String(item.quantity)) || 0)) - (parseFloat(String(item.total)) || 0));
+                                            return sum + (itemDiscount || 0);
+                                        }, 0);
+                                        
+                                        const orderDiscount = parseFloat(String(transaction.discount_amount)) || 0;
+                                        
+                                        // Calculate total discount: subtotal - grand_total (as verification)
+                                        const calculatedTotalDiscount = (parseFloat(String(transaction.subtotal)) || 0) - (parseFloat(String(transaction.grand_total)) || 0);
+                                        
+                                        // Use sum of product + order discounts, but verify against calculated total
+                                        const totalDiscount = Math.max(0, parseFloat(String(totalProductDiscounts)) + parseFloat(String(orderDiscount)));
+                                        
+                                        // Ensure totalDiscount matches the actual difference
+                                        const verifiedTotalDiscount = Math.abs(calculatedTotalDiscount - totalDiscount) < 0.01 
+                                            ? totalDiscount 
+                                            : calculatedTotalDiscount;
+                                        
+                                        return verifiedTotalDiscount > 0 ? (
+                                            <>
+                                                {/* Product Discounts Summary */}
+                                                {totalProductDiscounts > 0 && (
+                                                    <div className="flex justify-between items-center bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg border border-orange-200 dark:border-orange-800">
+                                                        <span className="text-sm font-semibold text-orange-700 dark:text-orange-300">{t('pos.checkout.productDiscounts')}:</span>
+                                                        <span className="text-sm font-bold text-orange-700 dark:text-orange-300">
+                                                            -{formatIQDWithSymbol(totalProductDiscounts)}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                
+                                                {/* Order-Level Discount */}
+                                                {orderDiscount > 0 && (
+                                                    <div className="flex justify-between items-center bg-red-50 dark:bg-red-900/20 p-2 rounded-lg border border-red-200 dark:border-red-800">
+                                                        <span className="text-sm font-semibold text-red-700 dark:text-red-300">{t('transactions.detail.discount')}:</span>
+                                                        <span className="text-sm font-bold text-red-700 dark:text-red-300">
+                                                            -{formatIQDWithSymbol(orderDiscount)}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                
+                                                {/* Total Discount Summary */}
+                                                {totalDiscount > 0 && (
+                                                    <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-lg border border-gray-300 dark:border-gray-700">
+                                                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                                            {t('transactions.detail.totalDiscount')}:
+                                                        </span>
+                                                        <div className="text-right">
+                                                            <span className="text-sm font-bold text-gray-900 dark:text-white block">
+                                                                -{formatIQDWithSymbol(verifiedTotalDiscount)}
+                                                            </span>
+                                                            {totalProductDiscounts > 0 || orderDiscount > 0 ? (
+                                                                <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                                    ({formatIQDWithSymbol(totalProductDiscounts)} + {formatIQDWithSymbol(orderDiscount)})
+                                                                </span>
+                                                            ) : null}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
+                                        ) : null;
+                                    })()}
                                     
                                     {/* Grand Total */}
                                     <div className="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-800">
