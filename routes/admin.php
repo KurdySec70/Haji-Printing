@@ -10,6 +10,7 @@ use App\Http\Controllers\PointOfSaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\InvoiceSettingsController;
+use App\Http\Controllers\DebtController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -27,7 +28,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', PostController::class);
     
     Route::get('point-of-sale', [PointOfSaleController::class, 'index'])->name('point-of-sale');
-    
+
+    // Debts routes
+    Route::get('debts', [DebtController::class, 'index'])->name('debts.index');
+    Route::get('debts/customer/{customerId}', [DebtController::class, 'customerDebts'])->name('debts.customer');
+    Route::post('debts/mark-paid/{transactionId}', [DebtController::class, 'markAsPaid'])->name('debts.mark-paid');
+
     // Invoice Settings API routes
     Route::get('api/invoice-settings', [InvoiceSettingsController::class, 'get'])->name('api.invoice-settings.get');
     Route::post('api/invoice-settings', [InvoiceSettingsController::class, 'update'])->name('api.invoice-settings.update');

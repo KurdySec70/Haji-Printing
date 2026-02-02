@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -108,5 +109,21 @@ class User extends Authenticatable
     public function isCustomer(): bool
     {
         return $this->hasRole('customer');
+    }
+
+    /**
+     * Get transactions where user is the customer.
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'customer_id');
+    }
+
+    /**
+     * Get transactions where user is the cashier.
+     */
+    public function processedTransactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'cashier_id');
     }
 }

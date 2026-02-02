@@ -328,10 +328,25 @@
     "pos": "POS",
     "products": "Products",
     "transactions": "Transactions",
+    "debts": "Debts",
     "users": "Users",
     "customers": "Customers",
     "posts": "Posts",
     "settings": "Settings"
+  },
+  "debts": {
+    "title": "Customer Debts",
+    "totalDebt": "Total Debt",
+    "customersWithDebt": "Customers with Debt",
+    "searchPlaceholder": "Search customers by name, email, or phone...",
+    "customer": "Customer",
+    "contact": "Contact",
+    "debtTransactions": "Debt Transactions",
+    "totalDebtAmount": "Total Debt",
+    "transactions": "transactions",
+    "viewTransactions": "View Transactions",
+    "noDebts": "No Outstanding Debts",
+    "noDebtsDescription": "All customers have paid their transactions"
   },
   "customers": {
     "title": "Customers",
@@ -1509,6 +1524,7 @@
       "pos": "POS",
       "products": "Products",
       "transactions": "Transactions",
+      "debts": "Debts",
       "users": "Users",
       "customers": "Customers",
       "posts": "Posts",

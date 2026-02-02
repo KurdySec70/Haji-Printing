@@ -5,6 +5,7 @@ import customers from './customers'
 import transactions from './transactions'
 import posts from './posts'
 import settings from './settings'
+import debts from './debts'
 /**
 * @see \App\Http\Controllers\AdminController::dashboard
  * @see app/Http/Controllers/AdminController.php:19
@@ -163,6 +164,7 @@ customers,
 transactions,
 posts,
 settings,
+debts,
 }
 
 export default admin

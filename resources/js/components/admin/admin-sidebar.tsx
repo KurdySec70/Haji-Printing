@@ -3,7 +3,7 @@ import { logout } from '@/routes';
 import admin from '@/routes/admin';
 import { Link, usePage, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
-import { LayoutGrid, Package, Users, UserCheck, ShoppingCart, LogOut, Receipt, FileText, Settings } from 'lucide-react';
+import { LayoutGrid, Package, Users, UserCheck, ShoppingCart, LogOut, Receipt, FileText, Settings, AlertCircle } from 'lucide-react';
 import { useAssetPath } from '@/hooks/useAssetPath';
 import { detectBaseUrl, isSubdirectoryDeployment } from '@/utils/routeHelper';
 import { Auth } from '@/types';
@@ -120,12 +120,25 @@ export function AdminSidebar() {
                     {/* Transactions */}
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild isActive={isRouteActive(admin.transactions.index.url())} className="group-data-[collapsible=icon]:justify-center py-6 group-data-[collapsible=icon]:py-3">
-                            <Link 
-                                href={admin.transactions.index()} 
+                            <Link
+                                href={admin.transactions.index()}
                                 prefetch={false}
                             >
                                 <Receipt className="w-6 h-6 group-data-[collapsible=icon]:w-4 group-data-[collapsible=icon]:h-4" />
                                 <span className="group-data-[collapsible=icon]:hidden text-lg">{t('sidebar.transactions')}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+
+                    {/* Debts */}
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={isRouteActive(admin.debts.index.url())} className="group-data-[collapsible=icon]:justify-center py-6 group-data-[collapsible=icon]:py-3">
+                            <Link
+                                href={admin.debts.index()}
+                                prefetch
+                            >
+                                <AlertCircle className="w-6 h-6 group-data-[collapsible=icon]:w-4 group-data-[collapsible=icon]:h-4" />
+                                <span className="group-data-[collapsible=icon]:hidden text-lg">{t('sidebar.debts')}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

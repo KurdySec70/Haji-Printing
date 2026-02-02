@@ -23,6 +23,7 @@ export interface ProductPricing {
     price: number;
     quantity?: number;
     discount?: number;
+    customPrice?: number; // Manual price override for this transaction only
 }
 
 export interface PricingResult {
@@ -151,6 +152,11 @@ export function calculateUnitPrice(product: ProductPricing & ProductDimensions &
     // Validate input
     if (!product || typeof product.price !== 'number' || product.price < 0) {
         return 0;
+    }
+
+    // If customPrice is set, use it directly (transaction-level price override)
+    if (product.customPrice !== undefined && product.customPrice > 0) {
+        return product.customPrice;
     }
 
     const basePrice = product.price;

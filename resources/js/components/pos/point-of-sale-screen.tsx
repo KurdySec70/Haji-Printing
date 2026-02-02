@@ -26,6 +26,7 @@ interface CartProduct {
     baseWidth?: number;
     baseHeight?: number;
     dimensionsAccepted?: boolean;
+    customPrice?: number; // Manual price override for this transaction only
     created_at: string;
     updated_at: string;
 }
@@ -400,6 +401,8 @@ export function PointOfSaleScreen({ products: initialProducts = [], transactionT
                     // Weight (kg) can still have decimals
                     manualWeight: weight ? parseFloat(weight.toString()) || 0 : undefined,
                     dimensionsAccepted: false,
+                    // Clear custom price when dimensions/weight change so it recalculates
+                    customPrice: undefined,
                 };
             }
             return p;
@@ -453,6 +456,14 @@ export function PointOfSaleScreen({ products: initialProducts = [], transactionT
         setSelectedProducts(prev => prev.map(product =>
             product.cartItemId === targetId
                 ? { ...product, discount }
+                : product
+        ));
+    }, []);
+
+    const handleUpdatePrice = useCallback((cartItemId: string, customPrice: number | undefined) => {
+        setSelectedProducts(prev => prev.map(product =>
+            product.cartItemId === cartItemId
+                ? { ...product, customPrice }
                 : product
         ));
     }, []);
@@ -519,6 +530,7 @@ export function PointOfSaleScreen({ products: initialProducts = [], transactionT
                         onUpdateDimensions={handleUpdateDimensions}
                         onAcceptDimensions={handleAcceptDimensions}
                         onProductDiscountChange={handleProductDiscountChange}
+                        onUpdatePrice={handleUpdatePrice}
                         onClearCart={handleClearCart}
                         onCheckout={handleCheckout}
                         onOffer={handleOffer}

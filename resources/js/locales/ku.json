@@ -319,10 +319,25 @@
     "pos": "خاڵی فرۆشتن",
     "products": "بەرهەمەکان",
     "transactions": "مامەڵەکان",
+    "debts": "قەرزەکان",
     "users": "بەکارهێنەران",
     "customers": "کڕیاران",
     "posts": "پۆستەکان",
     "settings": "ڕێکخستنەکان"
+  },
+  "debts": {
+    "title": "قەرزی کڕیاران",
+    "totalDebt": "کۆی قەرز",
+    "customersWithDebt": "کڕیارانی قەرزدار",
+    "searchPlaceholder": "گەڕان بۆ کڕیاران بە ناو، ئیمەیل، یان ژمارەی تەلەفۆن...",
+    "customer": "کڕیار",
+    "contact": "پەیوەندی",
+    "debtTransactions": "مامەڵەکانی قەرز",
+    "totalDebtAmount": "کۆی قەرز",
+    "transactions": "مامەڵە",
+    "viewTransactions": "بینینی مامەڵەکان",
+    "noDebts": "هیچ قەرزێک نییە",
+    "noDebtsDescription": "هەموو کڕیاران پارەکانیان داوە"
   },
   "customers": {
     "title": "کڕیاران",
@@ -1486,6 +1501,7 @@
       "pos": "پی‌ئۆئێس",
       "products": "بەرهەمەکان",
       "transactions": "مامەڵەکان",
+      "debts": "قەرزەکان",
       "users": "بەکارهێنەران",
       "customers": "کڕیارەکان",
       "posts": "بابەتەکان",

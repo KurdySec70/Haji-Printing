@@ -23,6 +23,7 @@ interface Product {
     baseWidth?: number;
     baseHeight?: number;
     dimensionsAccepted?: boolean; // New flag for accepted dimensions
+    customPrice?: number; // Manual price override for this transaction only
     created_at: string;
     updated_at: string;
     cartItemId?: string; // Unique per cart line
@@ -37,6 +38,7 @@ interface SelectedProductsTableProps {
     onUpdateDimensions?: (cartItemId: string, width: string | number, height: string | number, weight?: string | number) => void;
     onAcceptDimensions?: (cartItemId: string) => void; // New function for accepting dimensions
     onProductDiscountChange?: (cartItemId: string, discount: number) => void; // New function for product discount changes
+    onUpdatePrice?: (cartItemId: string, customPrice: number | undefined) => void; // New function for price override
     onClearCart?: () => void;
     onCheckout?: () => void;
     onOffer?: () => void;
@@ -59,6 +61,7 @@ export default function SelectedProductsTable({
     onUpdateDimensions,
     onAcceptDimensions,
     onProductDiscountChange,
+    onUpdatePrice,
     onClearCart,
     onCheckout,
     onOffer,
@@ -420,19 +423,28 @@ export default function SelectedProductsTable({
                                         )}
                                     </td>
                                     <td className="py-3 px-4">
-                                        <div className="font-semibold text-green-600 dark:text-green-400">
-                                            {formatIQDWithSymbol(unitPrice)}
+                                        <div className="flex flex-col gap-1">
+                                            <input
+                                                type="number"
+                                                value={product.customPrice !== undefined ? product.customPrice : unitPrice}
+                                                onChange={(e) => {
+                                                    const value = e.target.value ? parseFloat(e.target.value) : undefined;
+                                                    onUpdatePrice?.(product.cartItemId ?? String(product.id), value);
+                                                }}
+                                                placeholder={String(unitPrice)}
+                                                min="0"
+                                                step="1"
+                                                className="w-24 px-2 py-1 text-sm border border-gray-300 dark:border-gray-800 rounded bg-white dark:bg-[#1a1a1a] text-green-600 dark:text-green-400 font-semibold placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-[#F58E18] focus:border-[#F58E18]"
+                                            />
+                                            {product.customPrice !== undefined && product.customPrice !== unitPrice && (
+                                                <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
+                                                    {formatIQDWithSymbol(unitPrice)}
+                                                </div>
+                                            )}
+                                            {product.type === 'kg' && !product.customPrice && (
+                                                <div className="text-xs text-gray-400 dark:text-gray-500">{product.price} IQD/kg</div>
+                                            )}
                                         </div>
-                                        {product.type === 'width*height' && unitPrice !== product.price && (
-                                            <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
-                                                {formatIQDWithSymbol(product.price)}
-                                            </div>
-                                        )}
-                                        {product.type === 'kg' && (
-                                            <div className="text-xs text-gray-500 dark:text-gray-400">
-                                                <div className="text-gray-400 dark:text-gray-500">{product.price} IQD/kg</div>
-                                            </div>
-                                        )}
                                     </td>
                                     <td className="py-3 px-4">
                                         <div className="flex flex-col gap-1">
@@ -717,18 +729,27 @@ export default function SelectedProductsTable({
                                         {/* Price and Total */}
                                         <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-600">
                                             <div>
-                                                <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                                                     {t('products.table.price')}
                                                 </div>
-                                                <div className="font-semibold text-green-600 dark:text-green-400 text-sm">
-                                                    {formatIQDWithSymbol(unitPrice)}
-                                                </div>
-                                                {product.type === 'width*height' && unitPrice !== product.price && (
+                                                <input
+                                                    type="number"
+                                                    value={product.customPrice !== undefined ? product.customPrice : unitPrice}
+                                                    onChange={(e) => {
+                                                        const value = e.target.value ? parseFloat(e.target.value) : undefined;
+                                                        onUpdatePrice?.(product.cartItemId ?? String(product.id), value);
+                                                    }}
+                                                    placeholder={String(unitPrice)}
+                                                    min="0"
+                                                    step="1"
+                                                    className="w-20 px-2 py-1 text-xs border border-gray-300 dark:border-gray-800 rounded bg-white dark:bg-[#1a1a1a] text-green-600 dark:text-green-400 font-semibold placeholder-gray-500 dark:placeholder-gray-400 focus:ring-1 focus:ring-[#F58E18] focus:border-[#F58E18]"
+                                                />
+                                                {product.customPrice !== undefined && product.customPrice !== unitPrice && (
                                                     <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
-                                                        {formatIQDWithSymbol(product.price)}
+                                                        {formatIQDWithSymbol(unitPrice)}
                                                     </div>
                                                 )}
-                                                {product.type === 'kg' && (
+                                                {product.type === 'kg' && !product.customPrice && (
                                                     <div className="text-xs text-gray-500 dark:text-gray-400">
                                                         {product.price} IQD/kg
                                                     </div>
