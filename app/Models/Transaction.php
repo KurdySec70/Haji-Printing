@@ -126,36 +126,42 @@ class Transaction extends Model
     }
 
     /**
-     * Generate a unique order ID.
+     * Generate a unique order ID in format YEAR-0000001 (e.g. 2026-0000001).
+     * Year is always the current calendar year (e.g. 2027 → 2027-0000001, 2028 → 2028-0000001).
+     * Sequence is 7 digits (two extra zeros); 1–9999999 per year; after that we roll over to next year.
      */
     public static function generateOrderId(): string
     {
-        $currentYear = now()->year;
-        $startingOrderId = ($currentYear * 100000) + 1;
-        $yearUpperBound = (($currentYear + 1) * 100000) - 1;
+        $seqLength = 7;
+        $maxSeqPerYear = 9999999;
 
-        $maxNumericOrderId = self::query()
-            ->whereRaw("order_id REGEXP '^[0-9]+$'")
-            ->whereRaw('CAST(order_id AS UNSIGNED) BETWEEN ? AND ?', [$startingOrderId, $yearUpperBound])
-            ->selectRaw('MAX(CAST(order_id AS UNSIGNED)) as max_order_id')
-            ->value('max_order_id');
+        // Use current date so when the year changes (2027, 2028, …) IDs automatically use the new year
+        $currentYear = (int) now()->year;
+        $prefix = $currentYear . '-';
 
-        $nextOrderId = $maxNumericOrderId
-            ? max(((int) $maxNumericOrderId + 1), $startingOrderId)
-            : $startingOrderId;
+        $maxSeq = self::query()
+            ->where('order_id', 'like', $prefix . '%')
+            ->selectRaw("MAX(CAST(SUBSTRING_INDEX(order_id, '-', -1) AS UNSIGNED)) as max_seq")
+            ->value('max_seq');
 
-        while (self::where('order_id', (string) $nextOrderId)->exists()) {
-            $nextOrderId++;
+        $nextSeq = $maxSeq ? (int) $maxSeq + 1 : 1;
 
-            if ($nextOrderId > $yearUpperBound) {
-                $currentYear++;
-                $startingOrderId = ($currentYear * 100000) + 1;
-                $yearUpperBound = (($currentYear + 1) * 100000) - 1;
-                $nextOrderId = $startingOrderId;
-            }
+        if ($nextSeq > $maxSeqPerYear) {
+            $currentYear++;
+            $nextSeq = 1;
         }
 
-        return (string) $nextOrderId;
+        do {
+            $nextOrderId = $currentYear . '-' . str_pad((string) $nextSeq, $seqLength, '0', STR_PAD_LEFT);
+            if (! self::where('order_id', $nextOrderId)->exists()) {
+                return $nextOrderId;
+            }
+            $nextSeq++;
+            if ($nextSeq > $maxSeqPerYear) {
+                $currentYear++;
+                $nextSeq = 1;
+            }
+        } while (true);
     }
 
     /**
