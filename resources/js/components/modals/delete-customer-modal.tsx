@@ -122,7 +122,7 @@ export default function DeleteCustomerModal({
                             <div>
                                 <span className="text-gray-600 dark:text-gray-400">Email:</span>
                                 <span className="ml-2 font-medium text-gray-900 dark:text-white">
-                                    {customer.email}
+                                    {customer.email || '—'}
                                 </span>
                             </div>
                             <div>

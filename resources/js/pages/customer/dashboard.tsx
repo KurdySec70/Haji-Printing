@@ -396,11 +396,13 @@ export default function CustomerDashboard({ customer, stats }: CustomerDashboard
                                     <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 mb-3">
                                         {t('customer.dashboard.printingJourneyOverview')}
                                     </p>
-                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                                        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                                            <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
-                                            <span className="truncate">{customer.email}</span>
-                                        </div>
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                                        {customer.email && (
+                                            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                                                <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
+                                                <span className="truncate">{customer.email}</span>
+                                            </div>
+                                        )}
                                         {customer.phone && (
                                             <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                                                 <Phone className="w-3 h-3 sm:w-4 sm:h-4" />

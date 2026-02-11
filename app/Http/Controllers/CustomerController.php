@@ -63,7 +63,7 @@ class CustomerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'nullable|email|unique:users,email',
             'phone' => 'nullable|string|max:25',
             'password' => 'required|string|min:8',
             'username' => 'nullable|string|max:255|unique:users,username',
@@ -77,7 +77,7 @@ class CustomerController extends Controller
 
         $customer = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->filled('email') ? $request->email : null,
             'username' => $username,
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
@@ -113,7 +113,7 @@ class CustomerController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'email' => 'nullable|email|unique:users,email,' . $id,
             'username' => 'nullable|string|max:255|unique:users,username,' . $id,
             'phone' => 'nullable|string|max:25',
             'password' => 'nullable|string|min:8',
@@ -121,7 +121,7 @@ class CustomerController extends Controller
 
         $updateData = [
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->filled('email') ? $request->email : null,
             'phone' => $request->phone,
         ];
 
@@ -272,9 +272,9 @@ class CustomerController extends Controller
     }
 
     /**
-     * Generate a unique username based on name and email.
+     * Generate a unique username based on name and optional email.
      */
-    private function generateUsername($name, $email)
+    private function generateUsername($name, $email = null)
     {
         // Create base username from name (lowercase, replace spaces with dots)
         $baseUsername = strtolower(str_replace(' ', '.', trim($name)));
@@ -282,8 +282,8 @@ class CustomerController extends Controller
         // Remove special characters except dots and underscores
         $baseUsername = preg_replace('/[^a-z0-9._]/', '', $baseUsername);
         
-        // If base username is empty, use email prefix
-        if (empty($baseUsername)) {
+        // If base username is empty and email provided, use email prefix
+        if (empty($baseUsername) && ! empty($email)) {
             $baseUsername = strtolower(explode('@', $email)[0]);
             $baseUsername = preg_replace('/[^a-z0-9._]/', '', $baseUsername);
         }

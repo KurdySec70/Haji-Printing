@@ -102,7 +102,7 @@ const CustomerTable = memo(function CustomerTable({
         const term = searchTerm.toLowerCase();
         return customers.filter(customer => 
             customer.name.toLowerCase().includes(term) ||
-            customer.email.toLowerCase().includes(term) ||
+            (customer.email && customer.email.toLowerCase().includes(term)) ||
             (customer.phone && customer.phone.toLowerCase().includes(term)) ||
             customer.username.toLowerCase().includes(term)
         );
@@ -289,7 +289,7 @@ const CustomerTable = memo(function CustomerTable({
                                                         {customer.name}
                                                     </TableCell>
                                                     <TableCell className="text-gray-600 dark:text-gray-400">
-                                                        {customer.email}
+                                                        {customer.email || '-'}
                                                     </TableCell>
                                                     <TableCell className="text-gray-600 dark:text-gray-400">
                                                         {customer.phone || '-'}

@@ -86,7 +86,7 @@ export function convertCustomersToCSV(customers: ExportableCustomer[]): string {
     const rows = customers.map(customer => [
         customer.id.toString(),
         `"${customer.name.replace(/"/g, '""')}"`, // Escape quotes in customer name
-        `"${customer.email.replace(/"/g, '""')}"`, // Escape quotes in email
+        `"${(customer.email ?? '').replace(/"/g, '""')}"`, // Escape quotes in email (optional)
         customer.phone ? `"${customer.phone.replace(/"/g, '""')}"` : '',
         `"${customer.username.replace(/"/g, '""')}"`, // Escape quotes in username
         customer.role.toUpperCase(),

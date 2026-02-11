@@ -11,7 +11,7 @@ import { api } from '@/utils/apiClient';
 interface Customer {
     id: number;
     name: string;
-    email: string;
+    email?: string | null;
     phone?: string;
     username: string;
     role: string;
@@ -132,7 +132,7 @@ export default function AddCustomerModal({
 
         const payload: Record<string, unknown> = {
             name: data.name.trim(),
-            email: data.email.trim(),
+            email: data.email.trim() || null,
             phone: data.phone ? `+964${data.phone}` : null,
             username: data.username ? data.username.trim() : null,
         };
@@ -270,11 +270,11 @@ export default function AddCustomerModal({
                                     )}
                                 </div>
 
-                                {/* Email */}
+                                {/* Email (optional) */}
                                 <div className="space-y-2">
                                     <Label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                                         <Mail className="w-4 h-4" />
-                                        {t('customers.modal.addCustomer.form.email')} *
+                                        {t('customers.modal.addCustomer.form.email')}
                                     </Label>
                                     <Input
                                         id="email"
@@ -282,7 +282,6 @@ export default function AddCustomerModal({
                                         placeholder={t('customers.modal.addCustomer.form.emailPlaceholder')}
                                         value={data.email}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
-                                        required
                                         className={`w-full ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
                                     />
                                     {errors.email && (

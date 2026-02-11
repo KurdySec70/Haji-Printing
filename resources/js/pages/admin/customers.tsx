@@ -15,7 +15,7 @@ import { Plus } from 'lucide-react';
 interface Customer {
     id: number;
     name: string;
-    email: string;
+    email?: string | null;
     phone?: string;
     username: string;
     role: string;
